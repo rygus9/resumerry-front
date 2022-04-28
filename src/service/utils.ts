@@ -1,18 +1,17 @@
 import axios from 'axios';
 
-export function cls(...classnames: string[]) {
+export function cls(...classnames: (string | undefined)[]) {
   return classnames.join(' ');
 }
 
 export function regExpression(
-  regType: 'regEmail' | 'regPassword' | 'regUsername',
+  regType: 'regAccount' | 'regPassword' | 'regNickname',
 ): RegExp {
   const expression = {
-    regEmail:
-      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/,
+    regAccount: /^[a-zA-Z0-9]{4,12}$/,
     regPassword:
       /(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]).{8,20}/,
-    regUsername: /([A-Za-z0-9]){4,12}/,
+    regNickname: /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/,
   };
 
   return expression[regType];
