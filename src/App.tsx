@@ -1,14 +1,14 @@
-import Header from 'components/common/Header';
-import LoginModal from 'components/common/LoginModal';
-import Board from 'pages/Board';
-import BoardTemplate from 'pages/BoardTemplate';
-import React, { useState } from 'react';
+import Header from 'pages/common/Header';
+import LoginModal from 'pages/common/LoginModal';
+import PostList from 'pages/PostList';
+import PostTemplate from 'pages/PostTemplate';
+import Register from 'pages/Register';
+import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { cls } from 'service/utils';
-import Register from './pages/Register';
 
 export default function App() {
-  const [openLogin, setOpenLogin] = useState(true);
+  const [openLogin, setOpenLogin] = useState(false);
 
   return (
     <div
@@ -21,8 +21,8 @@ export default function App() {
       <main className="w-full py-14">
         <Routes>
           <Route path="/signup" element={<Register />} />
-          <Route path="/board" element={<Board />} />
-          <Route path="/board/create" element={<BoardTemplate />} />
+          <Route path="/post" element={<PostList />} />
+          <Route path="/post/create" element={<PostTemplate />} />
         </Routes>
       </main>
       {openLogin && <LoginModal setOpenLogin={setOpenLogin} />}

@@ -1,10 +1,10 @@
-import Close from 'components/_atom/icons/Close';
-import Menu from 'components/_atom/icons/Menu';
-import ListElement from 'components/_atom/ListElement';
+import TextLink from 'components/atom/common/TextLink';
+import Close from 'components/atom/icons/Close';
+import Menu from 'components/atom/icons/Menu';
 import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { cls } from '../../service/utils';
-import Button from '../_atom/Button';
+import Button from '../../components/atom/button/index';
 
 type Props = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,18 +24,18 @@ export default function Header({ setOpen }: Props): JSX.Element {
   return (
     <header
       className={cls(
-        'w-full h-14 flex items-center bg-white fixed z-30 shadow-sm shadow-deepGray',
+        'w-full h-14 fixed flex items-center bg-white z-30 shadow-sm shadow-deepGray',
       )}
     >
       {/* logo */}
-      <div
-        className={cls(
-          'text-deepBlack text-2xl ml-10 flex-auto select-none',
-          'md:flex-initial',
-        )}
+      <TextLink
+        to="/"
+        size="lg"
+        color="black"
+        className={cls('ml-5 flex-auto', 'md:flex-initial')}
       >
         Resumerry
-      </div>
+      </TextLink>
       {/* content */}
       <div
         className={cls(
@@ -49,11 +49,9 @@ export default function Header({ setOpen }: Props): JSX.Element {
             'md:order-1 md:flex-row md:ml-4',
           )}
         >
-          <Link to="/board">
-            <ListElement>질문 게시판</ListElement>
-          </Link>
-          <ListElement>이력서 보기</ListElement>
-          <ListElement>이력서 추천</ListElement>
+          <TextLink to="/post">질문 게시판</TextLink>
+          <TextLink to="/resume">이력서 보기</TextLink>
+          <TextLink to="/recommend">이력서 추천</TextLink>
         </ul>
         {/* about auth */}
         <div

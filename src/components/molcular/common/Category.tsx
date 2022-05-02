@@ -1,5 +1,7 @@
-import ArrowButton from 'components/_atom/ArrowButton';
-import Button from 'components/_atom/Button';
+import NormalButton from 'components/atom/button/NormalButton';
+import RoundedButton from 'components/atom/button/RoundedButton';
+import LeftMove from 'components/atom/icons/LeftMove';
+import RightMove from 'components/atom/icons/RightMove';
 import { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -15,26 +17,32 @@ export default function Category({ elemList }: Props): JSX.Element {
 
   return (
     <div className="py-7 w-4/5 m-auto flex items-center">
-      <ArrowButton />
+      <RoundedButton size="roundedSm">
+        <LeftMove />
+      </RoundedButton>
       {/* case */}
       <div className="flex-auto mx-3 overflow-hidden">
         {/* inner */}
         <div className="flex space-x-2 w-fit">
           {elemList.map((elem, index) => (
             <span key={index}>
-              <Button
+              <NormalButton
                 color={
-                  searchParams.get('category') === elem ? 'purple' : 'black'
+                  searchParams.get('category') === elem
+                    ? 'normalColor'
+                    : 'normal'
                 }
                 onClick={() => onSearchChange(elem)}
               >
                 {elem}
-              </Button>
+              </NormalButton>
             </span>
           ))}
         </div>
       </div>
-      <ArrowButton direction="right" />
+      <RoundedButton size="roundedSm">
+        <RightMove />
+      </RoundedButton>
     </div>
   );
 }

@@ -1,11 +1,11 @@
-import Button from 'components/_atom/Button';
-import Plus from 'components/_atom/icons/Plus';
-import MainButton from 'components/_atom/MainButton';
+import MainButton from 'components/atom/button/MainButton';
+import NormalButton from 'components/atom/button/NormalButton';
+import Plus from 'components/atom/icons/Plus';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { cls } from 'service/utils';
 
-export default function BoardTemplate() {
+export default function PostTemplate() {
   const navigate = useNavigate();
 
   const goBack = useCallback(() => {
@@ -47,9 +47,9 @@ export default function BoardTemplate() {
         <div className="space-y-3 mt-7">
           <div className="flex items-center">
             <span className="text-lg mr-8">직무별 카테고리</span>
-            <Button color="black" size="big">
+            <NormalButton color="normal" size="lg">
               프론트엔드
-            </Button>
+            </NormalButton>
           </div>
           <div className="flex items-center">
             <span className="text-lg mr-8">내 이력서 첨부</span>
@@ -72,10 +72,10 @@ export default function BoardTemplate() {
         </div>
         {/* Button Group */}
         <div className="flex justify-center space-x-5 mt-5">
-          <Button size="big" color="purple" onClick={goBack}>
+          <NormalButton size="lg" color="normalColor" onClick={goBack}>
             취소하기
-          </Button>
-          <MainButton size="big">등록하기</MainButton>
+          </NormalButton>
+          <MainButton size="lg">등록하기</MainButton>
         </div>
       </form>
     </section>

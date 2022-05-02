@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 export function cls(...classnames: (string | undefined)[]) {
   return classnames.join(' ');
@@ -29,7 +29,10 @@ export interface ErrorFromServer {
   code: string;
 }
 
-export function axiosErrorHandling(err: any, handlingFn: (a: any) => void) {
+export function axiosErrorHandling(
+  err: AxiosError | Error,
+  handlingFn: (a: any) => void,
+) {
   if (!axios.isAxiosError(err)) {
     console.log('not axios error');
     return;

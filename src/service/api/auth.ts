@@ -42,7 +42,7 @@ export interface EmailSendApiResult {
 }
 
 export const emailSendApi = ({ receiverEmail }: EmailSendApiInput) =>
-  client.post('/email/send', {
+  client.post('/valid/email/send', {
     receiverEmail,
   });
 
@@ -55,19 +55,19 @@ export interface EmailCheckApiResult {
 }
 
 export const emailCheckApi = ({ receiverEmail }: EmailCheckApiInput) =>
-  client.post('/email/check', {
+  client.post('/valid/email/check', {
     receiverEmail,
   });
 
-export interface NameValidApiInput {
+export interface accountExistApiInput {
   accountName: string;
 }
 
-export interface NameValidApiResult {
+export interface accountExistApiResult {
   result: boolean;
 }
 
-export const nameValidApi = ({ accountName }: NameValidApiInput) =>
-  client.post('/member/exists', {
+export const accountExistApi = ({ accountName }: accountExistApiInput) =>
+  client.post('/valid/account/exists', {
     accountName,
   });
