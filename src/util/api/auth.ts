@@ -1,3 +1,4 @@
+import { CategoryKindType } from 'components/molcular/category/categoryValue';
 import qs from 'qs';
 import client from './client';
 
@@ -19,9 +20,9 @@ export interface JoinApiInput {
   email: string;
   password: string;
   years: number;
-  category: string[];
+  category: CategoryKindType;
   isWorking: boolean;
-  role: 'NORMAL' | 'MR';
+  role: 'NORMAL' | 'HR';
 }
 
 export interface JoinApiResult {
@@ -31,8 +32,10 @@ export interface JoinApiResult {
   emailVerified: boolean;
 }
 
-export const joinApi = ({ accountName, password, email }: JoinApiInput) =>
-  client.post('/auth/sign-up', { accountName, email, password });
+export const joinApi = ({ ...elem }: JoinApiInput) => {
+  console.log({ ...elem });
+  return client.post('/auth/sign-up', { ...elem });
+};
 
 export interface EmailSendApiInput {
   receiverEmail: string;

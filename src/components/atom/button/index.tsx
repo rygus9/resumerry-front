@@ -16,7 +16,7 @@ const colorValue = {
 };
 
 export interface ButtonProps {
-  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void | null;
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => any;
   type?: 'button' | 'submit';
   size?: 'roundedSm' | 'roundedLg' | 'sm' | 'md' | 'lg';
   color?: 'main' | 'normal' | 'normalColor';

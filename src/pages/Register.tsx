@@ -4,26 +4,30 @@ import LabelInput from 'components/atom/input/LabelInput';
 import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import ButtonSelectBox from 'components/atom/selectBox/ButtonSelectBox';
-import { accountExistApi } from 'util/api/auth';
+import {
+  accountExistApi,
+  emailSendApi,
+  joinApi,
+  JoinApiInput,
+} from 'util/api/auth';
 import { AxiosError } from 'axios';
 import RegisterCategory from 'components/molcular/category/RegisterCategory';
-import { CategoryKindType } from 'components/molcular/category/categoryValue';
 import NormalButton from 'components/atom/button/NormalButton';
-import { axiosErrorHandling, cls, regExpression } from '../util/utils';
+import { useNavigate } from 'react-router-dom';
+import {
+  axiosErrorHandling,
+  cls,
+  ErrorObjectFromServer,
+  regExpression,
+} from '../util/utils';
 
-interface RegisterForm {
-  accountName: string;
-  nickname: string;
-  email: string;
-  password: string;
+interface RegisterForm extends JoinApiInput {
   passwordValid: string;
-  years: number;
-  isWorking: boolean;
-  role: 'HR' | 'normal';
-  category: CategoryKindType;
 }
 
 function Register(): JSX.Element {
+  const navigate = useNavigate();
+
   // 카테고리와 회원가입 토글은 따로 관리하겠습니다.
   const {
     register,
@@ -31,6 +35,7 @@ function Register(): JSX.Element {
     handleSubmit,
     formState: { errors },
     setValue,
+    setFocus,
     setError,
     clearErrors,
   } = useForm<RegisterForm>({
@@ -38,11 +43,31 @@ function Register(): JSX.Element {
   });
 
   useEffect(() => {
-    setValue('role', 'normal');
+    setValue('role', 'NORMAL');
+    setValue('category', 'all');
   }, []);
 
   const onSubmit = async (data: RegisterForm) => {
-    console.log(data);
+    if (data.password !== data.passwordValid) {
+      setError('passwordValid', { message: '비밀번호와 일치하지 않습니다.' });
+      setValue('passwordValid', '');
+      setFocus('passwordValid');
+      return;
+    }
+
+    try {
+      const sendData = Object.fromEntries(
+        Object.entries(data).filter(([key]) => key !== 'passwordValid'),
+      ) as JoinApiInput;
+      await joinApi(sendData);
+      alert('회원가입이 완료되었습니다.');
+      navigate('/');
+    } catch (err: unknown) {
+      const error = err as Error | AxiosError;
+      axiosErrorHandling(error, console.log);
+    }
+
+    console.log('hello');
   };
   const onError = (error: any) => {
     console.log(error);
@@ -66,15 +91,30 @@ function Register(): JSX.Element {
     }
   }, []);
 
+  const onEmailSend = useCallback(async () => {
+    if (errors.email) return;
+
+    try {
+      const result = await emailSendApi({ receiverEmail: watch().email });
+      console.log(result.data.result);
+    } catch (err: unknown) {
+      const error = err as Error | AxiosError;
+      axiosErrorHandling(error, (errorResult: ErrorObjectFromServer[]) => {
+        const errorString = errorResult[0].message;
+        setError('email', { message: errorString });
+      });
+    }
+  }, []);
+
   return (
     <div className="m-auto w-fit min-w-[550px] p-10 flex flex-col items-center">
       <nav className="flex justify-center items-center">
         <ButtonSelectBox
           register={register('role')}
           type="radio"
-          value="normal"
+          value="NORMAL"
           buttonStyle={
-            cls(watch().role === 'normal' ? 'main' : 'subMain') as 'main'
+            cls(watch().role === 'NORMAL' ? 'main' : 'subMain') as 'main'
           }
         >
           일반회원가입
@@ -84,7 +124,7 @@ function Register(): JSX.Element {
           type="radio"
           value="HR"
           buttonStyle={
-            cls(watch().role === 'normal' ? 'subMain' : 'main') as 'main'
+            cls(watch().role === 'NORMAL' ? 'subMain' : 'main') as 'main'
           }
         >
           HR 회원가입
@@ -128,7 +168,7 @@ function Register(): JSX.Element {
               error={errors.email}
             />
             <div className="flex space-x-2">
-              <NormalButton>이메일 전송</NormalButton>
+              <NormalButton onClick={onEmailSend}>이메일 전송</NormalButton>
               <NormalButton>검증 확인</NormalButton>
             </div>
           </div>
