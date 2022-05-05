@@ -6,17 +6,16 @@ import React, { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import qs from 'qs';
-
-interface Props {
-  setOpenFilter: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import { openState } from 'recoil/openState';
+import { useRecoilState } from 'recoil';
 
 interface BoardFilterForm {
   title: string;
   ordered: 'recent' | 'view';
 }
 
-export default function PostModal({ setOpenFilter }: Props) {
+export default function PostModal() {
+  const [open, setOpen] = useRecoilState(openState);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -32,6 +31,16 @@ export default function PostModal({ setOpenFilter }: Props) {
     view: '조회순',
   };
 
+  const filterToggle = useCallback(() => {
+    setOpen({ ...open, postFilterOpen: !open.postFilterOpen });
+  }, []);
+
+  const toggleByBack = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const clicked = (e.target as HTMLElement).closest('.inner');
+    if (clicked) return;
+    filterToggle();
+  }, []);
+
   const onSubmit = (data: BoardFilterForm) => {
     const { title, ordered } = data;
     const nowQuery = qs.parse(location.search, {
@@ -43,25 +52,15 @@ export default function PostModal({ setOpenFilter }: Props) {
     const nextQuery = qs.stringify(nowQuery);
     location.search = nextQuery;
     navigate(location, { replace: true });
-    setOpenFilter((elem) => !elem);
+    filterToggle();
   };
-
-  const filterToggle = useCallback(() => {
-    setOpenFilter((elem) => !elem);
-  }, []);
-
-  const toggleByBack = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    const clicked = (e.target as HTMLElement).closest('.inner');
-    if (clicked) return;
-    setOpenFilter((elem) => !elem);
-  }, []);
 
   return (
     <div
       className="absolute w-screen h-screen left-0 top-0 bg-opacity-30 bg-black z-40 overflow-hidden"
       onClick={toggleByBack}
     >
-      <div className="inner relative left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 w-1/3 bg-white rounded-lg">
+      <div className="inner relative left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[24rem] bg-white rounded-lg">
         <h3 className="text-center py-5 text-2xl">필터 및 정렬</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* selection area */}

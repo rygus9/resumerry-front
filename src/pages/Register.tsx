@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form';
 import ButtonSelectBox from 'components/atom/selectBox/ButtonSelectBox';
 import { accountExistApi } from 'service/api/auth';
 import { AxiosError } from 'axios';
+import RegisterCategory from 'components/molcular/category/RegisterCategory';
+import { CategoryKindType } from 'components/molcular/category/categoryValue';
 import { axiosErrorHandling, cls, regExpression } from '../service/utils';
 
 interface RegisterForm {
@@ -17,6 +19,7 @@ interface RegisterForm {
   years: number;
   isWorking: boolean;
   role: 'HR' | 'normal';
+  category: CategoryKindType[];
 }
 
 function Register(): JSX.Element {
@@ -151,7 +154,11 @@ function Register(): JSX.Element {
             })}
             error={errors.passwordValid}
           />
-          <div className="flex justify-between pt-3">
+          <RegisterCategory
+            register={register('category')}
+            values={watch().category}
+          />
+          <div className="flex justify-between">
             <LabelInput
               type="number"
               label="연차"
@@ -167,7 +174,6 @@ function Register(): JSX.Element {
               className="mr-1"
             />
           </div>
-
           <div className="flex justify-center pt-4">
             <MainButton type="submit" size="lg">
               제출

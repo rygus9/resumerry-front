@@ -1,45 +1,49 @@
 import PostListItem from 'components/molcular/post/PostListItem';
 import PostModal from 'components/molcular/post/PostModal';
 import PostSearch from 'components/molcular/post/PostSearch';
-import Category from 'components/molcular/common/Category';
+import Category from 'components/molcular/category/SearchCategory';
 import FloatingButton from 'components/molcular/common/FloatingButton';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { cls } from 'service/utils';
+import { useRecoilValue } from 'recoil';
+import { openState } from 'recoil/openState';
 
 const data = [
   {
-    postId: '게시글ID',
+    postId: '게시글ID1',
+    memberId: '유저1',
     title: '경력 부분 작성 팁 부탁드립니다!',
     contents:
       ' 제가 살면서 방황을 많이 해가지고 이런 저런 경험이 많습니다. 이런 부분은 어떻게 이력서에 반영하면 되는지 여쭤보고 싶습니다.',
     commentCnt: 10,
     viewCnt: 20,
-    isAnnonymous: false,
+    isAnnonymous: true,
     imageSrc: null,
     nickname: 'Cuzz',
     modifiedDate: '2022-02-02',
   },
   {
-    postId: '게시글ID',
+    postId: '게시글ID2',
+    memberId: '유저2',
     title: '경력 부분 작성 팁 부탁드립니다!',
     contents:
       ' 제가 살면서 방황을 많이 해가지고 이런 저런 경험이 많습니다. 이런 부분은 어떻게 이력서에 반영하면 되는지 여쭤보고 싶습니다.',
     commentCnt: 10,
     viewCnt: 20,
-    isAnnonymous: false,
+    isAnnonymous: true,
     imageSrc: null,
     nickname: 'Cuzz',
     modifiedDate: '2022-02-02',
   },
   {
-    postId: '게시글ID',
+    postId: '게시글ID3',
+    memberId: '유저3',
     title: '경력 부분 작성 팁 부탁드립니다!',
     contents:
       ' 제가 살면서 방황을 많이 해가지고 이런 저런 경험이 많습니다. 이런 부분은 어떻게 이력서에 반영하면 되는지 여쭤보고 싶습니다.',
     commentCnt: 10,
     viewCnt: 20,
-    isAnnonymous: false,
+    isAnnonymous: true,
     imageSrc: null,
     nickname: 'Cuzz',
     modifiedDate: '2022-02-02',
@@ -47,39 +51,27 @@ const data = [
 ];
 
 export default function PostList(): JSX.Element {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [openFilter, setOpenFilter] = useState(false);
-
-  useEffect(() => {
-    if (!searchParams.get('category')) {
-      setSearchParams({ category: 'all' });
-    }
-  }, []);
-
-  const filterToggle = useCallback(() => {
-    setOpenFilter((elem) => !elem);
-  }, []);
+  const open = useRecoilValue(openState);
 
   return (
-    <div
-      className={cls(
-        'w-full px-40 pt-20',
-        openFilter ? 'h-screen overflow-hidden' : '',
-      )}
-    >
+    <>
       {/* title */}
-      <h2 className="text-title mt-2 mb-5">질문 게시판</h2>
-      <Category elemList={['all', 'programmer', 'designer']} />
+      <h2 className="text-title pt-5 mb-5">질문 게시판</h2>
+      <div className="mt-10">
+        <Category />
+      </div>
       {/* filter */}
-      <PostSearch filterToggle={filterToggle} />
+      <PostSearch />
       {/* board list */}
-      <article className=" divide-y divide-lightGray">
+      <section className="divide-y divide-lightGray border-y border-lightGray">
         {data.map((elem) => (
-          <PostListItem key={elem.postId} {...elem} />
+          <div key={elem.postId}>
+            <PostListItem {...elem} />
+          </div>
         ))}
-      </article>
+      </section>
       <FloatingButton to="./create" />
-      {openFilter && <PostModal setOpenFilter={setOpenFilter} />}
-    </div>
+      {open.postFilterOpen && <PostModal />}
+    </>
   );
 }

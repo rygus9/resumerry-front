@@ -1,13 +1,28 @@
 type Props = {
   src: string;
   number: number;
+  iconSize?: 'sm' | 'md' | 'lg';
 };
 
-export default function IconNumber({ src, number }: Props): JSX.Element {
+IconNumber.defaultProps = {
+  iconSize: 'md',
+};
+
+export default function IconNumber({
+  src,
+  number,
+  iconSize,
+}: Props): JSX.Element {
   return (
-    <div className="flex items-center space-x-2 mx-3">
-      <img src={src} alt="" className="w-8 h-6" />
-      <span>{number}</span>
+    <div className="flex items-center space-x-2">
+      <img src={src} alt="" className={sizeValue[iconSize!]} />
+      <span className="text-lightBlack">{number}</span>
     </div>
   );
 }
+
+const sizeValue = {
+  sm: 'w-5 h-5',
+  md: 'w-7 h-6',
+  lg: 'w-10 h-10',
+};

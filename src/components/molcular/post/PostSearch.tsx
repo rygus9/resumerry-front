@@ -1,23 +1,24 @@
 import NormalButton from 'components/atom/button/NormalButton';
 import AlignIcon from 'components/atom/icons/AlignIcon';
+import { useCallback } from 'react';
+import { useRecoilState } from 'recoil';
+import { openState } from 'recoil/openState';
+import SearchSelect from '../category/SearchSelect';
 
-type Props = {
-  filterToggle: () => void;
-};
+export default function PostSearch(): JSX.Element {
+  const [open, setOpen] = useRecoilState(openState);
 
-export default function PostSearch({ filterToggle }: Props): JSX.Element {
+  const onClick = useCallback(() => {
+    setOpen({ ...open, postFilterOpen: !open.postFilterOpen });
+  }, []);
+
   return (
-    <div className="mt-4 py-4 px-8 flex flex-row">
-      <h3 className="text-subTitle flex-auto">카테고리 : 전체</h3>
-      <NormalButton
-        size="lg"
-        onClick={() => {
-          filterToggle();
-        }}
-      >
+    <div className="py-4 mt-10 flex flex-row">
+      <SearchSelect />
+      <NormalButton size="md" onClick={onClick}>
         <>
           <AlignIcon />
-          필터 및 정렬
+          &nbsp;필터 및 정렬
         </>
       </NormalButton>
     </div>

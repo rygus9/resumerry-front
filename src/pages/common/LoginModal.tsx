@@ -1,18 +1,28 @@
 import LoginForm from 'components/molcular/login/LoginForm';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { openState } from 'recoil/openState';
 
-type Props = {
-  setOpenLogin: React.Dispatch<React.SetStateAction<boolean>>;
-};
+export default function LoginModal() {
+  const [open, setOpen] = useRecoilState(openState);
 
-export default function LoginModal({ setOpenLogin }: Props) {
+  useEffect(() => {
+    const preventGoBack = () => {
+      setOpen({ ...open, loginOpen: false });
+    };
+    window.addEventListener('popstate', preventGoBack);
+
+    return () => window.removeEventListener('popstate', preventGoBack);
+  }, [open]);
+
   const onClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const clicked = (e.target as HTMLElement).closest('.inner');
     if (clicked) return;
-    setOpenLogin((elem) => !elem);
+    onClose();
   }, []);
+
   const onClose = useCallback(() => {
-    setOpenLogin((elem) => !elem);
+    setOpen({ ...open, loginOpen: !open.loginOpen });
   }, []);
 
   return (
@@ -34,7 +44,7 @@ export default function LoginModal({ setOpenLogin }: Props) {
           <h4 className="text-center py-4 text-deepGray">
             당신의 이력서를 위하여
           </h4>
-          <LoginForm onClose={onClose} />
+          <LoginForm />
         </div>
       </div>
     </div>

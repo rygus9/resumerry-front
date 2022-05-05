@@ -13,7 +13,7 @@ export default function PostTemplate() {
   }, []);
 
   return (
-    <section className="w-full px-40 pt-10">
+    <section className="w-full max-w-[50rem] m-auto mt-10 px-8">
       <form action="">
         {/* title */}
         <section className="flex items-center">

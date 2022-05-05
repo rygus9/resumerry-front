@@ -1,24 +1,23 @@
 import TextLink from 'components/atom/common/TextLink';
 import Close from 'components/atom/icons/Close';
 import Menu from 'components/atom/icons/Menu';
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { openState } from 'recoil/openState';
 import { cls } from '../../service/utils';
 import Button from '../../components/atom/button/index';
 
-type Props = {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-export default function Header({ setOpen }: Props): JSX.Element {
+export default function Header(): JSX.Element {
   const [menu, setMenu] = useState<boolean>(false);
+  const [open, setOpen] = useRecoilState(openState);
 
   const onMenuClick = useCallback(() => {
     setMenu(!menu);
   }, [menu]);
 
-  const onClick = useCallback(() => {
-    setOpen((elem) => !elem);
+  const onLoginClick = useCallback(() => {
+    setOpen({ ...open, loginOpen: !open.loginOpen });
   }, []);
 
   return (
@@ -60,7 +59,7 @@ export default function Header({ setOpen }: Props): JSX.Element {
             'md:order-2 md:mr-10 md:py-0',
           )}
         >
-          <Button onClick={onClick}>로그인</Button>
+          <Button onClick={onLoginClick}>로그인</Button>
           <Link to="/signup">
             <Button>회원가입</Button>
           </Link>
