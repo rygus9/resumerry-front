@@ -1,10 +1,10 @@
 import ButtonSelectBox from 'components/atom/selectBox/ButtonSelectBox';
 import { UseFormRegisterReturn } from 'react-hook-form';
-import categoryValue, { CategoryKindType } from './categoryValue';
+import categoryValue from './categoryValue';
 
 interface Props {
   register: UseFormRegisterReturn;
-  values: (
+  value:
     | 'all'
     | 'it'
     | 'business'
@@ -12,19 +12,19 @@ interface Props {
     | 'design'
     | 'media'
     | 'engineering'
-    | 'edu'
-  )[];
+    | 'edu';
 }
 
-export default function RegisterCategory({ register, values }: Props) {
+export default function RegisterCategory({ register, value }: Props) {
   return (
     <>
       <h3 className="text-sm">관심 직무 카테고리</h3>
       <div className="flex w-full max-w-[30rem] flex-wrap">
         {categoryValue.map((elem, index) => (
           <span key={index} className="mr-2 mb-2">
-            {values && values.includes(elem.kind as CategoryKindType) ? (
+            {value && value === elem.kind ? (
               <ButtonSelectBox
+                type="radio"
                 register={register}
                 value={elem.kind}
                 buttonStyle="normalColor"
@@ -33,6 +33,7 @@ export default function RegisterCategory({ register, values }: Props) {
               </ButtonSelectBox>
             ) : (
               <ButtonSelectBox
+                type="radio"
                 register={register}
                 value={elem.kind}
                 buttonStyle="normal"

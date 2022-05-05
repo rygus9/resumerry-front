@@ -8,6 +8,7 @@ import { accountExistApi } from 'util/api/auth';
 import { AxiosError } from 'axios';
 import RegisterCategory from 'components/molcular/category/RegisterCategory';
 import { CategoryKindType } from 'components/molcular/category/categoryValue';
+import NormalButton from 'components/atom/button/NormalButton';
 import { axiosErrorHandling, cls, regExpression } from '../util/utils';
 
 interface RegisterForm {
@@ -19,7 +20,7 @@ interface RegisterForm {
   years: number;
   isWorking: boolean;
   role: 'HR' | 'normal';
-  category: CategoryKindType[];
+  category: CategoryKindType;
 }
 
 function Register(): JSX.Element {
@@ -40,7 +41,7 @@ function Register(): JSX.Element {
     setValue('role', 'normal');
   }, []);
 
-  const onSubmit = (data: RegisterForm) => {
+  const onSubmit = async (data: RegisterForm) => {
     console.log(data);
   };
   const onError = (error: any) => {
@@ -54,7 +55,6 @@ function Register(): JSX.Element {
       const result = await accountExistApi({
         accountName: watch().accountName,
       });
-      console.log(result);
       if (result.data.result) {
         setError('accountName', { message: '이미 존재하는 아이디입니다.' });
       } else {
@@ -118,14 +118,20 @@ function Register(): JSX.Element {
             })}
             error={errors.nickname}
           />
-          <LabelInput
-            label="이메일"
-            placeholder="example@ajou.ac.kr"
-            register={register('email', {
-              required: '이메일은 필수 입력 값입니다.',
-            })}
-            error={errors.email}
-          />
+          <div className="space-y-2">
+            <LabelInput
+              label="이메일"
+              placeholder="example@ajou.ac.kr"
+              register={register('email', {
+                required: '이메일은 필수 입력 값입니다.',
+              })}
+              error={errors.email}
+            />
+            <div className="flex space-x-2">
+              <NormalButton>이메일 전송</NormalButton>
+              <NormalButton>검증 확인</NormalButton>
+            </div>
+          </div>
           <LabelInput
             type="password"
             label="비밀번호"
@@ -156,7 +162,7 @@ function Register(): JSX.Element {
           />
           <RegisterCategory
             register={register('category')}
-            values={watch().category}
+            value={watch().category}
           />
           <div className="flex justify-between">
             <LabelInput
