@@ -1,16 +1,7 @@
 import qs from 'qs';
 import client from './client';
+import { ListSearchResult } from './typeinterface';
 
-export interface ListSearchResult {
-  title: string;
-  contents: string;
-  commentCnt: number;
-  viewCnt: number;
-  modifiedDate: string;
-  memberId: string;
-  imageSrc: string;
-  nickname: string;
-}
 export interface ResumeListSearchResult extends ListSearchResult {
   resumeId: string;
   recommendCnt: number;
@@ -35,30 +26,6 @@ export interface ResumeMypageSearchResult {
   fileLink: string;
 }
 
-export interface CommentSearchResult {
-  memberId: string;
-  imageSrc: string;
-  nickname: string;
-  contents: string;
-  recommendCnt: number;
-  banCnt: number;
-  isAnnonymous: boolean;
-  modifiedDate: string;
-}
-export interface CommentDepthResult {
-  memberId: string;
-  imageSrc: string;
-  nickname: string;
-  contents: string;
-  recommendCnt: number;
-  banCnt: number;
-  isAnnonymous: boolean;
-  modifiedDate: string;
-}
-export interface ResumeCommentSearchResult extends CommentSearchResult {
-  resumeCommentGroup: number;
-  resumeCommentDepth: CommentDepthResult[];
-}
 export interface ResumeListSearchApiResult {
   resumes: ResumeListSearchResult[];
 }
@@ -191,98 +158,6 @@ export const ResumeRecommendApi = (
   resumeId: string,
 ) =>
   client.post(`/resume/${userId}/${resumeId}/recommend`, {
-    userToken,
-  });
-
-export interface ResumeCommentWriteApiInput {
-  userToken: string;
-  contents: string;
-  resumeCommentDepth: number;
-  resumeCommentGroup: number;
-  isAnnonymouns: boolean;
-}
-
-export interface ResumeCommentWriteApiResult {
-  result: boolean;
-}
-export const ResumeCommentWriteApi = (
-  {
-    userToken,
-    contents,
-    resumeCommentDepth,
-    resumeCommentGroup,
-    isAnnonymouns,
-  }: ResumeCommentWriteApiInput,
-  userId: string,
-  resumeId: string,
-) =>
-  client.post(`/resume/${userId}/${resumeId}/comment`, {
-    userToken,
-    contents,
-    resumeCommentDepth,
-    resumeCommentGroup,
-    isAnnonymouns,
-  });
-export interface ResumeCommentDeleteApiInput {
-  userToken: string;
-}
-
-export interface ResumeCommentDeleteApiResult {
-  result: boolean;
-}
-
-export const ResumeCommentDeleteApi = (
-  { userToken }: ResumeCommentDeleteApiInput,
-  userId: string,
-  resumeId: string,
-  commentId: string,
-) =>
-  client.put(`/resume/${userId}/${resumeId}/comment/${commentId}`, {
-    userToken,
-  });
-
-export interface ResumeCommentSearchApiInput {
-  userToken: string;
-}
-
-export interface ResumeCommentSearchApiResult {
-  resumes: ResumeCommentSearchResult[];
-}
-
-export const ResumeCommentSearchApi = (userId: string, resumeId: string) => {
-  client.get(`/resume/${userId}/${resumeId}/comment`);
-};
-
-export interface ResumeCommentRecommendApiInput {
-  userToken: string;
-}
-export interface ResumeCommentRecommendApiResult {
-  result: boolean;
-}
-export const ResumeCommentRecommendApi = (
-  { userToken }: ResumeCommentRecommendApiInput,
-  userId: string,
-  resumeId: string,
-  commentId: string,
-) =>
-  client.post(`/resume/${userId}/${resumeId}/comment/${commentId}/recommend`, {
-    userToken,
-  });
-
-export interface ResumeCommentReportApiInput {
-  userToken: string;
-}
-export interface ResumeCommentReportApiResult {
-  result: boolean;
-}
-
-export const ResumeCommentReportApi = (
-  { userToken }: ResumeCommentReportApiInput,
-  userId: string,
-  resumeId: string,
-  commentId: string,
-) =>
-  client.post(`/resume/${userId}/${resumeId}/comment/${commentId}/ban`, {
     userToken,
   });
 
