@@ -5,7 +5,7 @@ import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { openState } from 'recoil/openState';
-import { cls } from '../../service/utils';
+import { cls } from '../../util/utils';
 import Button from '../../components/atom/button/index';
 
 export default function Header(): JSX.Element {

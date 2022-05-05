@@ -1,6 +1,6 @@
 import React from 'react';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form/dist/types';
-import { cls } from 'service/utils';
+import { cls } from 'util/utils';
 
 const inputSizeValue = {
   sm: 'h-8 rounded-md text-sm text-deepBlack',

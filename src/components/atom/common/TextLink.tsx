@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { cls } from 'service/utils';
+import { cls } from 'util/utils';
 
 const sizeValue = {
   sm: 'text-sm px-1 cursor-pointer',

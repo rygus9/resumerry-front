@@ -3,7 +3,7 @@ import NormalButton from 'components/atom/button/NormalButton';
 import Plus from 'components/atom/icons/Plus';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { cls } from 'service/utils';
+import { cls } from 'util/utils';
 
 export default function PostTemplate() {
   const navigate = useNavigate();

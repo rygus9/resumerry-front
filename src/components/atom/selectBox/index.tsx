@@ -1,5 +1,5 @@
 import { UseFormRegisterReturn } from 'react-hook-form/dist/types';
-import { cls } from 'service/utils';
+import { cls } from 'util/utils';
 
 const sizeValue = 'h-5 w-5 rounded-sm';
 const colorValue = 'focus:ring-0 checked:text-lightPurple';

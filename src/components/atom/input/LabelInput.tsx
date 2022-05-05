@@ -1,5 +1,5 @@
 import React from 'react';
-import { cls } from 'service/utils';
+import { cls } from 'util/utils';
 import Input, { InputProps } from '.';
 
 const labelSizeValue = {

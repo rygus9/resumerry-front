@@ -1,5 +1,5 @@
 import NormalButton from 'components/atom/button/NormalButton';
-import { cls } from 'service/utils';
+import { cls } from 'util/utils';
 
 export default function ChatInput() {
   return (

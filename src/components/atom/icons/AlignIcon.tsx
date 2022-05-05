@@ -1,4 +1,4 @@
-import { cls } from 'service/utils';
+import { cls } from 'util/utils';
 
 type Props = {
   className?: string | undefined;

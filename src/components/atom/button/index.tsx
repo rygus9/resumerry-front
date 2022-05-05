@@ -1,5 +1,5 @@
 import React from 'react';
-import { cls } from 'service/utils';
+import { cls } from 'util/utils';
 
 const sizeValue = {
   roundedSm: 'w-10 h-10 rounded-full',

@@ -4,11 +4,11 @@ import LabelInput from 'components/atom/input/LabelInput';
 import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import ButtonSelectBox from 'components/atom/selectBox/ButtonSelectBox';
-import { accountExistApi } from 'service/api/auth';
+import { accountExistApi } from 'util/api/auth';
 import { AxiosError } from 'axios';
 import RegisterCategory from 'components/molcular/category/RegisterCategory';
 import { CategoryKindType } from 'components/molcular/category/categoryValue';
-import { axiosErrorHandling, cls, regExpression } from '../service/utils';
+import { axiosErrorHandling, cls, regExpression } from '../util/utils';
 
 interface RegisterForm {
   accountName: string;

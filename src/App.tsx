@@ -4,7 +4,7 @@ import PostList from 'pages/PostList';
 import PostTemplate from 'pages/PostTemplate';
 import Register from 'pages/Register';
 import { Route, Routes } from 'react-router-dom';
-import { cls } from 'service/utils';
+import { cls } from 'util/utils';
 import { useRecoilValue } from 'recoil';
 import { openState } from 'recoil/openState';
 import Post from 'pages/Post';
