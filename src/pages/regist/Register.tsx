@@ -19,7 +19,7 @@ import {
   cls,
   ErrorObjectFromServer,
   regExpression,
-} from '../util/utils';
+} from '../../util/utils';
 
 interface RegisterForm extends JoinApiInput {
   passwordValid: string;
@@ -28,7 +28,6 @@ interface RegisterForm extends JoinApiInput {
 function Register(): JSX.Element {
   const navigate = useNavigate();
 
-  // 카테고리와 회원가입 토글은 따로 관리하겠습니다.
   const {
     register,
     watch,
@@ -107,7 +106,13 @@ function Register(): JSX.Element {
   }, []);
 
   return (
-    <div className="m-auto w-fit min-w-[550px] p-10 flex flex-col items-center">
+    <div
+      className={cls(
+        'm-auto w-fit p-2 pt-7 flex flex-col items-center',
+        'sm:p-10',
+        'md:min-w-[550px]',
+      )}
+    >
       <nav className="flex justify-center items-center">
         <ButtonSelectBox
           register={register('role')}
@@ -116,6 +121,7 @@ function Register(): JSX.Element {
           buttonStyle={
             cls(watch().role === 'NORMAL' ? 'main' : 'subMain') as 'main'
           }
+          size="xl"
         >
           일반회원가입
         </ButtonSelectBox>
@@ -126,6 +132,7 @@ function Register(): JSX.Element {
           buttonStyle={
             cls(watch().role === 'NORMAL' ? 'subMain' : 'main') as 'main'
           }
+          size="xl"
         >
           HR 회원가입
         </ButtonSelectBox>
@@ -204,7 +211,9 @@ function Register(): JSX.Element {
             register={register('category')}
             value={watch().category}
           />
-          <div className="flex justify-between">
+          <div
+            className={cls('flex flex-col', 'sm:flex-row sm:justify-between')}
+          >
             <LabelInput
               type="number"
               label="연차"

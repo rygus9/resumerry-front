@@ -1,37 +1,46 @@
 import MainButton from 'components/atom/button/MainButton';
 import NormalButton from 'components/atom/button/NormalButton';
+import Input from 'components/atom/input';
 import LabelInput from 'components/atom/input/LabelInput';
 import SelectGroup from 'components/atom/selectBox/SelectGroup';
+import qs from 'qs';
 import React, { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
-import qs from 'qs';
-import { openState } from 'recoil/openState';
 import { useRecoilState } from 'recoil';
+import { openState } from 'recoil/openState';
+import Hashtag from './Hashtag';
 
-interface PostFilterForm {
+interface ResumeFilterForm {
   title: string;
-  sort: 'recent' | 'view';
+  sort: 'recent' | 'view' | 'aged' | 'recommand';
+  startAged: number;
+  endAged: number;
+  hashtag: string[];
 }
 
-export default function PostModal() {
+export default function ResumeModal() {
   const [open, setOpen] = useRecoilState(openState);
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { register, setValue, handleSubmit, watch } = useForm<PostFilterForm>();
+  const { register, setValue, handleSubmit, watch } =
+    useForm<ResumeFilterForm>();
 
   useEffect(() => {
+    setValue('hashtag', []);
     setValue('sort', 'recent');
   }, []);
 
   const orderedPair = {
     recent: '최신순',
     view: '조회순',
+    aged: '연차순',
+    recommand: '추천순',
   };
 
   const filterToggle = useCallback(() => {
-    setOpen({ ...open, postFilterOpen: !open.postFilterOpen });
+    setOpen({ ...open, resumeFilterOpen: !open.resumeFilterOpen });
   }, []);
 
   const toggleByBack = useCallback((e: React.MouseEvent<HTMLElement>) => {
@@ -40,13 +49,17 @@ export default function PostModal() {
     filterToggle();
   }, []);
 
-  const onSubmit = (data: PostFilterForm) => {
-    const { title, sort } = data;
+  const onSubmit = (data: ResumeFilterForm) => {
+    const { title, sort, hashtag, startAged, endAged } = data;
     const nowQuery = qs.parse(location.search, {
       ignoreQueryPrefix: true,
     });
     nowQuery.title = title;
     nowQuery.sort = sort;
+    nowQuery.hash = hashtag.join('|');
+    if (startAged > 0 && endAged > 0 && startAged < endAged) {
+      nowQuery.aged = `${startAged}to${endAged}`;
+    }
 
     const nextQuery = qs.stringify(nowQuery);
     location.search = nextQuery;
@@ -72,7 +85,7 @@ export default function PostModal() {
               placeholder="제목"
               register={register('title')}
             />
-            <div className="text-lightBlack">정렬</div>
+            <h5 className="lightBlack">정렬</h5>
             <SelectGroup
               pairs={orderedPair}
               now={watch().sort}
@@ -80,6 +93,34 @@ export default function PostModal() {
                 setValue('sort', value);
               }}
             />
+            <fieldset>
+              <h5 className="lightBlack">연차</h5>
+              <div className="flex justify-start items-center">
+                <div className="w-16">
+                  <Input
+                    inputSize="sm"
+                    type="number"
+                    color="black"
+                    register={register('startAged')}
+                    placeholder="시작"
+                  />
+                </div>
+                <span className="lightBlack">&nbsp;부터&nbsp;&nbsp;&nbsp;</span>
+                <div className="w-16">
+                  <Input
+                    inputSize="sm"
+                    type="number"
+                    color="black"
+                    register={register('endAged')}
+                    placeholder="종료"
+                  />
+                </div>
+                <span className="lightBlack">&nbsp;까지&nbsp;&nbsp;&nbsp;</span>
+              </div>
+            </fieldset>
+            <fieldset>
+              <Hashtag hashtagList={watch().hashtag} setValue={setValue} />
+            </fieldset>
           </div>
           {/* button */}
           <div className="flex justify-center space-x-3 pt-3 pb-5">

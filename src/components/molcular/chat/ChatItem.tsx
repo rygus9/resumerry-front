@@ -23,17 +23,17 @@ export default function ChatItem({ ...elem }: Props) {
 
   return (
     <div className="py-3">
-      <div className="pb-5 pt-3">
+      <div className="pb-5 pt-3 w-fit">
         <UserInfo
           isAnonymous={elem.isAnonymous}
           nickname={elem.nickname}
           imageSrc={elem.imageSrc}
+          modifiedDate={elem.modifiedDate}
         />
       </div>
-      <p className="text-lg text-black">{elem.contents}</p>
-      <div className="mt-5 flex justify-between">
+      <p className="text-lg text-black min-h-[3rem]">{elem.contents}</p>
+      <div className="mt-2 flex justify-between">
         <div className="flex space-x-2 items-center">
-          <span className="text-deepGray pr-3">{elem.modifiedDate}</span>
           <IconNumber
             src="/img/icons/good.svg"
             number={elem.recommendCnt}

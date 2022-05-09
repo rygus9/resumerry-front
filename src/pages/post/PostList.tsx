@@ -3,10 +3,9 @@ import PostModal from 'components/molcular/post/PostModal';
 import PostSearch from 'components/molcular/post/PostSearch';
 import Category from 'components/molcular/category/SearchCategory';
 import FloatingButton from 'components/molcular/common/FloatingButton';
-import { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { openState } from 'recoil/openState';
+import { cls } from 'util/utils';
 
 const data = [
   {
@@ -56,8 +55,8 @@ export default function PostList(): JSX.Element {
   return (
     <>
       {/* title */}
-      <h2 className="text-title pt-5 mb-5">질문 게시판</h2>
-      <div className="mt-10">
+      <h2 className={cls('text-title', 'sm:pt-5 sm:mb-5')}>질문 게시판</h2>
+      <div className={cls('mt-5', 'sm:mt-10')}>
         <Category />
       </div>
       {/* filter */}

@@ -1,9 +1,6 @@
+import { cls } from 'util/utils';
 import ChatInput from './ChatInput';
 import ChatItem from './ChatItem';
-
-interface Props {
-  commentCnt: number;
-}
 
 const commentData = [
   {
@@ -53,11 +50,14 @@ const commentData = [
   },
 ];
 
+interface Props {
+  commentCnt: number;
+}
+
 export default function Chat({ commentCnt }: Props) {
   return (
-    <div className="mt-20">
-      <div className="py-2 text-xl text-Black">{commentCnt}개의 댓글</div>
-      <ChatInput />
+    <>
+      <ChatInput label={`${commentCnt}개의 댓글`} />
       <div className="divide-y divide-lightGray">
         {commentData.map((elem) => (
           <ChatItem
@@ -74,6 +74,6 @@ export default function Chat({ commentCnt }: Props) {
           />
         ))}
       </div>
-    </div>
+    </>
   );
 }

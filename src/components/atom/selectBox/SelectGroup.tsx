@@ -27,7 +27,7 @@ export default function SelectGroup({
   return (
     <div className="w-full">
       <div
-        className="border border-lightBlack rounded-md h-8 w-full px-3 flex items-center justify-between text-lightBlack select-none cursor-pointer"
+        className="border border-deepGray rounded-md h-8 w-full px-3 flex items-center justify-between text-lightBlack select-none cursor-pointer"
         onClick={onClick}
       >
         {pairs[now]} {!open && <Down />}

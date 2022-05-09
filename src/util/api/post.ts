@@ -1,4 +1,5 @@
 import qs from 'qs';
+import { CategoryKindType } from '../../components/molcular/category/categoryValue';
 import client from './client';
 import { ListSearchResult } from './typeinterface';
 
@@ -36,7 +37,7 @@ export const PostListSearchApi = () => {
 export interface PostWriteApiInput {
   userToken: string;
   title: string;
-  category: string;
+  category: CategoryKindType;
   contents: string;
   fileLink: string;
   isAnonymous: boolean;

@@ -1,19 +1,32 @@
 import NormalButton from 'components/atom/button/NormalButton';
+import LabelCheckBox from 'components/atom/selectBox/LabelSeleckBox';
+import TextArea from 'components/atom/textArea';
 import { cls } from 'util/utils';
 
-export default function ChatInput() {
+interface Props {
+  label?: string | null;
+}
+
+ChatInput.defaultProps = {
+  label: null,
+};
+
+export default function ChatInput({ label }: Props) {
   return (
-    <div className="space-y-2">
-      <textarea
-        className={cls(
-          'tracking-normal resize-none py-4 px-4 outline-none border border-deepGray rounded-lg min-h-[6.125rem] w-full text-black',
-          'focus:ring-deepGray focus:border-deepGray',
-          'placeholder:text-deepGray',
-        )}
-        placeholder="댓글을 입력하세요"
+    <div className={cls('space-y-1', 'sm:space-y-2')}>
+      <TextArea
+        label={label}
+        textAreaHeight="sm"
+        placeholder="댓글을 입력하세요."
       />
-      <div className="flex justify-end">
-        <NormalButton color="normal">댓글 작성</NormalButton>
+      <div
+        className={cls(
+          'flex justify-end items-start space-x-2',
+          'sm:space-x-4',
+        )}
+      >
+        <LabelCheckBox label="익명 여부" />
+        <NormalButton color="normalColor">댓글 작성</NormalButton>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ export default function LabelCheckBox({ label, className, ...elem }: Props) {
   return (
     <div className={className}>
       <label>
-        <span className="px-2 text-black align-middle">{label}</span>
+        <span className="text-black pr-2 text-sm align-middle">{label}</span>
         <SelectBox
           className={cls('focus:ring-0 checked:text-lightPurple')}
           {...elem}

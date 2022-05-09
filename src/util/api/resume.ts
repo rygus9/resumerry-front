@@ -1,4 +1,5 @@
 import qs from 'qs';
+import { CategoryKindType } from '../../components/molcular/category/categoryValue';
 import client from './client';
 import { ListSearchResult } from './typeinterface';
 
@@ -38,7 +39,7 @@ export interface ResumeWriteApiInput {
   userToken: string;
   title: string;
   contents: string;
-  category: string;
+  category: CategoryKindType;
   years: number;
   hashtag: string[];
   fileLink: string;

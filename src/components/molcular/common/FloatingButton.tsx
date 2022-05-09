@@ -2,6 +2,7 @@ import RoundedButton from 'components/atom/button/RoundedButton';
 import Plus from 'components/atom/icons/Plus';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { cls } from 'util/utils';
 
 type Props = {
   to: string;
@@ -13,7 +14,10 @@ export default function FloatingButton({ to }: Props): JSX.Element {
       <RoundedButton
         color="main"
         size="roundedLg"
-        className="fixed z-30 bottom-16 right-24"
+        className={cls(
+          'fixed z-30 bottom-12 right-12',
+          'sm:bottom-16 sm:right-24',
+        )}
       >
         <Plus />
       </RoundedButton>

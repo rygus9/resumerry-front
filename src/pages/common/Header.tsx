@@ -27,25 +27,23 @@ export default function Header(): JSX.Element {
       )}
     >
       {/* logo */}
-      <TextLink
-        to="/"
-        size="lg"
-        color="black"
-        className={cls('ml-5 flex-auto', 'md:flex-initial')}
-      >
-        Resumerry
-      </TextLink>
+      <div className={cls('ml-5 flex-auto', 'md:flex-initial')}>
+        <TextLink to="/" size="lg" color="black">
+          Resumerry
+        </TextLink>
+      </div>
       {/* content */}
       <div
         className={cls(
-          menu ? 'absolute top-14 bg-lightGray w-full flex flex-col' : 'hidden',
+          menu ? 'absolute top-14 bg-black  w-full flex flex-col' : 'hidden',
           'md:flex md:relative md:top-0 md:bg-white md:flex-row md:flex-auto',
         )}
+        onClick={onMenuClick}
       >
         <ul
           className={cls(
-            'flex-auto flex flex-col items-center order-2',
-            'md:order-1 md:flex-row md:ml-4',
+            'flex-auto flex flex-col items-center order-2 space-y-3 pb-5',
+            'md:order-1 md:flex-row md:ml-4 md:space-y-0 md:pb-0',
           )}
         >
           <TextLink to="/post">질문 게시판</TextLink>
@@ -67,7 +65,10 @@ export default function Header(): JSX.Element {
       </div>
       {/* menu */}
       <div
-        className={cls('w-10 h-5 cursor-pointer', 'md:hidden')}
+        className={cls(
+          'w-10 h-5 cursor-pointer flex-initial flex items-center justify-center mr-4',
+          'md:hidden',
+        )}
         onClick={onMenuClick}
       >
         {!menu ? <Menu /> : <Close />}

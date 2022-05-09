@@ -1,16 +1,16 @@
-import React from 'react';
 import { cls } from 'util/utils';
 import Input, { InputProps } from '.';
 
 const labelSizeValue = {
   sm: 'text-sm text-black pb-1',
   md: 'text-md text-deepBlack pb-2',
+  lg: 'text-xl text-deepBlack pb-3',
 };
 
 interface Props extends InputProps {
   label: string;
   block?: boolean;
-  labelSize?: 'sm' | 'md';
+  labelSize?: 'sm' | 'md' | 'lg';
 }
 
 LabelInput.defaultProps = {
@@ -30,7 +30,7 @@ export default function LabelInput({
         <div
           className={cls(
             labelSizeValue[labelSize!],
-            block ? '' : 'min-w-fit mr-3',
+            block ? '' : 'min-w-fit mr-3 pb-0',
           )}
         >
           {label}

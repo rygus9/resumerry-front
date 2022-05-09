@@ -1,4 +1,5 @@
 import IconNumber from 'components/atom/common/IconNumber';
+import { cls } from 'util/utils';
 
 interface Props {
   category: string;
@@ -8,7 +9,7 @@ interface Props {
 
 export default function SideInfo({ category, commentCnt, viewCnt }: Props) {
   return (
-    <aside className="relative basis-1/5">
+    <aside className={cls('hidden', 'md:block md:relative md:basis-1/5')}>
       <div className="fixed top-52 space-y-3 pt-5 pb-2 px-2 bg-stone-100 rounded-2xl">
         <div className="text-black pt-1 pl-2">
           <h3 className="text-lightBlack">category</h3>
