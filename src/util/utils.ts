@@ -1,18 +1,21 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
-export function cls(...classnames: string[]) {
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+export type SubPartial<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+// 하나만 싹 지워주는구나
+
+export function cls(...classnames: (string | undefined)[]) {
   return classnames.join(' ');
 }
 
 export function regExpression(
-  regType: 'regEmail' | 'regPassword' | 'regUsername',
+  regType: 'regAccount' | 'regPassword' | 'regNickname',
 ): RegExp {
   const expression = {
-    regEmail:
-      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/,
+    regAccount: /^[a-zA-Z0-9]{4,12}$/,
     regPassword:
       /(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]).{8,20}/,
-    regUsername: /([A-Za-z0-9]){4,12}/,
+    regNickname: /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/,
   };
 
   return expression[regType];
@@ -30,7 +33,10 @@ export interface ErrorFromServer {
   code: string;
 }
 
-export function axiosErrorHandling(err: any, handlingFn: (a: any) => void) {
+export function axiosErrorHandling(
+  err: AxiosError | Error,
+  handlingFn: (a: any) => void,
+) {
   if (!axios.isAxiosError(err)) {
     console.log('not axios error');
     return;
