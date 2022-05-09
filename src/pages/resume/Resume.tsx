@@ -48,7 +48,6 @@ export default function Resume() {
             />
           </div>
           <p className="pt-10 text-lg text-black">{resumeData.contents}</p>
-          <p className="pt-10 text-lg text-black">{resumeData.contents}</p>
         </article>
       </div>
       <div
