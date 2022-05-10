@@ -5,12 +5,16 @@ import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { openState } from 'recoil/openState';
+import useUser from 'util/hooks/useUser';
+import useGoHome from 'util/hooks/goHome';
 import { cls } from '../../util/utils';
 import Button from '../../components/atom/button/index';
 
 export default function Header(): JSX.Element {
   const [menu, setMenu] = useState<boolean>(false);
   const [open, setOpen] = useRecoilState(openState);
+  const user = useUser();
+  const goHome = useGoHome();
 
   const onMenuClick = useCallback(() => {
     setMenu(!menu);
@@ -18,6 +22,12 @@ export default function Header(): JSX.Element {
 
   const onLoginClick = useCallback(() => {
     setOpen({ ...open, loginOpen: !open.loginOpen });
+  }, []);
+
+  const onLogout = useCallback(() => {
+    localStorage.removeItem('userToken');
+    goHome();
+    location.reload();
   }, []);
 
   return (
@@ -28,9 +38,11 @@ export default function Header(): JSX.Element {
     >
       {/* logo */}
       <div className={cls('ml-5 flex-auto', 'md:flex-initial')}>
-        <TextLink to="/" size="lg" color="black">
-          Resumerry
-        </TextLink>
+        <div className="w-[5rem]">
+          <TextLink to="/" size="lg" color="black">
+            Resumerry
+          </TextLink>
+        </div>
       </div>
       {/* content */}
       <div
@@ -57,10 +69,21 @@ export default function Header(): JSX.Element {
             'md:order-2 md:mr-10 md:py-0',
           )}
         >
-          <Button onClick={onLoginClick}>로그인</Button>
-          <Link to="/signup">
-            <Button>회원가입</Button>
-          </Link>
+          {user ? (
+            <>
+              <Button onClick={onLogout}>로그아웃</Button>
+              <Link to="/mypage">
+                <Button>마이페이지</Button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Button onClick={onLoginClick}>로그인</Button>
+              <Link to="/signup">
+                <Button>회원가입</Button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
       {/* menu */}

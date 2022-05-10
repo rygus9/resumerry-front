@@ -1,109 +1,51 @@
 import MainButton from 'components/atom/button/MainButton';
 import LabelSelectBox from 'components/atom/selectBox/LabelSeleckBox';
 import LabelInput from 'components/atom/input/LabelInput';
-import { useCallback, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
 import ButtonSelectBox from 'components/atom/selectBox/ButtonSelectBox';
-import {
-  accountExistApi,
-  emailSendApi,
-  joinApi,
-  JoinApiInput,
-} from 'util/api/auth';
-import { AxiosError } from 'axios';
 import RegisterCategory from 'components/molcular/category/RegisterCategory';
 import NormalButton from 'components/atom/button/NormalButton';
-import { useNavigate } from 'react-router-dom';
-import {
-  axiosErrorHandling,
-  cls,
-  ErrorObjectFromServer,
-  regExpression,
-} from '../../util/utils';
-
-interface RegisterForm extends JoinApiInput {
-  passwordValid: string;
-}
+import { emailSendApi, EmailSendApiInput } from 'util/api/auth';
+import { useMutation } from 'react-query';
+import { useState } from 'react';
+import useMyRegister from './registHook';
+import { cls, regExpression } from '../../util/utils';
 
 function Register(): JSX.Element {
-  const navigate = useNavigate();
-
   const {
     register,
     watch,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-    setFocus,
     setError,
-    clearErrors,
-  } = useForm<RegisterForm>({
-    mode: 'onChange',
-  });
+    handleSubmit,
+    onSubmit,
+    onError,
+    onEmailCheck,
+    emailCheck,
+    errors,
+    onAccountExist,
+    onNicknameExist,
+  } = useMyRegister();
 
-  useEffect(() => {
-    setValue('role', 'NORMAL');
-    setValue('category', 'all');
-  }, []);
+  const [emailSend, setEmailSend] = useState(false);
 
-  const onSubmit = async (data: RegisterForm) => {
-    if (data.password !== data.passwordValid) {
-      setError('passwordValid', { message: '비밀번호와 일치하지 않습니다.' });
-      setValue('passwordValid', '');
-      setFocus('passwordValid');
-      return;
-    }
-
-    try {
-      const sendData = Object.fromEntries(
-        Object.entries(data).filter(([key]) => key !== 'passwordValid'),
-      ) as JoinApiInput;
-      await joinApi(sendData);
-      alert('회원가입이 완료되었습니다.');
-      navigate('/');
-    } catch (err: unknown) {
-      const error = err as Error | AxiosError;
-      axiosErrorHandling(error, console.log);
-    }
-
-    console.log('hello');
-  };
-  const onError = (error: any) => {
-    console.log(error);
+  const useEmailSendCreator = () => {
+    const mutation = useMutation(
+      (newTodo: EmailSendApiInput) => emailSendApi(newTodo),
+      {
+        onSuccess: () => {
+          setEmailSend(true);
+        },
+        onError: () => {
+          setError('email', {
+            message: '이미 존재하는 이메일이거나 형식에 맞지 않습니다.',
+          });
+        },
+      },
+    );
+    return mutation;
   };
 
-  const onAccountExist = useCallback(async () => {
-    if (errors.accountName) return;
-
-    try {
-      const result = await accountExistApi({
-        accountName: watch().accountName,
-      });
-      if (result.data.result) {
-        setError('accountName', { message: '이미 존재하는 아이디입니다.' });
-      } else {
-        clearErrors('accountName');
-      }
-    } catch (err: unknown) {
-      const error = err as Error | AxiosError;
-      axiosErrorHandling(error, console.log);
-    }
-  }, []);
-
-  const onEmailSend = useCallback(async () => {
-    if (errors.email) return;
-
-    try {
-      const result = await emailSendApi({ receiverEmail: watch().email });
-      console.log(result.data.result);
-    } catch (err: unknown) {
-      const error = err as Error | AxiosError;
-      axiosErrorHandling(error, (errorResult: ErrorObjectFromServer[]) => {
-        const errorString = errorResult[0].message;
-        setError('email', { message: errorString });
-      });
-    }
-  }, []);
+  const { mutate: emailSendmutate, isLoading: emailSendLoading } =
+    useEmailSendCreator();
 
   return (
     <div
@@ -164,6 +106,7 @@ function Register(): JSX.Element {
               },
             })}
             error={errors.nickname}
+            onBlur={onNicknameExist}
           />
           <div className="space-y-2">
             <LabelInput
@@ -175,9 +118,33 @@ function Register(): JSX.Element {
               error={errors.email}
             />
             <div className="flex space-x-2">
-              <NormalButton onClick={onEmailSend}>이메일 전송</NormalButton>
-              <NormalButton>검증 확인</NormalButton>
+              {emailSendLoading ? (
+                <NormalButton>전송 중...</NormalButton>
+              ) : (
+                <NormalButton
+                  onClick={() => {
+                    if (!errors.email) {
+                      setEmailSend(false);
+                      emailSendmutate({ receiverEmail: watch().email });
+                    }
+                  }}
+                >
+                  이메일 전송
+                </NormalButton>
+              )}
+              <NormalButton onClick={onEmailCheck}>검증 확인</NormalButton>
             </div>
+            {!emailCheck && emailSend && (
+              <span className="text-green-700 text-sm">
+                이메일 전송이 완료되었습니다.
+              </span>
+            )}
+            {emailCheck && (
+              <span className="text-green-700 text-sm">
+                이메일 검증이 완료되었습니다.
+              </span>
+            )}
+            {}
           </div>
           <LabelInput
             type="password"

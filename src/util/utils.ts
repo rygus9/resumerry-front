@@ -15,7 +15,7 @@ export function regExpression(
     regAccount: /^[a-zA-Z0-9]{4,12}$/,
     regPassword:
       /(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]).{8,20}/,
-    regNickname: /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/,
+    regNickname: /^(?=.*[a-zA-Z0-9가-힣])[a-zA-Z0-9가-힣]{2,16}$/,
   };
 
   return expression[regType];

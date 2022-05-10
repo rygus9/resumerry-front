@@ -31,7 +31,7 @@ export default function Resume() {
           'xl:ml-[9%]',
         )}
       >
-        <article className={cls('lg:w-3/5', 'xl:w-full')}>
+        <article className={cls('px-7 pt-10', 'lg:w-3/5', 'xl:w-full')}>
           <h1
             className={cls(
               'mt-2 text-3xl text-deepBlack',
