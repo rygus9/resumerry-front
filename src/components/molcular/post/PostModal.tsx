@@ -8,6 +8,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import qs from 'qs';
 import { openState } from 'recoil/openState';
 import { useRecoilState } from 'recoil';
+import ModalFrame from 'pages/common/ModalFrame';
+import { cls } from 'util/utils';
 
 interface PostFilterForm {
   title: string;
@@ -30,14 +32,8 @@ export default function PostModal() {
     view: '조회순',
   };
 
-  const filterToggle = useCallback(() => {
+  const onClose = useCallback(() => {
     setOpen({ ...open, postFilterOpen: !open.postFilterOpen });
-  }, []);
-
-  const toggleByBack = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    const clicked = (e.target as HTMLElement).closest('.inner');
-    if (clicked) return;
-    filterToggle();
   }, []);
 
   const onSubmit = (data: PostFilterForm) => {
@@ -51,19 +47,26 @@ export default function PostModal() {
     const nextQuery = qs.stringify(nowQuery);
     location.search = nextQuery;
     navigate(location, { replace: true });
-    filterToggle();
+    onClose();
   };
 
   return (
-    <div
-      className="absolute w-screen h-screen left-0 top-0 bg-opacity-30 bg-black z-40 overflow-hidden"
-      onClick={toggleByBack}
-    >
-      <div className="inner relative left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[24rem] bg-white rounded-lg">
+    <ModalFrame onClose={onClose}>
+      <div
+        className={cls(
+          'inner relative left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[20rem] bg-white rounded-lg',
+          'sm:w-[24rem]',
+        )}
+      >
         <h3 className="text-center py-5 text-2xl">필터 및 정렬</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* selection area */}
-          <div className="w-4/5 m-auto space-y-2 pt-3 py-5">
+          <div
+            className={cls(
+              'w-full m-auto space-y-2 px-5 pt-3 pb-5',
+              'sm:w-4/5 sm:px-0',
+            )}
+          >
             <LabelInput
               label="제목"
               labelSize="md"
@@ -83,13 +86,13 @@ export default function PostModal() {
           </div>
           {/* button */}
           <div className="flex justify-center space-x-3 pt-3 pb-5">
-            <NormalButton color="normalColor" onClick={filterToggle}>
+            <NormalButton color="normalColor" onClick={onClose}>
               취소하기
             </NormalButton>
             <MainButton type="submit">적용하기</MainButton>
           </div>
         </form>
       </div>
-    </div>
+    </ModalFrame>
   );
 }

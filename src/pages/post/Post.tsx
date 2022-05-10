@@ -1,3 +1,4 @@
+import IconNumber from 'components/atom/common/IconNumber';
 import Chat from 'components/molcular/chat/Chat';
 import SideInfo from 'components/molcular/common/SideInfo';
 import UserInfo from 'components/molcular/common/UserInfo';
@@ -43,8 +44,14 @@ export default function Post() {
         >
           {postData.contents}
         </p>
+        <div
+          className={cls('flex py-2 space-x-4 justify-end mt-8', 'md:hidden')}
+        >
+          <IconNumber src="/img/icons/chat.svg" number={postData.commentCnt} />
+          <IconNumber src="/img/icons/view.svg" number={postData.viewCnt} />
+        </div>
 
-        <div className={cls('mt-8', 'sm:mt-12')}>
+        <div className={cls('mt-2', 'md:mt-12')}>
           <Chat commentCnt={postData.commentCnt} />
         </div>
       </article>

@@ -7,7 +7,7 @@ export default function PostSearch(): JSX.Element {
   const [open, setOpen] = useRecoilState(openState);
 
   const onClick = useCallback(() => {
-    setOpen({ ...open, postFilterOpen: !open.postFilterOpen });
+    setOpen({ ...open, postFilterOpen: true });
   }, []);
 
   return <Search onClick={onClick} />;
