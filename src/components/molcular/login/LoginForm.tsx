@@ -1,13 +1,13 @@
-import MainButton from 'components/atom/button/MainButton';
-import TextLink from 'components/atom/common/TextLink';
-import LabelInput from 'components/atom/input/LabelInput';
-import { useCallback, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useRecoilState } from 'recoil';
-import { openState } from 'recoil/openState';
-import { useMutation } from 'react-query';
-import { loginApi } from 'util/api/auth';
-import useGoHome from 'util/hooks/goHome';
+import MainButton from "components/atom/button/MainButton";
+import TextLink from "components/atom/common/TextLink";
+import LabelInput from "components/atom/input/LabelInput";
+import { useCallback, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useRecoilState } from "recoil";
+import { openState } from "recoil/openState";
+import { useMutation } from "react-query";
+import { loginApi } from "util/api/auth";
+import useGoHome from "util/hooks/goHome";
 
 interface LoginForm {
   accountName: string;
@@ -26,7 +26,7 @@ export default function LoginForm() {
   const useLoginCreator = () => {
     const mutation = useMutation((userInfo: LoginForm) => loginApi(userInfo), {
       onSuccess: (result) => {
-        localStorage.setItem('userToken', result.data.access_token);
+        localStorage.setItem("userToken", result.data.access_token);
         setOpen({ ...open, loginOpen: !open.loginOpen });
         goHome();
         location.reload();
@@ -57,16 +57,16 @@ export default function LoginForm() {
       <LabelInput
         label="아이디"
         type="text"
-        register={register('accountName', {
-          required: '아이디는 필수 입력값입니다.',
+        register={register("accountName", {
+          required: "아이디는 필수 입력값입니다.",
         })}
         error={errors.accountName}
       />
       <LabelInput
         label="비밀번호"
         type="password"
-        register={register('password', {
-          required: '비밀번호는 필수 입력값입니다.',
+        register={register("password", {
+          required: "비밀번호는 필수 입력값입니다.",
         })}
         error={errors.password}
       />
