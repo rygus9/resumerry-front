@@ -1,3 +1,4 @@
+import IconNumber from 'components/atom/common/IconNumber';
 import Chat from 'components/molcular/chat/Chat';
 import UserInfo from 'components/molcular/common/UserInfo';
 import { ResumeSearchApiResult } from 'util/api/resume';
@@ -16,22 +17,21 @@ const resumeData: ResumeSearchApiResult = {
   viewCnt: 20,
   hashtag: [],
   years: 0,
-  recommendCnt: 0,
+  recommendCnt: 5,
   isScrap: false,
 };
 
 export default function Resume() {
   return (
-    <div className="flex flex-col">
-      <div
-        className={cls(
-          'flex-auto w-full',
-          'sm:px-8 sm:mt-16',
-          'lg:w-[50rem] lg:ml-[3rem]',
-          'xl:ml-[9%]',
-        )}
-      >
-        <article className={cls('px-7 pt-10', 'lg:w-3/5', 'xl:w-full')}>
+    <div className={cls('flex flex-col', 'lg:flex-row')}>
+      <div className={cls('flex-auto w-full')}>
+        <article
+          className={cls(
+            'px-7 pt-10 w-full ml-0',
+            'lg:w-4/5 lg:ml-[10%]',
+            'xl:w-3/5 xl:ml-[25%]',
+          )}
+        >
           <h1
             className={cls(
               'mt-2 text-3xl text-deepBlack',
@@ -47,12 +47,27 @@ export default function Resume() {
               imageSrc={resumeData.imageLink}
             />
           </div>
-          <p className="pt-10 text-lg text-black">{resumeData.contents}</p>
+          <p className="pt-10 text-lg text-black min-h-[5rem]">
+            {resumeData.contents}
+          </p>
+          <div
+            className={cls('flex py-2 space-x-4 justify-end mt-8', 'lg:mt-16')}
+          >
+            <IconNumber
+              src="/img/icons/chat.svg"
+              number={resumeData.commentCnt}
+            />
+            <IconNumber
+              src="/img/icons/good.svg"
+              number={resumeData.recommendCnt}
+            />
+            <IconNumber src="/img/icons/view.svg" number={resumeData.viewCnt} />
+          </div>
         </article>
       </div>
       <div
         className={cls(
-          'block w-full overflow-scroll px-10 pt-10',
+          'block w-full overflow-scroll px-5 pt-5',
           'lg:fixed lg:right-0 lg:h-screen lg:w-[26rem] lg:shadow-md',
         )}
       >
@@ -60,6 +75,7 @@ export default function Resume() {
           <Chat commentCnt={resumeData.commentCnt} />
         </div>
       </div>
+      <div className={cls('hidden', 'lg:block lg:basis-[40rem]')} />
     </div>
   );
 }

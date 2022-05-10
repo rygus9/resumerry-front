@@ -1,7 +1,7 @@
 import PostListItem from 'components/molcular/post/PostListItem';
 import PostModal from 'components/molcular/post/PostModal';
 import PostSearch from 'components/molcular/post/PostSearch';
-import Category from 'components/molcular/category/SearchCategory';
+import SearchCategory from 'components/molcular/category/SearchCategory';
 import FloatingButton from 'components/molcular/common/FloatingButton';
 import { useRecoilValue } from 'recoil';
 import { openState } from 'recoil/openState';
@@ -57,7 +57,7 @@ export default function PostList(): JSX.Element {
       {/* title */}
       <h2 className={cls('text-title', 'sm:pt-5 sm:mb-5')}>질문 게시판</h2>
       <div className={cls('mt-5', 'sm:mt-10')}>
-        <Category />
+        <SearchCategory />
       </div>
       {/* filter */}
       <PostSearch />

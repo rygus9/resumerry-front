@@ -21,7 +21,7 @@ export default function Header(): JSX.Element {
   }, [menu]);
 
   const onLoginClick = useCallback(() => {
-    setOpen({ ...open, loginOpen: !open.loginOpen });
+    setOpen({ ...open, loginOpen: true });
   }, []);
 
   const onLogout = useCallback(() => {
@@ -38,7 +38,7 @@ export default function Header(): JSX.Element {
     >
       {/* logo */}
       <div className={cls('ml-5 flex-auto', 'md:flex-initial')}>
-        <div className="w-[5rem]">
+        <div className={cls('w-[5rem]', 'md:w-fit')}>
           <TextLink to="/" size="lg" color="black">
             Resumerry
           </TextLink>
