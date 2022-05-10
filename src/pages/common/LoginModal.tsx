@@ -1,36 +1,25 @@
 import LoginForm from 'components/molcular/login/LoginForm';
-import React, { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { openState } from 'recoil/openState';
+import { cls } from 'util/utils';
+import ModalFrame from './ModalFrame';
 
 export default function LoginModal() {
   const [open, setOpen] = useRecoilState(openState);
-
-  useEffect(() => {
-    const preventGoBack = () => {
-      setOpen({ ...open, loginOpen: false });
-    };
-    window.addEventListener('popstate', preventGoBack);
-
-    return () => window.removeEventListener('popstate', preventGoBack);
-  }, [open]);
-
-  const onClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    const clicked = (e.target as HTMLElement).closest('.inner');
-    if (clicked) return;
-    onClose();
-  }, []);
 
   const onClose = useCallback(() => {
     setOpen({ ...open, loginOpen: !open.loginOpen });
   }, []);
 
   return (
-    <div
-      className="absolute top-0 left-0 bg-black z-40 w-full h-screen bg-opacity-40"
-      onClick={onClick}
-    >
-      <div className="inner relative left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[24rem] h-[28rem] bg-white rounded-xl">
+    <ModalFrame onClose={onClose}>
+      <div
+        className={cls(
+          'inner relative left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[21rem] pb-8 bg-white rounded-xl',
+          'sm:w-[24rem]',
+        )}
+      >
         <div
           className="cursor-pointer absolute top-2 right-3 text-deepGray"
           onClick={onClose}
@@ -47,6 +36,6 @@ export default function LoginModal() {
           <LoginForm />
         </div>
       </div>
-    </div>
+    </ModalFrame>
   );
 }

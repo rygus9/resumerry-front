@@ -1,5 +1,4 @@
 import { CategoryKindType } from 'components/molcular/category/categoryValue';
-import qs from 'qs';
 import client from './client';
 
 export interface LoginApiInput {
@@ -12,7 +11,7 @@ export interface LoginApiResult {
 }
 
 export const loginApi = ({ accountName, password }: LoginApiInput) =>
-  client.post('/auth/sign-in', qs.stringify({ accountName, password }));
+  client.post('/auth/login', { accountName, password });
 
 export interface JoinApiInput {
   accountName: string;
@@ -73,4 +72,17 @@ export interface accountExistApiResult {
 export const accountExistApi = ({ accountName }: accountExistApiInput) =>
   client.post('/valid/account/exists', {
     accountName,
+  });
+
+export interface nicknameExistApiInput {
+  nickname: string;
+}
+
+export interface nicknameExistApiResult {
+  result: boolean;
+}
+
+export const nicknameExistApi = ({ nickname }: nicknameExistApiInput) =>
+  client.post('/valid/nickname/exists', {
+    nickname,
   });

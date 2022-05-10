@@ -15,7 +15,7 @@ export default function SearchCategory(): JSX.Element {
   };
 
   const onClick = (input: string) => {
-    setSearchParams({ category: input });
+    setSearchParams({ category: input }, { replace: true });
   };
 
   return (

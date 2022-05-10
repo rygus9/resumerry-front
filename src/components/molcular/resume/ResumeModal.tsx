@@ -3,12 +3,14 @@ import NormalButton from 'components/atom/button/NormalButton';
 import Input from 'components/atom/input';
 import LabelInput from 'components/atom/input/LabelInput';
 import SelectGroup from 'components/atom/selectBox/SelectGroup';
+import ModalFrame from 'pages/common/ModalFrame';
 import qs from 'qs';
 import React, { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { openState } from 'recoil/openState';
+import { cls } from 'util/utils';
 import Hashtag from './Hashtag';
 
 interface ResumeFilterForm {
@@ -39,14 +41,8 @@ export default function ResumeModal() {
     recommand: '추천순',
   };
 
-  const filterToggle = useCallback(() => {
-    setOpen({ ...open, resumeFilterOpen: !open.resumeFilterOpen });
-  }, []);
-
-  const toggleByBack = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    const clicked = (e.target as HTMLElement).closest('.inner');
-    if (clicked) return;
-    filterToggle();
+  const onClose = useCallback(() => {
+    setOpen({ ...open, resumeFilterOpen: false });
   }, []);
 
   const onSubmit = (data: ResumeFilterForm) => {
@@ -64,19 +60,26 @@ export default function ResumeModal() {
     const nextQuery = qs.stringify(nowQuery);
     location.search = nextQuery;
     navigate(location, { replace: true });
-    filterToggle();
+    onClose();
   };
 
   return (
-    <div
-      className="absolute w-screen h-screen left-0 top-0 bg-opacity-30 bg-black z-40 overflow-hidden"
-      onClick={toggleByBack}
-    >
-      <div className="inner relative left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[24rem] bg-white rounded-lg">
+    <ModalFrame onClose={onClose}>
+      <div
+        className={cls(
+          'inner relative left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[20rem] bg-white rounded-lg',
+          'sm:w-[24rem]',
+        )}
+      >
         <h3 className="text-center py-5 text-2xl">필터 및 정렬</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* selection area */}
-          <div className="w-4/5 m-auto space-y-2 pt-3 py-5">
+          <div
+            className={cls(
+              'w-full m-auto space-y-2 px-5 pt-3 pb-5',
+              'sm:w-4/5 sm:px-0',
+            )}
+          >
             <LabelInput
               label="제목"
               labelSize="md"
@@ -124,13 +127,13 @@ export default function ResumeModal() {
           </div>
           {/* button */}
           <div className="flex justify-center space-x-3 pt-3 pb-5">
-            <NormalButton color="normalColor" onClick={filterToggle}>
+            <NormalButton color="normalColor" onClick={onClose}>
               취소하기
             </NormalButton>
             <MainButton type="submit">적용하기</MainButton>
           </div>
         </form>
       </div>
-    </div>
+    </ModalFrame>
   );
 }
