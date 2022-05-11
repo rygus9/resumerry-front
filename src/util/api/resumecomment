@@ -1,6 +1,5 @@
-import qs from 'qs';
-import client from './client';
-import { CommentSearchResult, CommentDepthResult } from './typeinterface';
+import client from "./client";
+import { CommentSearchResult, CommentDepthResult } from "./typeinterface";
 
 export interface ResumeCommentSearchResult extends CommentSearchResult {
   resumeCommentGroup: number;
@@ -27,7 +26,7 @@ export const ResumeCommentWriteApi = (
     isAnonymous,
   }: ResumeCommentWriteApiInput,
   userId: string,
-  resumeId: string,
+  resumeId: string
 ) =>
   client.post(`/resume/${userId}/${resumeId}/comment`, {
     userToken,
@@ -48,7 +47,7 @@ export const ResumeCommentDeleteApi = (
   { userToken }: ResumeCommentDeleteApiInput,
   userId: string,
   resumeId: string,
-  commentId: string,
+  commentId: string
 ) =>
   client.put(`/resume/${userId}/${resumeId}/comment/${commentId}`, {
     userToken,
@@ -76,7 +75,7 @@ export const ResumeCommentRecommendApi = (
   { userToken }: ResumeCommentRecommendApiInput,
   userId: string,
   resumeId: string,
-  commentId: string,
+  commentId: string
 ) =>
   client.post(`/resume/${userId}/${resumeId}/comment/${commentId}/recommend`, {
     userToken,
@@ -93,7 +92,7 @@ export const ResumeCommentReportApi = (
   { userToken }: ResumeCommentReportApiInput,
   userId: string,
   resumeId: string,
-  commentId: string,
+  commentId: string
 ) =>
   client.post(`/resume/${userId}/${resumeId}/comment/${commentId}/ban`, {
     userToken,

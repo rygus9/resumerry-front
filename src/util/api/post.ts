@@ -1,7 +1,6 @@
-import qs from 'qs';
-import { CategoryKindType } from '../../components/molcular/category/categoryValue';
-import client from './client';
-import { ListSearchResult } from './typeinterface';
+import { CategoryKindType } from "../../components/molcular/category/categoryValue";
+import client from "./client";
+import { ListSearchResult } from "./typeinterface";
 
 export interface PostListSearchResult extends ListSearchResult {
   postId: string;
@@ -31,7 +30,7 @@ export interface PostListSearchApiResult {
 }
 
 export const PostListSearchApi = () => {
-  client.get('/posts');
+  client.get("/posts");
 };
 
 export interface PostWriteApiInput {
@@ -56,7 +55,7 @@ export const PostWriteApi = (
     fileLink,
     isAnonymous,
   }: PostWriteApiInput,
-  userId: string,
+  userId: string
 ) =>
   client.post(`/post/${userId}`, {
     userToken,
@@ -114,7 +113,7 @@ export interface PostFixApiResult {
 export const PostFixApi = (
   { userToken, category, title, contents, isAnonymous }: PostFixApiInput,
   userId: string,
-  postId: string,
+  postId: string
 ) =>
   client.put(`/post/${userId}/${postId}`, {
     userToken,
@@ -145,7 +144,7 @@ export interface PostRecommendApiIResult {
 export const PostRecommendApi = (
   { userToken }: PostRecommendApiInput,
   userId: string,
-  postId: string,
+  postId: string
 ) =>
   client.post(`/post/${userId}/${postId}/recommend`, {
     userToken,

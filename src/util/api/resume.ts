@@ -1,7 +1,6 @@
-import qs from 'qs';
-import { CategoryKindType } from '../../components/molcular/category/categoryValue';
-import client from './client';
-import { ListSearchResult } from './typeinterface';
+import { CategoryKindType } from "../../components/molcular/category/categoryValue";
+import client from "./client";
+import { ListSearchResult } from "./typeinterface";
 
 export interface ResumeListSearchResult extends ListSearchResult {
   resumeId: string;
@@ -15,7 +14,7 @@ export interface ResumeListSearchApiInput {
   title: string;
   aged: number[];
   hashtag: string[];
-  sort: 'recommand' | 'view' | 'aged';
+  sort: "recommand" | "view" | "aged";
 }
 export interface ResumeMypageSearchResult {
   userToken: string;
@@ -32,7 +31,7 @@ export interface ResumeListSearchApiResult {
 }
 
 export const ResumeListSearchApi = () => {
-  client.get('/resume');
+  client.get("/resume");
 };
 
 export interface ResumeWriteApiInput {
@@ -58,7 +57,7 @@ export const ResumeWriteApi = (
     hashtag,
     fileLink,
   }: ResumeWriteApiInput,
-  userId: string,
+  userId: string
 ) =>
   client.post(`/resume/${userId}`, {
     userToken,
@@ -124,7 +123,7 @@ export interface ResumeFixApiResult {
 export const ResumeFixApi = (
   { userToken, category, title, contents, link, years }: ResumeFixApiInput,
   userId: string,
-  resumeId: string,
+  resumeId: string
 ) =>
   client.put(`/resume/${userId}/${resumeId}`, {
     userToken,
@@ -156,7 +155,7 @@ export interface ResumeRecommendApiResult {
 export const ResumeRecommendApi = (
   { userToken }: ResumeRecommendApiInput,
   userId: string,
-  resumeId: string,
+  resumeId: string
 ) =>
   client.post(`/resume/${userId}/${resumeId}/recommend`, {
     userToken,
@@ -172,7 +171,7 @@ export interface ResumeScrapApiResult {
 export const ResumeScrapApi = (
   { userToken }: ResumeScrapApiInput,
   userId: string,
-  resumeId: string,
+  resumeId: string
 ) =>
   client.post(`/resume/${userId}/${resumeId}/scrap`, {
     userToken,
@@ -189,7 +188,7 @@ export interface ResumeUnlockApiResult {
 export const ResumeUnlockApi = (
   { userToken }: ResumeUnlockApiInput,
   userId: string,
-  resumeId: string,
+  resumeId: string
 ) =>
   client.post(`/resume/${userId}/${resumeId}/unlock`, {
     userToken,

@@ -3,16 +3,23 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components{
+    * {
+        @apply font-NotoSans
+    }
+
     .text-title {
-        @apply text-3xl sm:text-4xl select-none text-deepBlack
+        @apply text-3xl sm:text-[2.75rem] select-none text-lightBlack font-DoHyean
     }
 
     .text-subTitle {
-        @apply text-2xl select-none text-black
+        @apply text-2xl select-none text-black font-NotoSans
     }
 }
