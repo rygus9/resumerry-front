@@ -1,32 +1,24 @@
-import ButtonSelectBox from 'components/atom/selectBox/ButtonSelectBox';
-import { UseFormRegisterReturn } from 'react-hook-form';
-import { cls } from 'util/utils';
-import categoryValue from './categoryValue';
+import ButtonSelectBox from "components/atom/selectBox/ButtonSelectBox";
+import { UseFormRegisterReturn } from "react-hook-form";
+import { cls } from "util/utils";
+import categoryValue, { CategoryKindType } from "./categoryValue";
 
 const LabelStyleValue = {
-  regist: 'text-sm text-black',
-  write: 'text-xl text-deepBlack pb-2',
+  regist: "text-sm text-black",
+  write: "text-xl text-deepBlack pb-2",
 };
 
 interface Props {
   label?: string;
   register?: UseFormRegisterReturn | null;
-  format?: 'regist' | 'write';
-  value:
-    | 'all'
-    | 'it'
-    | 'business'
-    | 'marketing'
-    | 'design'
-    | 'media'
-    | 'engineering'
-    | 'edu';
+  format?: "regist" | "write";
+  value: CategoryKindType;
 }
 
 RegisterCategory.defaultProps = {
-  label: '관심 직무 카테고리',
+  label: "관심 직무 카테고리",
   register: null,
-  format: 'regist',
+  format: "regist",
 };
 
 export default function RegisterCategory({
@@ -40,8 +32,8 @@ export default function RegisterCategory({
       <h3 className={LabelStyleValue[format!]}>{label}</h3>
       <div
         className={cls(
-          'flex w-full flex-wrap',
-          format === 'regist' ? 'max-w-[30rem]' : '',
+          "flex w-full flex-wrap",
+          format === "regist" ? "max-w-[30rem]" : ""
         )}
       >
         {categoryValue.map((elem, index) => (
@@ -52,7 +44,7 @@ export default function RegisterCategory({
                 register={register}
                 value={elem.kind}
                 buttonStyle="normalColor"
-                size={format === 'write' ? 'md' : 'sm'}
+                size={format === "write" ? "md" : "sm"}
               >
                 {elem.value}
               </ButtonSelectBox>
@@ -62,7 +54,7 @@ export default function RegisterCategory({
                 register={register}
                 value={elem.kind}
                 buttonStyle="normal"
-                size={format === 'write' ? 'md' : 'sm'}
+                size={format === "write" ? "md" : "sm"}
               >
                 {elem.value}
               </ButtonSelectBox>

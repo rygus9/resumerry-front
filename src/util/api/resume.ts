@@ -1,5 +1,6 @@
 import { CategoryKindType } from "../../components/molcular/category/categoryValue";
 import client from "./client";
+import axios from "axios";
 import { ListSearchResult } from "./typeinterface";
 
 export interface ResumeListSearchResult extends ListSearchResult {
@@ -35,39 +36,35 @@ export const ResumeListSearchApi = () => {
 };
 
 export interface ResumeWriteApiInput {
-  userToken: string;
   title: string;
   contents: string;
   category: CategoryKindType;
   years: number;
   hashtag: string[];
-  fileLink: string;
+  file: FileList;
 }
+
 export interface ResumeWriteApiResult {
   result: boolean;
 }
 
-export const ResumeWriteApi = (
-  {
-    userToken,
-    title,
-    contents,
-    category,
-    years,
-    hashtag,
-    fileLink,
-  }: ResumeWriteApiInput,
-  userId: string
-) =>
-  client.post(`/resume/${userId}`, {
-    userToken,
-    title,
-    contents,
-    category,
-    years,
-    hashtag,
-    fileLink,
-  });
+export const ResumeWriteApi = (data: ResumeWriteApiInput) => {
+  const formData = new FormData();
+  formData.append("file", data.file[0]);
+  formData.append("title", data.title);
+  formData.append("contents", data.contents);
+  formData.append("category", data.category);
+  formData.append("years", data.years.toString());
+  formData.append("hashtag", data.hashtag.toString());
+  //memberID
+  formData.append("memberId", "3");
+
+  return axios.post(
+    `https://qlyrjvzj80.execute-api.ap-northeast-2.amazonaws.com/api/resume`,
+    formData,
+    {}
+  );
+};
 
 export interface ResumeMypageSearchApiInput {
   userToken: string;

@@ -16,7 +16,7 @@
     }
 
     .text-title {
-        @apply text-3xl sm:text-[2.75rem] select-none text-lightBlack font-DoHyean
+        @apply text-3xl sm:text-[2.75rem] select-none text-black font-DoHyean
     }
 
     .text-subTitle {

@@ -3,18 +3,26 @@ import NormalButton from "components/atom/button/NormalButton";
 import Input from "components/atom/input";
 import LabelCheckBox from "components/atom/selectBox/LabelSeleckBox";
 import TextArea from "components/atom/textArea";
-import RegisterCategory from "components/molcular/category/RegisterCategory";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { PostWriteApiInput } from "util/api/post";
+import { PostSearchApiResult, PostWriteApiInput } from "util/api/post";
 import useGoBack from "util/hooks/goBack";
-import { cls, SubPartial } from "util/utils";
+import { cls } from "util/utils";
+import { CategoryKindType } from "../category/categoryValue";
+import RegisterCategory from "../category/RegisterCategory";
 
-type PostForm = SubPartial<PostWriteApiInput, "userToken">;
+type PostForm = PostWriteApiInput;
 
-export default function PostTemplate() {
+export default function PostForm({
+  isLoading,
+  submitFunc,
+  post,
+}: {
+  isLoading: boolean;
+  submitFunc: any;
+  post?: PostSearchApiResult;
+}) {
   const goBack = useGoBack();
-
   const {
     register,
     handleSubmit,
@@ -24,11 +32,19 @@ export default function PostTemplate() {
   } = useForm<PostForm>({ mode: "onSubmit" });
 
   useEffect(() => {
-    setValue("category", "all");
+    setValue("category", "ALL");
+    setValue("fileLink", "ddd/temp");
+
+    if (post) {
+      setValue("title", post.title);
+      setValue("category", post.category as CategoryKindType);
+      setValue("contents", post.contents);
+      setValue("isAnonymous", post.isAnonymous);
+    }
   }, []);
 
   const onValid = (data: PostForm) => {
-    console.log(data);
+    submitFunc(data);
   };
 
   const onError = (error: any) => {
@@ -90,8 +106,21 @@ export default function PostTemplate() {
             <NormalButton size="lg" color="normalColor" onClick={goBack}>
               취소하기
             </NormalButton>
-            <MainButton size="lg" type="submit">
-              등록하기
+            <MainButton
+              size="lg"
+              type="submit"
+              disabled={isLoading ? true : false}
+            >
+              {isLoading ? (
+                <>
+                  <div className="flex items-center space-x-2">
+                    <div className="border-2 border-lightGray border-t-deepPurple  my-10 w-6 h-6 rounded-full animate-spin"></div>
+                    <span className="text-white">진행 중</span>
+                  </div>
+                </>
+              ) : (
+                "등록하기"
+              )}
             </MainButton>
           </div>
         </form>

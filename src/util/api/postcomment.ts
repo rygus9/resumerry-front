@@ -7,7 +7,6 @@ export interface PostCommentSearchResult extends CommentSearchResult {
 }
 
 export interface PostCommentWriteApiInput {
-  userToken: string;
   contents: string;
   postCommentDepth: number;
   postCommentGroup: number;
@@ -19,7 +18,6 @@ export interface PostCommentWriteApiResult {
 
 export const PostCommentWriteApi = (
   {
-    userToken,
     contents,
     postCommentDepth,
     postCommentGroup,
@@ -29,7 +27,6 @@ export const PostCommentWriteApi = (
   postId: string
 ) =>
   client.post(`/post/${userId}/${postId}/comment`, {
-    userToken,
     contents,
     postCommentDepth,
     postCommentGroup,

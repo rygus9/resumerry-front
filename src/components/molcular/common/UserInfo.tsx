@@ -1,13 +1,13 @@
-import { cls } from 'util/utils';
+import { cls } from "util/utils";
 
 const imageSizeValue = {
-  sm: 'w-5 h-5 sm:w-6 sm:h-6',
-  md: 'w-8 h-8 sm:w-10 sm:h-10',
+  sm: "w-5 h-5 sm:w-6 sm:h-6",
+  md: "w-8 h-8 sm:w-10 sm:h-10",
 };
 
 const textSizeValue = {
-  sm: 'text-md',
-  md: 'text-lg',
+  sm: "text-md",
+  md: "text-lg",
 };
 
 interface Props {
@@ -15,13 +15,13 @@ interface Props {
   modifiedDate?: string;
   nickname: string | null;
   imageSrc: string | null;
-  size?: 'sm' | 'md';
+  size?: "sm" | "md";
 }
 
 UserInfo.defaultProps = {
   isAnonymous: false,
-  modifiedDate: '',
-  size: 'md',
+  modifiedDate: "",
+  size: "md",
 };
 
 export default function UserInfo({
@@ -38,11 +38,11 @@ export default function UserInfo({
           <>
             <div
               className={cls(
-                'bg-slate-300 rounded-full',
-                imageSizeValue[size!],
+                "bg-slate-300 rounded-full",
+                imageSizeValue[size!]
               )}
             />
-            <span className={cls('px-2 text-black', textSizeValue[size!])}>
+            <span className={cls("px-2 text-black", textSizeValue[size!])}>
               익명
             </span>
           </>
@@ -50,26 +50,26 @@ export default function UserInfo({
           <>
             {imageSrc ? (
               <img
-                className={cls('rounded-full', imageSizeValue[size!])}
+                className={cls("rounded-full", imageSizeValue[size!])}
                 src={imageSrc!}
                 alt="프로필"
               />
             ) : (
               <div
                 className={cls(
-                  'bg-slate-300 rounded-full',
-                  imageSizeValue[size!],
+                  "bg-slate-300 rounded-full",
+                  imageSizeValue[size!]
                 )}
               />
             )}
-            <span className={cls('px-2 text-black', textSizeValue[size!])}>
+            <span className={cls("px-2 text-black", textSizeValue[size!])}>
               {nickname}
             </span>
           </>
         )}
       </div>
       {modifiedDate && (
-        <div className="text-md px-3 text-deepGray">{modifiedDate}</div>
+        <div className="text-md px-3 text-deepGray w-fit">{modifiedDate}</div>
       )}
     </div>
   );

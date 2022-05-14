@@ -123,7 +123,12 @@ function Register(): JSX.Element {
               />
               <div className="flex space-x-2">
                 {emailSendLoading ? (
-                  <NormalButton>전송 중...</NormalButton>
+                  <NormalButton>
+                    <div className="flex items-center space-x-2">
+                      <div className="border-2 border-lightGray border-t-deepPurple  my-10 w-6 h-6 rounded-full animate-spin"></div>
+                      <span>진행 중</span>
+                    </div>
+                  </NormalButton>
                 ) : (
                   <NormalButton
                     onClick={() => {

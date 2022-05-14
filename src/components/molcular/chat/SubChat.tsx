@@ -1,22 +1,34 @@
-import IconNumber from 'components/atom/common/IconNumber';
-import { cls } from 'util/utils';
-import UserInfo from '../common/UserInfo';
-import ChatInput from './ChatInput';
+import IconNumber from "components/atom/common/IconNumber";
+import { cls } from "util/utils";
+import UserInfo from "../common/UserInfo";
+import ChatInput from "./ChatInput";
 
-interface Props {
-  postCommentDepth: any[];
+export interface ChatItemType {
+  memberId: string;
+  commentId: string;
+  isAnonymous: boolean;
+  modifiedDate: string;
+  nickname: string;
+  imageSrc: string;
+  contents: string;
+  recommendCnt: number;
+  banCnt: number;
 }
 
-export default function SubChat({ postCommentDepth }: Props) {
+export default function SubChat({
+  postCommentDepth,
+}: {
+  postCommentDepth: ChatItemType[];
+}) {
   return (
     <div
       className={cls(
-        'bg-stone-50 px-5 mt-3 divide-y divide-stone-200',
-        'sm:px-10',
+        "bg-stone-50 px-5 mt-3 divide-y divide-stone-200",
+        "sm:px-10"
       )}
     >
-      {postCommentDepth.map((elem) => (
-        <div key={elem.commentId} className="pb-5">
+      {postCommentDepth.map((elem, index) => (
+        <div key={index} className="pb-5">
           <div className="pb-5 pt-5 w-fit">
             <UserInfo
               isAnonymous={elem.isAnonymous!}

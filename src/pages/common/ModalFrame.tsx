@@ -1,6 +1,6 @@
-import { useCallback, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { openState } from 'recoil/openState';
+import { useCallback, useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { openState } from "recoil/openState";
 
 export default function ModalFrame({
   children,
@@ -16,15 +16,16 @@ export default function ModalFrame({
         loginOpen: false,
         postFilterOpen: false,
         resumeFilterOpen: false,
+        postDeleteOpen: false,
       });
     };
-    window.addEventListener('popstate', preventGoBack);
+    window.addEventListener("popstate", preventGoBack);
 
-    return () => window.removeEventListener('popstate', preventGoBack);
+    return () => window.removeEventListener("popstate", preventGoBack);
   }, []);
 
   const onClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    const clicked = (e.target as HTMLElement).closest('.inner');
+    const clicked = (e.target as HTMLElement).closest(".inner");
     if (clicked) return;
     onClose();
   }, []);

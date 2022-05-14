@@ -19,22 +19,13 @@ export interface PostMypageSearchResult {
   nickname: string;
 }
 
-export interface PostListSearchApi {
-  category: string;
-  title: string;
-  sort: string;
-}
+export type PostListSearchApiResult = PostListSearchResult[];
 
-export interface PostListSearchApiResult {
-  posts: PostListSearchResult[];
-}
-
-export const PostListSearchApi = () => {
-  client.get("/posts");
+export const PostListSearchApi = async (queryString: string) => {
+  return client.get("/posts" + queryString);
 };
 
 export interface PostWriteApiInput {
-  userToken: string;
   title: string;
   category: CategoryKindType;
   contents: string;
@@ -46,25 +37,9 @@ export interface PostWriteApiResult {
   result: boolean;
 }
 
-export const PostWriteApi = (
-  {
-    userToken,
-    title,
-    category,
-    contents,
-    fileLink,
-    isAnonymous,
-  }: PostWriteApiInput,
-  userId: string
-) =>
-  client.post(`/post/${userId}`, {
-    userToken,
-    title,
-    category,
-    contents,
-    fileLink,
-    isAnonymous,
-  });
+export const PostWriteApi = (elem: PostWriteApiInput) =>
+  client.post("/post", elem);
+
 export interface PostMypageSearchApi {
   userToken: string;
 }
@@ -73,13 +48,8 @@ export interface PostMypageSearchApiResult {
   posts: PostMypageSearchResult[];
 }
 
-export const PostMypageSearchApi = (userId: string) => {
+export const PostMypageSearchApi = (userId: string) =>
   client.get(`/post/${userId}`);
-};
-
-export interface PostSearchApiInput {
-  userToken: string;
-}
 
 export interface PostSearchApiResult {
   title: string;
@@ -93,11 +63,12 @@ export interface PostSearchApiResult {
   nickname: string;
   viewCnt: number;
   commentCnt: number;
+  isOwner: boolean;
 }
 
-export const PostSearchApi = (userId: string, postId: string) => {
+export const PostSearchApi = (userId: string, postId: string) =>
   client.get(`/post/${userId}/${postId}`);
-};
+
 export interface PostFixApiInput {
   userToken: boolean;
   category: string;
@@ -132,7 +103,7 @@ export interface PostDeleteApiResult {
 }
 
 export const PostDeleteApi = (userId: string, postId: string) =>
-  client.delete(`/resume/${userId}/${postId}`);
+  client.delete(`/post/${userId}/${postId}`);
 
 export interface PostRecommendApiInput {
   userToken: string;

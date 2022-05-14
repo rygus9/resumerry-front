@@ -22,6 +22,7 @@ export interface ButtonProps {
   color?: "main" | "normal" | "normalColor";
   className?: string;
   children: JSX.Element | string;
+  disabled?: boolean;
 }
 
 Button.defaultProps = {
@@ -30,6 +31,7 @@ Button.defaultProps = {
   size: "md",
   color: "normal",
   className: "",
+  disabled: false,
 };
 
 export default function Button({
@@ -39,6 +41,7 @@ export default function Button({
   color,
   className,
   children,
+  disabled,
 }: ButtonProps) {
   return (
     <button
@@ -50,6 +53,7 @@ export default function Button({
         className
       )}
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </button>

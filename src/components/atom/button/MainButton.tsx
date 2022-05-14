@@ -1,18 +1,30 @@
-import Button, { ButtonProps } from './index';
+import Button, { ButtonProps } from "./index";
 
 interface Props extends ButtonProps {
-  type?: 'button' | 'submit';
-  size?: 'md' | 'lg';
+  type?: "button" | "submit";
+  size?: "md" | "lg";
 }
 
 MainButton.defaultProps = {
-  type: 'button',
-  size: 'md',
+  type: "button",
+  size: "md",
 };
 
-export default function MainButton({ children, type, size, className }: Props) {
+export default function MainButton({
+  children,
+  type,
+  size,
+  className,
+  ...elem
+}: Props) {
   return (
-    <Button type={type} size={size} color="main" className={className}>
+    <Button
+      type={type}
+      size={size}
+      color="main"
+      className={className}
+      {...elem}
+    >
       {children}
     </Button>
   );

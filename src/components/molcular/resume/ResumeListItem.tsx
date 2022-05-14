@@ -1,8 +1,8 @@
-import IconNumber from 'components/atom/common/IconNumber';
-import { Link } from 'react-router-dom';
-import { ResumeListSearchResult } from 'util/api/resume';
-import { cls } from 'util/utils';
-import UserInfo from '../common/UserInfo';
+import IconNumber from "components/atom/common/IconNumber";
+import { Link } from "react-router-dom";
+import { ResumeListSearchResult } from "util/api/resume";
+import { cls } from "util/utils";
+import UserInfo from "../common/UserInfo";
 
 type Props = ResumeListSearchResult;
 
@@ -31,8 +31,8 @@ export default function ResumeListItem({ ...elem }: Props) {
           <li
             key={elem}
             className={cls(
-              'mr-2 cursor-pointer text-lightBlack',
-              'hover:text-deepBlack',
+              "mr-2 cursor-pointer text-lightBlack",
+              "hover:text-deepBlack"
             )}
           >
             #{elem}

@@ -1,19 +1,27 @@
 import MainButton from "components/atom/button/MainButton";
 import NormalButton from "components/atom/button/NormalButton";
+import FileIcon from "components/atom/icons/FileIcon";
+import UpdateIcon from "components/atom/icons/UpdateIcon";
 import Input from "components/atom/input";
 import LabelInput from "components/atom/input/LabelInput";
 import TextArea from "components/atom/textArea";
 import RegisterCategory from "components/molcular/category/RegisterCategory";
-import HashTag from "components/molcular/resume/Hashtag";
+import Hashtag from "components/molcular/resume/Hashtag";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ResumeWriteApiInput } from "util/api/resume";
 import useGoBack from "util/hooks/goBack";
-import { cls, SubPartial } from "util/utils";
+import { cls } from "util/utils";
+import useResumeRegist from "./hooks/useResumeRegist";
 
-type ResumeForm = SubPartial<ResumeWriteApiInput, "userToken">;
+type ResumeForm = ResumeWriteApiInput;
 
 export default function ResumeTemplate() {
+  const { isLoading, mutate } = useResumeRegist();
+
+  const goBack = useGoBack();
+
+  // regist resume not contain file
   const {
     register,
     handleSubmit,
@@ -22,8 +30,8 @@ export default function ResumeTemplate() {
     formState: { errors },
   } = useForm<ResumeForm>({ mode: "onSubmit" });
 
-  const onValid = (data: ResumeForm) => {
-    console.log(data);
+  const onValid = async (data: ResumeForm) => {
+    mutate(data);
   };
 
   const onError = (error: any) => {
@@ -31,10 +39,9 @@ export default function ResumeTemplate() {
   };
 
   useEffect(() => {
-    setValue("category", "all");
+    setValue("category", "ALL");
+    setValue("hashtag", []);
   }, []);
-
-  const goBack = useGoBack();
 
   return (
     <div className={cls("lg:py-10 lg:bg-stone-100")}>
@@ -87,8 +94,34 @@ export default function ResumeTemplate() {
             placeholder="이력서 소개 내용을 입력하세요"
             error={errors.contents}
           />
-          <HashTag hashtagList={watch().hashtag} setValue={setValue} />
-          <div className="flex justify-center space-x-5 mt-5">
+          <Hashtag
+            hashtagList={watch().hashtag}
+            setValue={setValue}
+            labelSize={"lg"}
+          />
+          <div className="flex space-x-8 items-center mb-2">
+            <h3 className="text-deepBlack text-xl">이력서 업로드</h3>
+            {watch().file && watch().file[0] && (
+              <span className="text-deepPurple text-lg">
+                {watch().file[0].name}
+              </span>
+            )}
+          </div>
+          <label
+            className={cls(
+              "w-[24rem] cursor-pointer text-lightBlack flex items-center justify-center border-2 border-dashed border-lightBlack h-24 rounded-md",
+              "hover:border-deepPurple hover:text-deepPurple"
+            )}
+          >
+            {watch().file && watch().file[0] ? <UpdateIcon /> : <FileIcon />}
+            <input
+              type="file"
+              {...register("file")}
+              className="hidden"
+              accept=".pdf"
+            />
+          </label>
+          <div className="flex justify-center space-x-5 mt-10">
             <NormalButton size="lg" color="normalColor" onClick={goBack}>
               취소하기
             </NormalButton>
