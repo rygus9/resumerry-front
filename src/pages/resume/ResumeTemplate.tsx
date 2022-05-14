@@ -7,7 +7,7 @@ import LabelInput from "components/atom/input/LabelInput";
 import TextArea from "components/atom/textArea";
 import RegisterCategory from "components/molcular/category/RegisterCategory";
 import Hashtag from "components/molcular/resume/Hashtag";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ResumeWriteApiInput } from "util/api/resume";
 import useGoBack from "util/hooks/goBack";
@@ -17,11 +17,19 @@ import useResumeRegist from "./hooks/useResumeRegist";
 type ResumeForm = ResumeWriteApiInput;
 
 export default function ResumeTemplate() {
+  // hook for fetch data
   const { isLoading, mutate } = useResumeRegist();
-
   const goBack = useGoBack();
 
-  // regist resume not contain file
+  // hook for pdf-viewer
+  const [numPages, setNumPages] = useState<number | null>(null);
+  const [pageNumber, setPageNumber] = useState(1);
+
+  function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
+    setNumPages(numPages);
+  }
+
+  // hook for form
   const {
     register,
     handleSubmit,

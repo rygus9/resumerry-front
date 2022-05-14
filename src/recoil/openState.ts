@@ -5,14 +5,18 @@ export interface OpenStateTypes {
   postFilterOpen: boolean;
   resumeFilterOpen: boolean;
   postDeleteOpen: boolean;
+  resumeDeleteOpen: boolean;
 }
+
+export const openDefaultValue = {
+  loginOpen: false,
+  postFilterOpen: false,
+  resumeFilterOpen: false,
+  postDeleteOpen: false,
+  resumeDeleteOpen: false,
+};
 
 export const openState = atom<OpenStateTypes>({
   key: "toggleState",
-  default: {
-    loginOpen: false,
-    postFilterOpen: false,
-    resumeFilterOpen: false,
-    postDeleteOpen: false,
-  },
+  default: openDefaultValue,
 });

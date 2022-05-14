@@ -1,23 +1,23 @@
-import MainButton from 'components/atom/button/MainButton';
-import NormalButton from 'components/atom/button/NormalButton';
-import Input from 'components/atom/input';
-import LabelInput from 'components/atom/input/LabelInput';
-import SelectGroup from 'components/atom/selectBox/SelectGroup';
-import ModalFrame from 'pages/common/ModalFrame';
-import qs from 'qs';
-import React, { useCallback, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { openState } from 'recoil/openState';
-import { cls } from 'util/utils';
-import Hashtag from './Hashtag';
+import MainButton from "components/atom/button/MainButton";
+import NormalButton from "components/atom/button/NormalButton";
+import Input from "components/atom/input";
+import LabelInput from "components/atom/input/LabelInput";
+import SelectGroup from "components/atom/selectBox/SelectGroup";
+import ModalFrame from "pages/common/ModalFrame";
+import qs from "qs";
+import React, { useCallback, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { openState } from "recoil/openState";
+import { cls } from "util/utils";
+import Hashtag from "./Hashtag";
 
 interface ResumeFilterForm {
   title: string;
-  sort: 'recent' | 'view' | 'aged' | 'recommand';
-  startAged: number;
-  endAged: number;
+  sort: "recent" | "view" | "aged" | "recommand";
+  startYear: number;
+  endYear: number;
   hashtag: string[];
 }
 
@@ -30,15 +30,15 @@ export default function ResumeModal() {
     useForm<ResumeFilterForm>();
 
   useEffect(() => {
-    setValue('hashtag', []);
-    setValue('sort', 'recent');
+    setValue("hashtag", []);
+    setValue("sort", "recent");
   }, []);
 
   const orderedPair = {
-    recent: '최신순',
-    view: '조회순',
-    aged: '연차순',
-    recommand: '추천순',
+    recent: "최신순",
+    view: "조회순",
+    aged: "연차순",
+    recommand: "추천순",
   };
 
   const onClose = useCallback(() => {
@@ -46,15 +46,16 @@ export default function ResumeModal() {
   }, []);
 
   const onSubmit = (data: ResumeFilterForm) => {
-    const { title, sort, hashtag, startAged, endAged } = data;
+    const { title, sort, hashtag, startYear, endYear } = data;
     const nowQuery = qs.parse(location.search, {
       ignoreQueryPrefix: true,
     });
     nowQuery.title = title;
     nowQuery.sort = sort;
-    nowQuery.hash = hashtag.join('|');
-    if (startAged > 0 && endAged > 0 && startAged < endAged) {
-      nowQuery.aged = `${startAged}to${endAged}`;
+    nowQuery.hash = hashtag.join("|");
+    if (startYear > 0 && endYear > 0 && startYear < endYear) {
+      nowQuery.startYear = startYear.toString();
+      nowQuery.endYear = endYear.toString();
     }
 
     const nextQuery = qs.stringify(nowQuery);
@@ -67,8 +68,8 @@ export default function ResumeModal() {
     <ModalFrame onClose={onClose}>
       <div
         className={cls(
-          'inner relative left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[20rem] bg-white rounded-lg',
-          'sm:w-[24rem]',
+          "inner relative left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[20rem] bg-white rounded-lg",
+          "sm:w-[24rem]"
         )}
       >
         <h3 className="text-center py-5 text-2xl">필터 및 정렬</h3>
@@ -76,8 +77,8 @@ export default function ResumeModal() {
           {/* selection area */}
           <div
             className={cls(
-              'w-full m-auto space-y-2 px-5 pt-3 pb-5',
-              'sm:w-4/5 sm:px-0',
+              "w-full m-auto space-y-2 px-5 pt-3 pb-5",
+              "sm:w-4/5 sm:px-0"
             )}
           >
             <LabelInput
@@ -86,14 +87,14 @@ export default function ResumeModal() {
               inputSize="sm"
               color="black"
               placeholder="제목"
-              register={register('title')}
+              register={register("title")}
             />
             <h5 className="lightBlack">정렬</h5>
             <SelectGroup
               pairs={orderedPair}
               now={watch().sort}
-              setValue={(value: 'recent' | 'view') => {
-                setValue('sort', value);
+              setValue={(value: "recent" | "view") => {
+                setValue("sort", value);
               }}
             />
             <fieldset>
@@ -104,7 +105,7 @@ export default function ResumeModal() {
                     inputSize="sm"
                     type="number"
                     color="black"
-                    register={register('startAged')}
+                    register={register("startYear")}
                     placeholder="시작"
                   />
                 </div>
@@ -114,7 +115,7 @@ export default function ResumeModal() {
                     inputSize="sm"
                     type="number"
                     color="black"
-                    register={register('endAged')}
+                    register={register("endYear")}
                     placeholder="종료"
                   />
                 </div>

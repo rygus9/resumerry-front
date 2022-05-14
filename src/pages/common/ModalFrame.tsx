@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { openState } from "recoil/openState";
+import { openDefaultValue, openState } from "recoil/openState";
 
 export default function ModalFrame({
   children,
@@ -12,12 +12,7 @@ export default function ModalFrame({
   const [open, setOpen] = useRecoilState(openState);
   useEffect(() => {
     const preventGoBack = () => {
-      setOpen({
-        loginOpen: false,
-        postFilterOpen: false,
-        resumeFilterOpen: false,
-        postDeleteOpen: false,
-      });
+      setOpen(openDefaultValue);
     };
     window.addEventListener("popstate", preventGoBack);
 

@@ -4,61 +4,65 @@ import ResumeListItem from "components/molcular/resume/ResumeListItem";
 import ResumeModal from "components/molcular/resume/ResumeModal";
 import ResumeSearch from "components/molcular/resume/ResumeSearch";
 import WrapContent from "pages/common/WrapContent";
+import { useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { openState } from "recoil/openState";
-import { ResumeListSearchResult } from "util/api/resume";
 import { cls } from "util/utils";
+import { useResumeList } from "./hooks/useResumeList";
 
-const data: ResumeListSearchResult[] = [
-  {
-    resumeId: "리쥬메ID1",
-    title: "이력서 제목",
-    contents: "이력서 내용",
-    recommendCnt: 10,
-    commentCnt: 10,
-    viewCnt: 20,
-    modifiedDate: "2022-01-18",
-    hashtag: ["front", "css", "javascript"],
-    memberId: "jungpil",
-    imageSrc: "",
-    nickname: "Cuzz",
-    isScrap: true,
-    years: 1,
-  },
-  {
-    resumeId: "리쥬메ID2",
-    title: "이력서 제목",
-    contents: "이력서 내용",
-    recommendCnt: 10,
-    commentCnt: 10,
-    viewCnt: 20,
-    modifiedDate: "2022-01-18",
-    hashtag: ["front", "css", "javascript"],
-    memberId: "jungpil",
-    imageSrc: "",
-    nickname: "Cuzz",
-    isScrap: true,
-    years: 1,
-  },
-  {
-    resumeId: "리쥬메ID3",
-    title: "이력서 제목",
-    contents: "이력서 내용",
-    recommendCnt: 10,
-    commentCnt: 10,
-    viewCnt: 20,
-    modifiedDate: "2022-01-18",
-    hashtag: ["front", "css", "javascript"],
-    memberId: "jungpil",
-    imageSrc: "",
-    nickname: "Cuzz",
-    isScrap: true,
-    years: 1,
-  },
-];
+// const data: ResumeListSearchResult[] = [
+//   {
+//     resumeId: "리쥬메ID1",
+//     title: "이력서 제목",
+//     contents: "이력서 내용",
+//     recommendCnt: 10,
+//     commentCnt: 10,
+//     viewCnt: 20,
+//     modifiedDate: "2022-01-18",
+//     hashtag: ["front", "css", "javascript"],
+//     memberId: "jungpil",
+//     imageSrc: "",
+//     nickname: "Cuzz",
+//     isScrap: true,
+//     years: 1,
+//   },
+//   {
+//     resumeId: "리쥬메ID2",
+//     title: "이력서 제목",
+//     contents: "이력서 내용",
+//     recommendCnt: 10,
+//     commentCnt: 10,
+//     viewCnt: 20,
+//     modifiedDate: "2022-01-18",
+//     hashtag: ["front", "css", "javascript"],
+//     memberId: "jungpil",
+//     imageSrc: "",
+//     nickname: "Cuzz",
+//     isScrap: true,
+//     years: 1,
+//   },
+//   {
+//     resumeId: "리쥬메ID3",
+//     title: "이력서 제목",
+//     contents: "이력서 내용",
+//     recommendCnt: 10,
+//     commentCnt: 10,
+//     viewCnt: 20,
+//     modifiedDate: "2022-01-18",
+//     hashtag: ["front", "css", "javascript"],
+//     memberId: "jungpil",
+//     imageSrc: "",
+//     nickname: "Cuzz",
+//     isScrap: true,
+//     years: 1,
+//   },
+// ];
 
 export default function Resume() {
   const open = useRecoilValue(openState);
+  const location = useLocation();
+  const queryPath = location.search;
+  const { data, isLoading } = useResumeList(queryPath);
 
   return (
     <>
@@ -92,11 +96,12 @@ export default function Resume() {
               "lg:grid-cols-3 lg:gap-3"
             )}
           >
-            {data.map((elem) => (
-              <div key={elem.resumeId}>
-                <ResumeListItem {...elem} />
-              </div>
-            ))}
+            {data &&
+              data.map((elem) => (
+                <div key={elem.resumeId}>
+                  <ResumeListItem {...elem} />
+                </div>
+              ))}
           </section>
           <FloatingButton to="./create" />
         </>

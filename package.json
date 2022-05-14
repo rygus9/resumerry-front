@@ -17,6 +17,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-hook-form": "^7.30.0",
+    "react-pdf": "^5.7.2",
     "react-query": "^3.39.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
@@ -52,9 +53,11 @@
     "@tailwindcss/forms": "^0.5.0",
     "@tailwindcss/typography": "^0.5.2",
     "@types/react-helmet": "^6.1.5",
+    "@types/react-pdf": "^5.7.2",
     "autoprefixer": "^10.4.4",
     "postcss": "^8.4.12",
     "react-helmet": "^6.1.0",
     "tailwindcss": "^3.0.24"
-  }
+  },
+  "proxy" : "http://localhost:8000"
 }

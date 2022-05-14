@@ -1,6 +1,5 @@
 import { CategoryKindType } from "../../components/molcular/category/categoryValue";
 import client from "./client";
-import axios from "axios";
 import { ListSearchResult } from "./typeinterface";
 
 export interface ResumeListSearchResult extends ListSearchResult {
@@ -13,7 +12,8 @@ export interface ResumeListSearchResult extends ListSearchResult {
 export interface ResumeListSearchApiInput {
   category: string;
   title: string;
-  aged: number[];
+  startYear: number;
+  endYear: number;
   hashtag: string[];
   sort: "recommand" | "view" | "aged";
 }
@@ -27,13 +27,10 @@ export interface ResumeMypageSearchResult {
   fileLink: string;
 }
 
-export interface ResumeListSearchApiResult {
-  resumes: ResumeListSearchResult[];
-}
+export type ResumeListSearchApiResult = ResumeListSearchResult[];
 
-export const ResumeListSearchApi = () => {
-  client.get("/resume");
-};
+export const ResumeListSearchApi = (queryString: string) =>
+  client.get("/api/resume" + queryString);
 
 export interface ResumeWriteApiInput {
   title: string;
@@ -55,15 +52,11 @@ export const ResumeWriteApi = (data: ResumeWriteApiInput) => {
   formData.append("contents", data.contents);
   formData.append("category", data.category);
   formData.append("years", data.years.toString());
-  formData.append("hashtag", data.hashtag.toString());
-  //memberID
-  formData.append("memberId", "3");
+  // formData.append("hashtag", data.hashtag.toString());
 
-  return axios.post(
-    `https://qlyrjvzj80.execute-api.ap-northeast-2.amazonaws.com/api/resume`,
-    formData,
-    {}
-  );
+  return client.post("/resume", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
 };
 
 export interface ResumeMypageSearchApiInput {
@@ -104,12 +97,11 @@ export const ResumeSearchApi = (userId: string, resumeId: string) => {
 };
 
 export interface ResumeFixApiInput {
-  userToken: string;
   title: string;
   contents: string;
   category: string;
   hashtag: string[];
-  link: string;
+  file: FileList;
   years: number;
 }
 
@@ -118,18 +110,22 @@ export interface ResumeFixApiResult {
 }
 
 export const ResumeFixApi = (
-  { userToken, category, title, contents, link, years }: ResumeFixApiInput,
+  data: ResumeFixApiInput,
   userId: string,
   resumeId: string
-) =>
-  client.put(`/resume/${userId}/${resumeId}`, {
-    userToken,
-    category,
-    title,
-    contents,
-    link,
-    years,
+) => {
+  const formData = new FormData();
+  formData.append("file", data.file[0]);
+  formData.append("title", data.title);
+  formData.append("contents", data.contents);
+  formData.append("category", data.category);
+  formData.append("years", data.years.toString());
+  // formData.append("hashtag", data.hashtag.toString());
+
+  return client.put(`/resume/${userId}/${resumeId}`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
   });
+};
 
 export interface ResumeDeleteApiInput {
   userToken: string;

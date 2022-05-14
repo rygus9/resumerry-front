@@ -22,4 +22,8 @@
     .text-subTitle {
         @apply text-2xl select-none text-black font-NotoSans
     }
+
+    .react-pdf__Page__canvas {
+        @apply m-auto w-full
+    }
 }
