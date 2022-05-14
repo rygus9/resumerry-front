@@ -8,7 +8,6 @@ const getResumeList = async (
   elem: string
 ): Promise<ResumeListSearchApiResult> => {
   const { data } = await ResumeListSearchApi(elem);
-  console.log(data);
   return data;
 };
 

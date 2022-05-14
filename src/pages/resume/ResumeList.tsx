@@ -64,6 +64,8 @@ export default function Resume() {
   const queryPath = location.search;
   const { data, isLoading } = useResumeList(queryPath);
 
+  console.log(data);
+
   return (
     <>
       <div
@@ -96,7 +98,7 @@ export default function Resume() {
               "lg:grid-cols-3 lg:gap-3"
             )}
           >
-            {data &&
+            {!isLoading && data &&
               data.map((elem) => (
                 <div key={elem.resumeId}>
                   <ResumeListItem {...elem} />

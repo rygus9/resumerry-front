@@ -30,7 +30,7 @@ export interface ResumeMypageSearchResult {
 export type ResumeListSearchApiResult = ResumeListSearchResult[];
 
 export const ResumeListSearchApi = (queryString: string) =>
-  client.get("/api/resume" + queryString);
+  client.get("/resume" + queryString);
 
 export interface ResumeWriteApiInput {
   title: string;
