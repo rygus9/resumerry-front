@@ -11,6 +11,7 @@ import { useRecoilState } from "recoil";
 import { openState } from "recoil/openState";
 import { cls } from "util/utils";
 import { usePost } from "./hooks/usePost";
+import { useComment } from "./hooks/usePostComment";
 import PostDeleteModal from "./PostDeleteModal";
 
 export default function Post() {
@@ -28,6 +29,11 @@ export default function Post() {
   const onDelete = useCallback(() => {
     setOpen({ ...open, postDeleteOpen: true });
   }, []);
+
+  const { isLoading: CommentLoading, data: commentData } = useComment(
+    params.userId!,
+    params.postId!
+  );
 
   return (
     <WrapContent>
@@ -96,7 +102,11 @@ export default function Post() {
                   </div>
 
                   <div className={cls("mt-2", "md:mt-12")}>
-                    <Chat commentCnt={postData.commentCnt} />
+                    <Chat
+                      commentCnt={postData.commentCnt}
+                      isLoading={CommentLoading}
+                      commentData={commentData}
+                    />
                   </div>
                 </article>
                 <SideInfo

@@ -5,31 +5,27 @@ import UpdateIcon from "components/atom/icons/UpdateIcon";
 import Input from "components/atom/input";
 import LabelInput from "components/atom/input/LabelInput";
 import TextArea from "components/atom/textArea";
-import RegisterCategory from "components/molcular/category/RegisterCategory";
-import Hashtag from "components/molcular/resume/Hashtag";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { ResumeWriteApiInput } from "util/api/resume";
+import { ResumeSearchApiResult, ResumeWriteApiInput } from "util/api/resume";
 import useGoBack from "util/hooks/goBack";
 import { cls } from "util/utils";
-import useResumeRegist from "./hooks/useResumeRegist";
+import { CategoryKindType } from "../category/categoryValue";
+import RegisterCategory from "../category/RegisterCategory";
+import Hashtag from "./Hashtag";
 
 type ResumeForm = ResumeWriteApiInput;
 
-export default function ResumeTemplate() {
-  // hook for fetch data
-  const { isLoading, mutate } = useResumeRegist();
+export default function ResumeForm({
+  submitFunc,
+  resume,
+}: {
+  isLoading: boolean;
+  submitFunc: any;
+  resume?: ResumeSearchApiResult;
+}) {
   const goBack = useGoBack();
 
-  // hook for pdf-viewer
-  const [numPages, setNumPages] = useState<number | null>(null);
-  const [pageNumber, setPageNumber] = useState(1);
-
-  function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
-    setNumPages(numPages);
-  }
-
-  // hook for form
   const {
     register,
     handleSubmit,
@@ -39,7 +35,7 @@ export default function ResumeTemplate() {
   } = useForm<ResumeForm>({ mode: "onSubmit" });
 
   const onValid = async (data: ResumeForm) => {
-    mutate(data);
+    submitFunc(data);
   };
 
   const onError = (error: any) => {
@@ -49,7 +45,13 @@ export default function ResumeTemplate() {
   useEffect(() => {
     setValue("category", "ALL");
     setValue("hashtag", []);
-  }, []);
+    if (resume) {
+      setValue("title", resume.title);
+      // setValue("category", resume.category as CategoryKindType);
+      setValue("contents", resume.contents);
+      setValue("years", resume.years);
+    }
+  }, [resume]);
 
   return (
     <div className={cls("lg:py-10 lg:bg-stone-100")}>

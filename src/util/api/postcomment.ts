@@ -1,16 +1,32 @@
 import client from "./client";
-import { CommentSearchResult, CommentDepthResult } from "./typeinterface";
 
-export interface PostCommentSearchResult extends CommentSearchResult {
-  postCommentGroup: number;
-  postCommentDepth: CommentDepthResult[];
+export interface CommentElemResult {
+  memberId: string;
+  commentId: number;
+  imageSrc: string;
+  nickname: string;
+  contents: string;
+  recommendCnt: number;
+  banCnt: number;
+  isAnonymous: boolean; //나중에 변경하자.
+  isDelete: boolean;
+  modifiedDate: string;
+  isOwner: boolean;
+  commentGroup: number;
+  commentDepth: number;
 }
+
+export interface MainCommentElemResult extends CommentElemResult {
+  childComments: CommentElemResult[];
+}
+
+export type PostCommentSearchApiResult = MainCommentElemResult[];
 
 export interface PostCommentWriteApiInput {
   contents: string;
   postCommentDepth: number;
   postCommentGroup: number;
-  isAnnonymouns: boolean;
+  isAnonymouns: boolean;
 }
 export interface PostCommentWriteApiResult {
   result: boolean;
@@ -21,75 +37,53 @@ export const PostCommentWriteApi = (
     contents,
     postCommentDepth,
     postCommentGroup,
-    isAnnonymouns,
+    isAnonymouns,
   }: PostCommentWriteApiInput,
   userId: string,
   postId: string
 ) =>
-  client.post(`/post/${userId}/${postId}/comment`, {
-    contents,
-    postCommentDepth,
-    postCommentGroup,
-    isAnnonymouns,
-  });
-
-export interface PostCommentDeleteApiInput {
-  userToken: string;
-}
+  client.post(
+    `/post/${userId}/${postId}/comment`,
+    {
+      contents,
+      isAnonymouns,
+      postCommentDepth,
+      postCommentGroup,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+    }
+  );
 
 export interface PostCommentDeleteApiResult {
   result: boolean;
 }
 
 export const PostCommentDeleteApi = (
-  { userToken }: PostCommentDeleteApiInput,
   userId: string,
   postId: string,
   commentId: string
-) =>
-  client.put(`/post/${userId}/${postId}/comment/${commentId}`, {
-    userToken,
-  });
+) => client.put(`/post/${userId}/${postId}/comment/${commentId}`, {});
 
-export interface PostCommentSearchApiInput {
-  userToken: string;
-}
-
-export interface PostCommentSearchApiResult {
-  comments: PostCommentSearchResult[];
-}
-
-export const PostCommentSearchApi = (userId: string, postId: string) => {
+export const PostCommentSearchApi = (userId: string, postId: string) =>
   client.get(`/post/${userId}/${postId}/comment`);
-};
 
-export interface PostCommentRecommendApiInput {
-  userToken: string;
-}
 export interface PostCommentRecommendApiResult {
   result: boolean;
 }
 export const PostCommentRecommendApi = (
-  { userToken }: PostCommentRecommendApiInput,
   userId: string,
   postId: string,
   commentId: string
-) =>
-  client.post(`/post/${userId}/${postId}/comment/${commentId}/recommend`, {
-    userToken,
-  });
-export interface PostCommentReportApiInput {
-  userToken: string;
-}
+) => client.post(`/post/${userId}/${postId}/comment/${commentId}/recommend`);
+
 export interface PostCommentReportApiResult {
   result: boolean;
 }
 export const PostCommentReportApi = (
-  { userToken }: PostCommentReportApiInput,
   userId: string,
   postId: string,
   commentId: string
-) =>
-  client.post(`/post/${userId}/${postId}/comment/${commentId}/ban`, {
-    userToken,
-  });
+) => client.post(`/post/${userId}/${postId}/comment/${commentId}/ban`);

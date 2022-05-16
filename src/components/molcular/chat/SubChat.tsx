@@ -1,24 +1,14 @@
 import IconNumber from "components/atom/common/IconNumber";
+import { CommentElemResult } from "util/api/postcomment";
 import { cls } from "util/utils";
 import UserInfo from "../common/UserInfo";
 import ChatInput from "./ChatInput";
-
-export interface ChatItemType {
-  memberId: string;
-  commentId: string;
-  isAnonymous: boolean;
-  modifiedDate: string;
-  nickname: string;
-  imageSrc: string;
-  contents: string;
-  recommendCnt: number;
-  banCnt: number;
-}
+import useCommentRegist from "./hooks/useCommentRegist";
 
 export default function SubChat({
-  postCommentDepth,
+  childComments,
 }: {
-  postCommentDepth: ChatItemType[];
+  childComments: CommentElemResult[];
 }) {
   return (
     <div
@@ -27,7 +17,7 @@ export default function SubChat({
         "sm:px-10"
       )}
     >
-      {postCommentDepth.map((elem, index) => (
+      {childComments.map((elem, index) => (
         <div key={index} className="pb-5">
           <div className="pb-5 pt-5 w-fit">
             <UserInfo
@@ -51,7 +41,7 @@ export default function SubChat({
         </div>
       ))}
       <div className="py-4">
-        <ChatInput />
+        <ChatInput depth={1} group={childComments[0].commentGroup} />
       </div>
     </div>
   );

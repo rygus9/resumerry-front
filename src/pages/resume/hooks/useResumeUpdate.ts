@@ -8,7 +8,7 @@ export default function usePostRegist() {
   const navigate = useNavigate();
 
   const resomeUpgrade = (newResume: ResumeFixApiInput) =>
-    ResumeFixApi(newResume, params.userId!, params.postId!);
+    ResumeFixApi(newResume, params.userId!, params.resumeId!);
 
   const { isLoading, mutate } = useMutation(
     (newResume: ResumeFixApiInput) => resomeUpgrade(newResume),

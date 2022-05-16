@@ -1,68 +1,29 @@
+import { useParams } from "react-router-dom";
+import { PostCommentSearchApiResult } from "util/api/postcomment";
 import ChatInput from "./ChatInput";
-import ChatItem, { MainChatItemProps } from "./ChatItem";
+import ChatItem from "./ChatItem";
 
-const commentData: MainChatItemProps[] = [
-  {
-    memberId: "유저1",
-    imageSrc: "file:image:src",
-    nickname: "Cuzz",
-    contents: "댓글 내용",
-    recommendCnt: 10,
-    banCnt: 3,
-    isAnonymous: true,
-    modifiedDate: "2022-04-02",
-    commentId: "댓글1",
-    postCommentDepth: [
-      {
-        memberId: "유저2",
-        imageSrc: "file:image:src",
-        nickname: "Cuzz",
-        contents: "댓글 내용",
-        recommendCnt: 10,
-        banCnt: 3,
-        isAnonymous: true,
-        modifiedDate: "2022-04-02",
-        commentId: "댓글1",
-      },
-      {
-        memberId: "유저3",
-        imageSrc: "file:image:src",
-        nickname: "Cuzz",
-        contents: "댓글 내용",
-        recommendCnt: 10,
-        banCnt: 3,
-        isAnonymous: true,
-        modifiedDate: "2022-04-02",
-        commentId: "댓글1",
-      },
-    ],
-  },
-  {
-    memberId: "유저3",
-    imageSrc: "file:image:src",
-    nickname: "Cuzz",
-    contents: "댓글 내용",
-    recommendCnt: 10,
-    banCnt: 3,
-    isAnonymous: true,
-    modifiedDate: "2022-04-02",
-    commentId: "댓글2",
-    postCommentDepth: [],
-  },
-];
-
-interface Props {
+export default function Chat({
+  commentCnt,
+  isLoading,
+  commentData,
+}: {
   commentCnt: number;
-}
-
-export default function Chat({ commentCnt }: Props) {
+  isLoading: boolean;
+  commentData: PostCommentSearchApiResult | undefined;
+}) {
   return (
     <>
-      <ChatInput label={`${commentCnt}개의 댓글`} />
+      <ChatInput
+        label={`${commentCnt}개의 댓글`}
+        depth={0}
+        group={commentCnt}
+      />
       <div className="divide-y divide-lightGray">
-        {commentData.map((elem, index) => (
-          <ChatItem key={index} {...elem} />
-        ))}
+        {!isLoading &&
+          commentData &&
+          commentData &&
+          commentData.map((elem, index) => <ChatItem key={index} {...elem} />)}
       </div>
     </>
   );

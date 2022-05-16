@@ -1,10 +1,5 @@
+import { PostCommentSearchApiResult } from "./postcomment";
 import client from "./client";
-import { CommentSearchResult, CommentDepthResult } from "./typeinterface";
-
-export interface ResumeCommentSearchResult extends CommentSearchResult {
-  resumeCommentGroup: number;
-  resumeCommentDepth: CommentDepthResult[];
-}
 
 export interface ResumeCommentWriteApiInput {
   userToken: string;
@@ -57,13 +52,10 @@ export interface ResumeCommentSearchApiInput {
   userToken: string;
 }
 
-export interface ResumeCommentSearchApiResult {
-  comments: ResumeCommentSearchResult[];
-}
+export type ResumeCommentSearchApiResult = PostCommentSearchApiResult;
 
-export const ResumeCommentSearchApi = (userId: string, resumeId: string) => {
+export const ResumeCommentSearchApi = (userId: string, resumeId: string) =>
   client.get(`/resume/${userId}/${resumeId}/comment`);
-};
 
 export interface ResumeCommentRecommendApiInput {
   userToken: string;

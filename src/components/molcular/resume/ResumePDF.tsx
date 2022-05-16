@@ -1,9 +1,10 @@
+import NormalButton from "components/atom/button/NormalButton";
 import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-export default function ResumePDF() {
+export default function ResumePDF({ path }: { path: string }) {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
 
@@ -15,16 +16,34 @@ export default function ResumePDF() {
     <div>
       <Document
         file={
-          "https://resume-file-storage.s3.ap-northeast-2.amazonaws.com/2022/05/14/7%E1%84%8C%E1%85%A9_%E1%84%8C%E1%85%AE%E1%86%BC%E1%84%80%E1%85%A1%E1%86%AB%E1%84%8C%E1%85%A6%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%89%E1%85%A5_%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%84%86%E1%85%B5%E1%86%BC.pdf"
+          "https://resume-file-storage.s3.ap-northeast-2.amazonaws.com" + path
         }
         onLoadSuccess={onDocumentLoadSuccess}
-        className={"w-full"}
       >
         <Page pageNumber={pageNumber} />
       </Document>
-      <p>
-        Page {pageNumber} of {numPages}
-      </p>
+      <div className="pb-10 flex justify-center items-center space-x-4">
+        <NormalButton
+          type="button"
+          onClick={() => {
+            if (pageNumber > 1) setPageNumber(pageNumber - 1);
+          }}
+        >
+          이전페이지
+        </NormalButton>
+        <div className="text-lightBlack">
+          현재 페이지 {pageNumber} / {numPages}
+        </div>
+        <NormalButton
+          type="button"
+          onClick={() => {
+            if (numPages && pageNumber < numPages)
+              setPageNumber(pageNumber + 1);
+          }}
+        >
+          다음페이지
+        </NormalButton>
+      </div>
     </div>
   );
 }

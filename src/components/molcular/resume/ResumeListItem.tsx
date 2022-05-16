@@ -17,7 +17,9 @@ export default function ResumeListItem({ ...elem }: Props) {
           imageSrc={elem.imageSrc}
           nickname={elem.nickname}
           size="sm"
-          modifiedDate={elem.modifiedDate}
+          modifiedDate={
+            elem.modifiedDate ? elem.modifiedDate.split("T")[0] : ""
+          }
         />
       </div>
       <Link to={`./${elem.memberId}/${elem.resumeId}`}>
@@ -27,7 +29,7 @@ export default function ResumeListItem({ ...elem }: Props) {
       </Link>
 
       <ul className="flex list-none pb-2">
-        {elem.hashtag.map((elem) => (
+        {/* {elem.hashtag.map((elem) => (
           <li
             key={elem}
             className={cls(
@@ -37,7 +39,7 @@ export default function ResumeListItem({ ...elem }: Props) {
           >
             #{elem}
           </li>
-        ))}
+        ))} */}
       </ul>
       <div className="flex justify-start items-center space-x-3">
         <IconNumber

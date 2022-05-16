@@ -11,18 +11,23 @@ export default function useCommentRegist() {
 
   const { isLoading, mutate } = useMutation(
     (newComment: PostCommentWriteApiInput) =>
-      PostCommentWriteApi(newComment, params.userId!, params.postId!),
+      PostCommentWriteApi(
+        {
+          contents: "ddd",
+          isAnonymouns: false,
+          postCommentDepth: 0,
+          postCommentGroup: 1,
+        },
+        params.userId!,
+        params.postId!
+      ),
     {
       onError: (error) => {
         const err = error as AxiosError;
         console.log("에러 발생", err.response);
       },
       onSuccess: (result) => {
-        if (result) {
-          alert("댓글 등록이 완료되었습니다.");
-        } else {
-          alert("등록에 실패하였습니다.");
-        }
+        console.log("성공 메시지:", result);
       },
     }
   );

@@ -18,8 +18,6 @@ export default function PostList(): JSX.Element {
 
   const { data, isLoading } = usePostList(queryPath);
 
-  console.log(data);
-
   return (
     <>
       {/* title */}

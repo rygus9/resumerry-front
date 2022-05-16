@@ -89,12 +89,12 @@ export interface ResumeSearchApiResult {
   memberId: string;
   imageLink: string;
   nickname: string;
-  isScrap: false;
+  isScrap: boolean;
+  isOwner: boolean;
 }
 
-export const ResumeSearchApi = (userId: string, resumeId: string) => {
+export const ResumeSearchApi = (userId: string, resumeId: string) =>
   client.get(`/resume/${userId}/${resumeId}`);
-};
 
 export interface ResumeFixApiInput {
   title: string;
@@ -145,14 +145,8 @@ export interface ResumeRecommendApiResult {
   result: boolean;
 }
 
-export const ResumeRecommendApi = (
-  { userToken }: ResumeRecommendApiInput,
-  userId: string,
-  resumeId: string
-) =>
-  client.post(`/resume/${userId}/${resumeId}/recommend`, {
-    userToken,
-  });
+export const ResumeRecommendApi = (userId: string, resumeId: string) =>
+  client.post(`/resume/${userId}/${resumeId}/recommend`);
 
 export interface ResumeScrapApiInput {
   userToken: string;
@@ -161,14 +155,8 @@ export interface ResumeScrapApiResult {
   result: boolean;
 }
 
-export const ResumeScrapApi = (
-  { userToken }: ResumeScrapApiInput,
-  userId: string,
-  resumeId: string
-) =>
-  client.post(`/resume/${userId}/${resumeId}/scrap`, {
-    userToken,
-  });
+export const ResumeScrapApi = (userId: string, resumeId: string) =>
+  client.post(`/resume/${userId}/${resumeId}/scrap`);
 
 export interface ResumeUnlockApiInput {
   userToken: string;

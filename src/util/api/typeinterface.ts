@@ -8,24 +8,3 @@ export interface ListSearchResult {
   imageSrc: string;
   nickname: string;
 }
-
-export interface CommentSearchResult {
-  memberId: string;
-  imageSrc: string;
-  nickname: string;
-  contents: string;
-  recommendCnt: number;
-  banCnt: number;
-  isAnonymous: boolean;
-  modifiedDate: string;
-}
-export interface CommentDepthResult {
-  memberId: string;
-  imageSrc: string;
-  nickname: string;
-  contents: string;
-  recommendCnt: number;
-  banCnt: number;
-  isAnonymous: boolean;
-  modifiedDate: string;
-}

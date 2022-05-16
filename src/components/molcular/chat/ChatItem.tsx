@@ -1,14 +1,11 @@
 import NormalButton from "components/atom/button/NormalButton";
 import IconNumber from "components/atom/common/IconNumber";
 import { useCallback, useState } from "react";
+import { MainCommentElemResult } from "util/api/postcomment";
 import UserInfo from "../common/UserInfo";
-import SubChat, { ChatItemType } from "./SubChat";
+import SubChat from "./SubChat";
 
-export interface MainChatItemProps extends ChatItemType {
-  postCommentDepth: ChatItemType[];
-}
-
-export default function ChatItem(elem: MainChatItemProps) {
+export default function ChatItem(elem: MainCommentElemResult) {
   const [subOpen, setSubOpen] = useState(false);
   const onClick = useCallback(() => setSubOpen(!subOpen), [subOpen]);
 
@@ -43,8 +40,8 @@ export default function ChatItem(elem: MainChatItemProps) {
             <>
               {subOpen && "댓글 닫기"}
               {!subOpen &&
-                (elem.postCommentDepth.length ? (
-                  <>{elem.postCommentDepth.length}개의 댓글</>
+                (elem.childComments.length ? (
+                  <>{elem.childComments.length}개의 댓글</>
                 ) : (
                   "댓글 작성"
                 ))}
@@ -52,7 +49,7 @@ export default function ChatItem(elem: MainChatItemProps) {
           </NormalButton>
         </div>
       </div>
-      {subOpen && <SubChat postCommentDepth={elem.postCommentDepth} />}
+      {subOpen && <SubChat childComments={elem.childComments} />}
     </div>
   );
 }
