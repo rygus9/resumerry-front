@@ -1,10 +1,9 @@
 import IconNumber from "components/atom/common/IconNumber";
 import { Link } from "react-router-dom";
-import { ResumeListSearchResult } from "util/api/resume";
-import { cls } from "util/utils";
+import { ResumeListType } from "util/api/resume";
 import UserInfo from "../common/UserInfo";
 
-type Props = ResumeListSearchResult;
+type Props = ResumeListType;
 
 export default function ResumeListItem({ ...elem }: Props) {
   return (

@@ -1,5 +1,5 @@
 import IconNumber from "components/atom/common/IconNumber";
-import { CommentElemResult } from "util/api/postcomment";
+import { CommentElemResult } from "util/api/comment";
 import { cls } from "util/utils";
 import UserInfo from "../common/UserInfo";
 import ChatInput from "./ChatInput";

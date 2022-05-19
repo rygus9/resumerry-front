@@ -79,7 +79,7 @@ export default function Resume() {
                       <span className="text-base text-pink-600">MyPick</span>
                     )}
                   </div>
-                  <div className="pb-3 pt-8 w-40">
+                  <div className="pb-3 pt-8 w-fit">
                     <UserInfo
                       modifiedDate={resumeData.modifiedDate}
                       nickname={resumeData.nickname}

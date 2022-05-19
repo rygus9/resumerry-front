@@ -1,7 +1,4 @@
-import {
-  PostCommentWriteApi,
-  PostCommentWriteApiInput,
-} from "util/api/postcomment";
+import { CommentWriteApiInput, PostCommentWriteApi } from "util/api/comment";
 import { useMutation } from "react-query";
 import { useParams } from "react-router-dom";
 import { AxiosError } from "axios";
@@ -10,13 +7,13 @@ export default function useCommentRegist() {
   const params = useParams();
 
   const { isLoading, mutate } = useMutation(
-    (newComment: PostCommentWriteApiInput) =>
+    (newComment: CommentWriteApiInput) =>
       PostCommentWriteApi(
         {
           contents: "ddd",
-          isAnonymouns: false,
-          postCommentDepth: 0,
-          postCommentGroup: 1,
+          isAnonymous: false,
+          commentDepth: 0,
+          commentGroup: 1,
         },
         params.userId!,
         params.postId!

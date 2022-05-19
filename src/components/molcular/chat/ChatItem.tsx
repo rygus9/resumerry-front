@@ -1,7 +1,7 @@
 import NormalButton from "components/atom/button/NormalButton";
 import IconNumber from "components/atom/common/IconNumber";
 import { useCallback, useState } from "react";
-import { MainCommentElemResult } from "util/api/postcomment";
+import { MainCommentElemResult } from "util/api/comment";
 import UserInfo from "../common/UserInfo";
 import SubChat from "./SubChat";
 

@@ -1,10 +1,17 @@
 import { CategoryKindType } from "../../components/molcular/category/categoryValue";
 import client from "./client";
-import { ListSearchResult } from "./typeinterface";
 
-export interface PostListSearchResult extends ListSearchResult {
+export interface PostListSearchResult {
   postId: string;
   isAnonymous: boolean;
+  title: string;
+  contents: string;
+  commentCnt: number;
+  viewCnt: number;
+  modifiedDate: string;
+  memberId: string;
+  imageSrc: string;
+  nickname: string;
 }
 
 export interface PostMypageSearchResult {

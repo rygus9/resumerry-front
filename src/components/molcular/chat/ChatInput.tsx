@@ -1,11 +1,8 @@
-import { AxiosResponse } from "axios";
 import NormalButton from "components/atom/button/NormalButton";
 import LabelCheckBox from "components/atom/selectBox/LabelSeleckBox";
 import TextArea from "components/atom/textArea";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { UseMutateFunction } from "react-query/types/react/types";
-import { PostCommentWriteApiInput } from "util/api/postcomment";
+import { CommentWriteApiInput } from "util/api/comment";
 import { cls } from "util/utils";
 import useCommentRegist from "./hooks/useCommentRegist";
 
@@ -25,15 +22,15 @@ export default function ChatInput({ label, depth, group }: Props) {
     setValue,
     formState: { errors },
     handleSubmit,
-  } = useForm<PostCommentWriteApiInput>({ mode: "onSubmit" });
+  } = useForm<CommentWriteApiInput>({ mode: "onSubmit" });
 
-  setValue("postCommentDepth", depth);
-  setValue("postCommentGroup", group);
+  setValue("commentDepth", depth);
+  setValue("commentGroup", group);
 
   const { isLoading: isCommentLoading, mutate: commentMutate } =
     useCommentRegist();
 
-  const onValid = async (data: PostCommentWriteApiInput) => {
+  const onValid = async (data: CommentWriteApiInput) => {
     commentMutate(data);
   };
 
@@ -57,7 +54,7 @@ export default function ChatInput({ label, depth, group }: Props) {
           "sm:space-x-4"
         )}
       >
-        <LabelCheckBox label="익명 여부" register={register("isAnonymouns")} />
+        <LabelCheckBox label="익명 여부" register={register("isAnonymous")} />
         <NormalButton type="submit" color="normalColor">
           댓글 작성
         </NormalButton>

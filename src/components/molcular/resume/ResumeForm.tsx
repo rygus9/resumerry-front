@@ -7,10 +7,9 @@ import LabelInput from "components/atom/input/LabelInput";
 import TextArea from "components/atom/textArea";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { ResumeSearchApiResult, ResumeWriteApiInput } from "util/api/resume";
+import { ResumeType, ResumeWriteApiInput } from "util/api/resume";
 import useGoBack from "util/hooks/goBack";
 import { cls } from "util/utils";
-import { CategoryKindType } from "../category/categoryValue";
 import RegisterCategory from "../category/RegisterCategory";
 import Hashtag from "./Hashtag";
 
@@ -22,7 +21,7 @@ export default function ResumeForm({
 }: {
   isLoading: boolean;
   submitFunc: any;
-  resume?: ResumeSearchApiResult;
+  resume?: ResumeType;
 }) {
   const goBack = useGoBack();
 

@@ -11,5 +11,9 @@ const getPost = async (
 };
 
 export const usePost = (userId: string, postId: string) => {
-  return useQuery(["posts", userId, postId], () => getPost(userId, postId));
+  return useQuery(["posts", userId, postId], () => getPost(userId, postId), {
+    refetchOnWindowFocus: false,
+    retry: false,
+    staleTime: 10000,
+  });
 };

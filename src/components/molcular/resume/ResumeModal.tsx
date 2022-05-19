@@ -10,16 +10,11 @@ import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { openState } from "recoil/openState";
+import { ResumeListSearchApiInput } from "util/api/resume";
 import { cls } from "util/utils";
 import Hashtag from "./Hashtag";
 
-interface ResumeFilterForm {
-  title: string;
-  sort: "recent" | "view" | "aged" | "recommand";
-  startYear: number;
-  endYear: number;
-  hashtag: string[];
-}
+type ResumeFilterForm = ResumeListSearchApiInput;
 
 export default function ResumeModal() {
   const [open, setOpen] = useRecoilState(openState);

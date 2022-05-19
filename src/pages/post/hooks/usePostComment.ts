@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import {
   PostCommentSearchApi,
   PostCommentSearchApiResult,
-} from "util/api/postcomment";
+} from "util/api/comment";
 
 const getComment = async (
   userId: string,
