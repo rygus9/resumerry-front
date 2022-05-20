@@ -12,7 +12,6 @@ import { useRecoilState } from "recoil";
 import { openState } from "recoil/openState";
 import { ResumeListSearchApiInput } from "util/api/resume";
 import { cls } from "util/utils";
-import Hashtag from "./Hashtag";
 
 type ResumeFilterForm = ResumeListSearchApiInput;
 
@@ -117,8 +116,15 @@ export default function ResumeModal() {
                 <span className="lightBlack">&nbsp;까지&nbsp;&nbsp;&nbsp;</span>
               </div>
             </fieldset>
-            <fieldset>
-              <Hashtag hashtagList={watch().hashtag} setValue={setValue} />
+            <fieldset className="w-36">
+              <LabelInput
+                label={"해시태그"}
+                labelSize="md"
+                inputSize="sm"
+                color="black"
+                placeholder="해시태그(#빼고)"
+                register={register("hashtag")}
+              ></LabelInput>
             </fieldset>
           </div>
           {/* button */}

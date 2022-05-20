@@ -1,5 +1,8 @@
-import { useParams } from "react-router-dom";
-import { PostCommentSearchApiResult } from "util/api/comment";
+import {
+  MainCommentElemResult,
+  PostCommentSearchApiResult,
+} from "util/api/comment";
+import LoadingUI from "../common/LoadingUI";
 import ChatInput from "./ChatInput";
 import ChatItem from "./ChatItem";
 
@@ -12,19 +15,29 @@ export default function Chat({
   isLoading: boolean;
   commentData: PostCommentSearchApiResult | undefined;
 }) {
+  console.log(commentData);
   return (
     <>
-      <ChatInput
-        label={`${commentCnt}개의 댓글`}
-        depth={0}
-        group={commentCnt}
-      />
-      <div className="divide-y divide-lightGray">
-        {!isLoading &&
-          commentData &&
-          commentData &&
-          commentData.map((elem, index) => <ChatItem key={index} {...elem} />)}
-      </div>
+      {isLoading ? (
+        <div className="mt-10">
+          <LoadingUI />
+        </div>
+      ) : (
+        <>
+          <ChatInput
+            label={`${commentCnt}개의 댓글`}
+            depth={0}
+            group={commentData ? commentData?.length : 0}
+          />
+          <div className="divide-y divide-lightGray">
+            {!isLoading &&
+              commentData &&
+              commentData.map((elem, index) => (
+                <ChatItem key={index} {...elem} />
+              ))}
+          </div>
+        </>
+      )}
     </>
   );
 }

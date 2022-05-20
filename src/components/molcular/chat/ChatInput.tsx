@@ -32,6 +32,7 @@ export default function ChatInput({ label, depth, group }: Props) {
 
   const onValid = async (data: CommentWriteApiInput) => {
     commentMutate(data);
+    setValue("contents", "");
   };
 
   return (

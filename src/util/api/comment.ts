@@ -11,7 +11,7 @@ export interface CommentElemResult {
   recommendCnt: number;
   banCnt: number;
   isAnonymous: boolean;
-  isDelete: boolean;
+  isDelete: "N" | "Y";
   isOwner: boolean;
   isRecommend: boolean;
   isBanned: boolean;
@@ -64,15 +64,15 @@ export type PostCommentDeleteApiResult = CommonCUDResult;
 export const PostCommentDeleteApi = (
   userId: string,
   postId: string,
-  commentId: string
-) => client.put(`/post/${userId}/${postId}/comment/${commentId}`, {});
+  commentId: number
+) => client.delete(`/post/${userId}/${postId}/comment/${commentId}`, {});
 
 export type PostCommentRecommendApiResult = CommonCUDResult;
 
 export const PostCommentRecommendApi = (
   userId: string,
   postId: string,
-  commentId: string
+  commentId: number
 ) => client.post(`/post/${userId}/${postId}/comment/${commentId}/recommend`);
 
 export type PostCommentReportApiResult = CommonCUDResult;
@@ -80,7 +80,7 @@ export type PostCommentReportApiResult = CommonCUDResult;
 export const PostCommentReportApi = (
   userId: string,
   postId: string,
-  commentId: string
+  commentId: number
 ) => client.post(`/post/${userId}/${postId}/comment/${commentId}/ban`);
 
 // Resume
@@ -90,20 +90,23 @@ export const ResumeCommentWriteApi = (
   { contents, commentDepth, commentGroup, isAnonymous }: CommentWriteApiInput,
   userId: string,
   resumeId: string
-) =>
-  client.post(`/resume/${userId}/${resumeId}/comment`, {
+) => {
+  console.log({ contents, commentDepth, commentGroup, isAnonymous });
+
+  return client.post(`/resume/${userId}/${resumeId}/comment`, {
     contents,
     commentDepth,
     commentGroup,
     isAnonymous,
   });
+};
 
 export type ResumeCommentDeleteApiResult = CommonCUDResult;
 
 export const ResumeCommentDeleteApi = (
   userId: string,
   resumeId: string,
-  commentId: string
+  commentId: number
 ) => client.put(`/resume/${userId}/${resumeId}/comment/${commentId}`);
 
 export type ResumeCommentSearchApiResult = MainCommentElemResult[];
@@ -116,7 +119,7 @@ export type ResumeCommentRecommendApiResult = CommonCUDResult;
 export const ResumeCommentRecommendApi = (
   userId: string,
   resumeId: string,
-  commentId: string
+  commentId: number
 ) =>
   client.post(`/resume/${userId}/${resumeId}/comment/${commentId}/recommend`);
 
@@ -125,5 +128,5 @@ export type ResumeCommentReportApiResult = CommonCUDResult;
 export const ResumeCommentReportApi = (
   userId: string,
   resumeId: string,
-  commentId: string
-) => client.post(`/resume/${userId}/${resumeId}/comment/${commentId}/ban`);
+  commentId: number
+) => client.post(`/resume/${userId}/${resumeId}/comment/${commentId}/bam`);

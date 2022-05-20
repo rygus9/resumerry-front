@@ -22,7 +22,7 @@ export default function ResumePDF({ path }: { path: string }) {
       >
         <Page pageNumber={pageNumber} />
       </Document>
-      <div className="pb-10 flex justify-center items-center space-x-4">
+      <div className="pb-10 pt-5 flex justify-center items-center space-x-4">
         <NormalButton
           type="button"
           onClick={() => {

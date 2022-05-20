@@ -13,7 +13,7 @@ const getComment = async (
 };
 
 export const useComment = (userId: string, resumeId: string) => {
-  return useQuery(["Postcomment", userId, resumeId], () =>
+  return useQuery(["ResumeComment", userId, resumeId], () =>
     getComment(userId, resumeId)
   );
 };

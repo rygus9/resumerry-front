@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { ResumeType, ResumeWriteApiInput } from "util/api/resume";
 import useGoBack from "util/hooks/goBack";
 import { cls } from "util/utils";
+import { CategoryKindType } from "../category/categoryValue";
 import RegisterCategory from "../category/RegisterCategory";
 import Hashtag from "./Hashtag";
 
@@ -46,9 +47,10 @@ export default function ResumeForm({
     setValue("hashtag", []);
     if (resume) {
       setValue("title", resume.title);
-      // setValue("category", resume.category as CategoryKindType);
+      setValue("category", resume.category as CategoryKindType);
       setValue("contents", resume.contents);
       setValue("years", resume.years);
+      setValue("hashtag", resume.hashtag);
     }
   }, [resume]);
 

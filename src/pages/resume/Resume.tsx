@@ -14,6 +14,8 @@ import ResumeDeleteModal from "./ResumeDeleteModal";
 import { useResumeRecommmend } from "./hooks/useResumeRecommend";
 import { useResumeScrap } from "./hooks/useResumeScrap";
 import { useComment } from "./hooks/useResumeComment";
+import ResumeInfo from "components/molcular/resume/ResumeInfo";
+import LoadingText from "components/molcular/common/LoadingText";
 
 export default function Resume() {
   const [open, setOpen] = useRecoilState(openState);
@@ -42,7 +44,7 @@ export default function Resume() {
   const { isLoading: isRecommendLoading, mutate: recommendMutate } =
     useResumeRecommmend();
 
-  const { isLoading: isRecommendScrap, mutate: scrapMutate } =
+  const { isLoading: isScrapLoading, mutate: scrapMutate } =
     useResumeScrap(setScrap);
 
   const { isLoading: CommentLoading, data: commentData } = useComment(
@@ -55,7 +57,9 @@ export default function Resume() {
       <div className={cls("flex flex-col", "lg:flex-row")}>
         <div className={cls("flex-auto w-full")}>
           {isLoading && !resumeData ? (
-            <LoadingUI />
+            <div className="mt-10">
+              <LoadingUI />
+            </div>
           ) : (
             <>
               {resumeData && (
@@ -114,7 +118,7 @@ export default function Resume() {
                             scrapMutate();
                           }}
                         >
-                          스크랩하기
+                          {isScrapLoading ? <LoadingText /> : "스크랩취소"}
                         </NormalButton>
                       ) : (
                         <NormalButton
@@ -123,23 +127,15 @@ export default function Resume() {
                             scrapMutate();
                           }}
                         >
-                          스크랩하기
+                          {isScrapLoading ? <LoadingText /> : "스크랩하기"}
                         </NormalButton>
                       )}
-                      <NormalButton type="button">추천하기</NormalButton>
                     </div>
                     <div className="space-x-4 flex">
-                      <IconNumber
-                        src="/img/icons/chat.svg"
-                        number={resumeData.commentCnt}
-                      />
-                      <IconNumber
-                        src="/img/icons/good.svg"
-                        number={resumeData.recommendCnt}
-                      />
-                      <IconNumber
-                        src="/img/icons/view.svg"
-                        number={resumeData.viewCnt}
+                      <ResumeInfo
+                        recommendCnt={resumeData.recommendCnt}
+                        viewCnt={resumeData.viewCnt}
+                        commentCnt={resumeData.commentCnt}
                       />
                     </div>
                   </div>

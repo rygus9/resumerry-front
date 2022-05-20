@@ -1,28 +1,36 @@
+import { cls } from "util/utils";
+
 type Props = {
-  src: string;
+  icon: JSX.Element;
   number: number;
-  iconSize?: 'sm' | 'md' | 'lg';
+  isTrue?: boolean;
+  iconSize?: "sm" | "md" | "lg";
 };
 
 IconNumber.defaultProps = {
-  iconSize: 'md',
+  iconSize: "md",
+  isTrue: false,
 };
 
 export default function IconNumber({
-  src,
+  icon,
   number,
-  iconSize,
+  isTrue,
 }: Props): JSX.Element {
   return (
-    <div className="flex items-center space-x-2">
-      <img src={src} alt="" className={sizeValue[iconSize!]} />
-      <span className="text-lightBlack">{number}</span>
+    <div className="flex items-center space-x-1">
+      {icon}
+      <span
+        className={cls("text-lg", isTrue ? "text-red-500" : "text-lightBlack")}
+      >
+        {number}
+      </span>
     </div>
   );
 }
 
 const sizeValue = {
-  sm: 'w-5 h-5',
-  md: 'w-7 h-6',
-  lg: 'w-10 h-10',
+  sm: "w-5 h-5",
+  md: "w-7 h-6",
+  lg: "w-10 h-10",
 };
