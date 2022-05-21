@@ -17,18 +17,18 @@ import Mainpage from "pages/MainPage";
 
 export default function App() {
   const open = useRecoilValue(openState);
+  const isModal =
+    open.loginOpen ||
+    open.postFilterOpen ||
+    open.resumeFilterOpen ||
+    open.postDeleteOpen ||
+    open.resumeDeleteOpen;
 
   return (
     <div
       className={cls(
         "w-full min-h-screen bg-white overflow-x-hidden",
-        open.loginOpen ||
-          open.postFilterOpen ||
-          open.resumeFilterOpen ||
-          open.postDeleteOpen ||
-          open.resumeDeleteOpen
-          ? "h-screen overflow-hidden"
-          : "h-fit"
+        isModal ? "h-screen overflow-hidden" : "h-fit"
       )}
     >
       <Header />

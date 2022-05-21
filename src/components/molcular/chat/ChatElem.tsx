@@ -53,7 +53,7 @@ export default function ChatElem({ button, ...elem }: ChatElemProps) {
           </div>
         )}
       </div>
-      <p className="text-lg text-black">
+      <p className="text-lg text-black min-h-[3rem]">
         {elem.isDelete === "Y"
           ? "삭제된 댓글입니다."
           : elem.contents.split("\n").map((elem, index) => (
@@ -64,14 +64,16 @@ export default function ChatElem({ button, ...elem }: ChatElemProps) {
       </p>
       <div className="mt-5 flex justify-between">
         <div className="flex space-x-2 items-center">
-          <ChatInfo
-            isBanned={elem.isBanned}
-            isRecommend={elem.isRecommend}
-            recommendCnt={elem.recommendCnt}
-            banCnt={elem.banCnt}
-            onRecommend={RecommendMutate}
-            onReport={ReportMutate}
-          ></ChatInfo>
+          {elem.isDelete === "N" && (
+            <ChatInfo
+              isBanned={elem.isBanned}
+              isRecommend={elem.isRecommend}
+              recommendCnt={elem.recommendCnt}
+              banCnt={elem.banCnt}
+              onRecommend={RecommendMutate}
+              onReport={ReportMutate}
+            ></ChatInfo>
+          )}
         </div>
         {button && button}
       </div>

@@ -15,7 +15,6 @@ export default function Chat({
   isLoading: boolean;
   commentData: PostCommentSearchApiResult | undefined;
 }) {
-  console.log(commentData);
   return (
     <>
       {isLoading ? (
