@@ -14,6 +14,7 @@ import PostUpdate from "pages/post/PostUpdate";
 import ResumeCreate from "pages/resume/ResumeCreate";
 import ResumeUpdate from "pages/resume/ResumeUpdate";
 import Mainpage from "pages/MainPage";
+import Mypage from "pages/mypage/MyPage";
 
 export default function App() {
   const open = useRecoilValue(openState);
@@ -47,6 +48,7 @@ export default function App() {
             path="/resume/:userId/:resumeId/update"
             element={<ResumeUpdate />}
           />
+          <Route path="/mypage/:userId" element={<Mypage />} />
         </Routes>
       </main>
       {open.loginOpen && <LoginModal />}

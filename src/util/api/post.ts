@@ -25,6 +25,10 @@ export interface PostMypageSearchResult {
   imageSrc: string;
   nickname: string;
 }
+export type PostListMypageSearchApiResult = PostMypageSearchResult[];
+
+export const PostListMypageSearchApi = (userId: string) =>
+  client.get(`/post/${userId}`);
 
 export type PostListSearchApiResult = PostListSearchResult[];
 
