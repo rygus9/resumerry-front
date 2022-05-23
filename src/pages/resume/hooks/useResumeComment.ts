@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import {
   ResumeCommentSearchApi,
   ResumeCommentSearchApiResult,
-} from "util/api/resumecomment";
+} from "util/api/comment";
 
 const getComment = async (
   userId: string,
@@ -13,7 +13,7 @@ const getComment = async (
 };
 
 export const useComment = (userId: string, resumeId: string) => {
-  return useQuery(["Postcomment", userId, resumeId], () =>
+  return useQuery(["ResumeComment", userId, resumeId], () =>
     getComment(userId, resumeId)
   );
 };

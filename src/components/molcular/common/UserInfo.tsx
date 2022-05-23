@@ -69,7 +69,9 @@ export default function UserInfo({
         )}
       </div>
       {modifiedDate && (
-        <div className="text-md px-3 text-deepGray w-fit">{modifiedDate}</div>
+        <div className="text-md px-3 text-deepGray w-fit">
+          {modifiedDate.split("T")[0]}
+        </div>
       )}
     </div>
   );

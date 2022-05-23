@@ -20,18 +20,7 @@ export default function App() {
   const open = useRecoilValue(openState);
 
   return (
-    <div
-      className={cls(
-        "w-full min-h-screen bg-white overflow-x-hidden",
-        open.loginOpen ||
-          open.postFilterOpen ||
-          open.resumeFilterOpen ||
-          open.postDeleteOpen ||
-          open.resumeDeleteOpen
-          ? "h-screen overflow-hidden"
-          : "h-fit"
-      )}
-    >
+    <div className={cls("w-full min-h-screen bg-white overflow-x-hidden")}>
       <Header />
       <main className="w-full pt-14">
         <Routes>

@@ -1,10 +1,11 @@
 import IconNumber from "components/atom/common/IconNumber";
 import { Link } from "react-router-dom";
-import { ResumeListSearchResult } from "util/api/resume";
+import { ResumeListType } from "util/api/resume";
 import { cls } from "util/utils";
 import UserInfo from "../common/UserInfo";
+import ResumeInfo from "./ResumeInfo";
 
-type Props = ResumeListSearchResult;
+type Props = ResumeListType;
 
 export default function ResumeListItem({ ...elem }: Props) {
   return (
@@ -29,33 +30,24 @@ export default function ResumeListItem({ ...elem }: Props) {
       </Link>
 
       <ul className="flex list-none pb-2">
-        {/* {elem.hashtag.map((elem) => (
-          <li
-            key={elem}
-            className={cls(
-              "mr-2 cursor-pointer text-lightBlack",
-              "hover:text-deepBlack"
-            )}
-          >
-            #{elem}
-          </li>
-        ))} */}
+        {elem.hashtag &&
+          elem.hashtag.map((elem) => (
+            <li
+              key={elem}
+              className={cls(
+                "mr-2 cursor-pointer text-lightBlack",
+                "hover:text-deepBlack"
+              )}
+            >
+              #{elem}
+            </li>
+          ))}
       </ul>
       <div className="flex justify-start items-center space-x-3">
-        <IconNumber
-          number={elem.recommendCnt}
-          src="/img/icons/good.svg"
-          iconSize="sm"
-        />
-        <IconNumber
-          number={elem.viewCnt}
-          src="/img/icons/view.svg"
-          iconSize="sm"
-        />
-        <IconNumber
-          number={elem.commentCnt}
-          src="/img/icons/chat.svg"
-          iconSize="sm"
+        <ResumeInfo
+          recommendCnt={elem.recommendCnt}
+          viewCnt={elem.viewCnt}
+          commentCnt={elem.commentCnt}
         />
       </div>
     </div>

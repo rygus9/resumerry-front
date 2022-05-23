@@ -1,13 +1,13 @@
 import PostListItem from "components/molcular/post/PostMypageListItem";
 import IconNumber from "components/atom/common/IconNumber";
 import Normalbutton from "components/atom/button/NormalButton";
-import { ResumeListSearchResult } from "util/api/resume";
 import ResumeListItem from "components/molcular/resume/ResumeListItem";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { usePost } from "../post/hooks/useMypagePost";
 import MypageNav from "./MypageNav";
 import { cls } from "util/utils";
+import ChatIcon from "components/atom/icons/chatIcon/ChatIcon";
 
 const data = [
   {
@@ -81,7 +81,7 @@ export default function Mypage(): JSX.Element {
           >
             이름
           </div>
-          <IconNumber src="/img/icons/chat.svg" number={0} />
+          <IconNumber icon={<ChatIcon />} number={0} />
         </div>
         <div
           className={cls(
