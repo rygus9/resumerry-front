@@ -27,6 +27,7 @@ export default function LoginForm() {
     const mutation = useMutation((userInfo: LoginForm) => loginApi(userInfo), {
       onSuccess: (result) => {
         localStorage.setItem("userToken", result.data.access_token);
+        localStorage.setItem("myMemberId", result.data.member_id);
         setOpen({ ...open, loginOpen: !open.loginOpen });
         goHome();
         location.reload();

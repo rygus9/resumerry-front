@@ -1,4 +1,6 @@
 import IconNumber from "components/atom/common/IconNumber";
+import ChatIcon from "components/atom/icons/chatIcon/ChatIcon";
+import ViewIcon from "components/atom/icons/chatIcon/ViewIcon";
 import { Link } from "react-router-dom";
 import { cls } from "util/utils";
 import UserInfo from "../common/UserInfo";
@@ -49,8 +51,8 @@ export default function PostListItem({
           className={cls("flex justify-between mr-3 mt-1", "sm:mr-10 sm:mt-0")}
         >
           <div className={cls("flex space-x-3", "sm:space-x-5")}>
-            <IconNumber src="/img/icons/chat.svg" number={commentCnt} />
-            <IconNumber src="/img/icons/view.svg" number={viewCnt} />
+            <IconNumber icon={<ChatIcon />} number={commentCnt} />
+            <IconNumber icon={<ViewIcon />} number={viewCnt} />
           </div>
         </div>
       </div>

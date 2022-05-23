@@ -18,20 +18,9 @@ import Mypage from "pages/mypage/MyPage";
 
 export default function App() {
   const open = useRecoilValue(openState);
-  const isModal =
-    open.loginOpen ||
-    open.postFilterOpen ||
-    open.resumeFilterOpen ||
-    open.postDeleteOpen ||
-    open.resumeDeleteOpen;
 
   return (
-    <div
-      className={cls(
-        "w-full min-h-screen bg-white overflow-x-hidden",
-        isModal ? "h-screen overflow-hidden" : "h-fit"
-      )}
-    >
+    <div className={cls("w-full min-h-screen bg-white overflow-x-hidden")}>
       <Header />
       <main className="w-full pt-14">
         <Routes>
