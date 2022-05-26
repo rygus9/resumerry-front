@@ -15,23 +15,14 @@ import ResumeCreate from "pages/resume/ResumeCreate";
 import ResumeUpdate from "pages/resume/ResumeUpdate";
 import Mainpage from "pages/MainPage";
 import Mypage from "pages/mypage/MyPage";
+import Test from "pages/Test/Test";
+import Recommend from "pages/recommend/Recommend";
 
 export default function App() {
   const open = useRecoilValue(openState);
 
   return (
-    <div
-      className={cls(
-        "w-full min-h-screen bg-white overflow-x-hidden",
-        open.loginOpen ||
-          open.postFilterOpen ||
-          open.resumeFilterOpen ||
-          open.postDeleteOpen ||
-          open.resumeDeleteOpen
-          ? "h-screen overflow-hidden"
-          : "h-fit"
-      )}
-    >
+    <div className={cls("w-full min-h-screen bg-white overflow-x-hidden")}>
       <Header />
       <main className="w-full pt-14">
         <Routes>
@@ -49,6 +40,8 @@ export default function App() {
             element={<ResumeUpdate />}
           />
           <Route path="/mypage/:userId" element={<Mypage />} />
+          <Route path="/recommend" element={<Recommend />} />
+          <Route path="/test" element={<Test />} />
         </Routes>
       </main>
       {open.loginOpen && <LoginModal />}

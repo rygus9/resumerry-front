@@ -1,6 +1,8 @@
 import PostListItem from "components/molcular/post/PostMypageListItem";
 import IconNumber from "components/atom/common/IconNumber";
 import Normalbutton from "components/atom/button/NormalButton";
+
+import ResumeListItem from "components/molcular/resume/ResumeListItem";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useMypagePostQuery } from "./hooks/useMypagePost";
 import { useMypageQuery } from "./hooks/useMypageQuery";
@@ -9,8 +11,8 @@ import MypageNav from "./MypageNav";
 import { cls } from "util/utils";
 import { useMypageResumeQuery } from "./hooks/useMypageResume";
 import ResumeMypageListItem from "components/molcular/mypage/MypageResume";
-import MypageToken from "./MypageToken";
 import MypageResume from "components/molcular/mypage/MypageResume";
+import ChatIcon from "components/atom/icons/chatIcon/ChatIcon";
 
 export default function Mypage(): JSX.Element {
   const params = useParams();
@@ -60,7 +62,7 @@ export default function Mypage(): JSX.Element {
           >
             이름
           </div>
-          <IconNumber src="/img/icons/chat.svg" number={0} />
+          <IconNumber icon={<ChatIcon />} number={0} />
         </div>
         <div
           className={cls(

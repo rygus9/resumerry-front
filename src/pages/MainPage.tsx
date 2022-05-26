@@ -1,10 +1,10 @@
 import PostListItem from "components/molcular/post/PostListItem";
 import { cls } from "util/utils";
 import WrapContent from "pages/common/WrapContent";
-import { ResumeListSearchResult } from "util/api/resume";
 import ResumeListItem from "components/molcular/resume/ResumeListItem";
+import { ResumeListSearchApiResult } from "util/api/resume";
 
-const data_ResumeSearch: ResumeListSearchResult[] = [
+const data_ResumeSearch: ResumeListSearchApiResult = [
   {
     resumeId: "리쥬메ID1",
     title: "이력서 제목",
@@ -17,7 +17,6 @@ const data_ResumeSearch: ResumeListSearchResult[] = [
     memberId: "jungpil",
     imageSrc: "",
     nickname: "Cuzz",
-    isScrap: true,
     years: 1,
   },
   {
@@ -32,7 +31,6 @@ const data_ResumeSearch: ResumeListSearchResult[] = [
     memberId: "jungpil",
     imageSrc: "",
     nickname: "Cuzz",
-    isScrap: true,
     years: 1,
   },
   {
@@ -47,7 +45,6 @@ const data_ResumeSearch: ResumeListSearchResult[] = [
     memberId: "jungpil",
     imageSrc: "",
     nickname: "Cuzz",
-    isScrap: true,
     years: 1,
   },
 ];
@@ -94,26 +91,30 @@ const data = [
 ];
 export default function Mainpage(): JSX.Element {
   return (
-    <>
-      {/* title */}
-      <WrapContent>
+    <WrapContent>
+      <>
+        <div className="pt-16 pb-8">
+          <h3 className="text-2xl text-deepGray font-DoHyean">
+            이력서 첨삭 커뮤니티
+          </h3>
+          <h1 className="text-title">Resumerry</h1>
+        </div>
         <>
           <div className="grid bg-stone-50 grid-rows-[10%,90%]">
             <div
               className={cls(
-                "grid grid-cols-3 bg-purple-300 text-white font-bold text-[0.95rem]"
+                "flex items-center bg-purple-300 text-white font-bold text-[0.95rem]"
               )}
             >
-              <div></div>
-              <div className="text-center text">Resumerry Pick's</div>
+              <div className="flex-1 text-center">Resumerry Pick's</div>
               <div className="text-right mr-4">
                 more <span> {">"} </span>
               </div>
             </div>
             <section
               className={cls(
-                "grid mt-10 py-5 px-5 grid-cols-1 gap-8",
-                "sm:grid-cols-2 sm:gap-x-2 overflow-hidden max-h-[264px] gap-y-16",
+                "grid py-5 px-5 grid-cols-1 gap-8 shadow-inner",
+                "sm:grid-cols-2 sm:gap-x-2 overflow-hidden max-h-[280px]",
                 "md:gap-8",
                 "lg:grid-cols-3 lg:gap-3"
               )}
@@ -126,29 +127,24 @@ export default function Mainpage(): JSX.Element {
             </section>
           </div>
         </>
-      </WrapContent>
-      <WrapContent>
         <div className="bg-white">
           <div className={cls("mt-5", "sm:mt-10")}></div>
-          <div className="grid grid-rows-[5%,90%]">
-            <div className="grid grid-cols-3 bg-purple-300 text-white font-bold text-[0.95rem]">
-              <div></div>
-              <div className="text-center">Resumerry Question</div>
-              <div className="text-right mr-8">
-                more <span> {">"} </span>
-              </div>
+          <div className="flex items-center bg-purple-300 text-white font-bold text-base py-1">
+            <div className="flex-1 text-center">Resumerry Question</div>
+            <div className="text-right mr-8">
+              more <span> {">"} </span>
             </div>
-            {/* board list */}
-            <section className="divide-y divide-lightGray border-y border-lightGray">
-              {data.map((elem) => (
-                <div key={elem.postId}>
-                  <PostListItem isAnonymous={false} {...elem} />
-                </div>
-              ))}
-            </section>
           </div>
+          {/* board list */}
+          <section className="divide-y divide-lightGray border-y border-lightGray">
+            {data.map((elem) => (
+              <div key={elem.postId}>
+                <PostListItem isAnonymous={false} {...elem} />
+              </div>
+            ))}
+          </section>
         </div>
-      </WrapContent>
-    </>
+      </>
+    </WrapContent>
   );
 }

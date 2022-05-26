@@ -10,9 +10,11 @@ const sizeValue = {
 };
 
 const colorValue = {
-  main: "bg-lightPurple text-white",
-  normal: "border border-deepGray text-lightBlack",
-  normalColor: "border border-deepPurple text-deepPurple",
+  main: "bg-lightPurple text-white hover:ring-1 hover:ring-lightPurple hover:font-bold",
+  normal:
+    "border border-deepGray text-lightBlack hover:ring-1 hover:ring-lightBlack hover:font-bold",
+  normalColor:
+    "border border-deepPurple text-deepPurple hover:ring-1 hover:ring-deepPurple hover:font-bold",
 };
 
 export interface ButtonProps {

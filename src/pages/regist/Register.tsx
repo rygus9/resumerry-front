@@ -9,6 +9,7 @@ import { useMutation } from "react-query";
 import { useState } from "react";
 import useMyRegister from "./registHook";
 import { cls, regExpression } from "../../util/utils";
+import LoadingText from "components/molcular/common/LoadingText";
 
 function Register(): JSX.Element {
   const {
@@ -124,10 +125,7 @@ function Register(): JSX.Element {
               <div className="flex space-x-2">
                 {emailSendLoading ? (
                   <NormalButton>
-                    <div className="flex items-center space-x-2">
-                      <div className="border-2 border-lightGray border-t-deepPurple  my-10 w-6 h-6 rounded-full animate-spin"></div>
-                      <span>진행 중</span>
-                    </div>
+                    <LoadingText />
                   </NormalButton>
                 ) : (
                   <NormalButton

@@ -25,7 +25,7 @@ export default function PostList(): JSX.Element {
         className={cls(
           "bg-question-image h-56 bg-cover bg-center",
           "sm:h-64",
-          "lg:h-72"
+          "lg:h-80"
         )}
       >
         <div
@@ -34,6 +34,9 @@ export default function PostList(): JSX.Element {
             "sm:w-4/5 sm:px-0"
           )}
         >
+          <h3 className="absolute bottom-12 mb-8 text-2xl text-deepGray font-DoHyean">
+            취업 관련 질문하기
+          </h3>
           <h1 className="absolute bottom-0 mb-8 text-title">질문 게시판</h1>
         </div>
       </div>
