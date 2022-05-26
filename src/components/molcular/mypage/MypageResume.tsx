@@ -1,9 +1,9 @@
 import IconNumber from "components/atom/common/IconNumber";
+import ChatIcon from "components/atom/icons/chatIcon/ChatIcon";
+import GoodIcon from "components/atom/icons/chatIcon/GoodIcon";
+import ViewIcon from "components/atom/icons/chatIcon/ViewIcon";
 import { Link } from "react-router-dom";
-import {
-  ResumeListSearchResult,
-  ResumeMypageSearchResult,
-} from "util/api/resume";
+import { ResumeMypageSearchResult } from "util/api/resume";
 import { cls } from "util/utils";
 import UserInfo from "../common/UserInfo";
 
@@ -47,17 +47,13 @@ export default function ResumeMypageListItem({ ...elem }: Props) {
       <div className="flex justify-start items-center space-x-3">
         <IconNumber
           number={elem.recommendCnt}
-          src="/img/icons/good.svg"
+          icon={<GoodIcon />}
           iconSize="sm"
         />
-        <IconNumber
-          number={elem.viewCnt}
-          src="/img/icons/view.svg"
-          iconSize="sm"
-        />
+        <IconNumber number={elem.viewCnt} icon={<ViewIcon />} iconSize="sm" />
         <IconNumber
           number={elem.commentCnt}
-          src="/img/icons/chat.svg"
+          icon={<ChatIcon />}
           iconSize="sm"
         />
       </div>
