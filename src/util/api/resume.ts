@@ -22,7 +22,6 @@ export interface ResumeListSearchApiInput {
   title: string;
   startYear: number;
   endYear: number;
-  hashtag: string[];
   sort: "recommend" | "view" | "years" | "recent";
 }
 

@@ -1,7 +1,4 @@
-import {
-  MainCommentElemResult,
-  PostCommentSearchApiResult,
-} from "util/api/comment";
+import { PostCommentSearchApiResult } from "util/api/comment";
 import LoadingUI from "../common/LoadingUI";
 import ChatInput from "./ChatInput";
 import ChatItem from "./ChatItem";
@@ -32,7 +29,7 @@ export default function Chat({
             {!isLoading &&
               commentData &&
               commentData.map((elem, index) => (
-                <ChatItem key={index} {...elem} />
+                <ChatItem key={index} {...elem} size="md" />
               ))}
           </div>
         </>

@@ -1,13 +1,15 @@
 import NormalButton from "components/atom/button/NormalButton";
 import { useCallback, useState } from "react";
 import { MainCommentElemResult } from "util/api/comment";
-import UserInfo from "../common/UserInfo";
+import { cls } from "util/utils";
 import ChatElem from "./ChatElem";
-import ChatInfo from "./ChatInfo";
-import useCommentDelete from "./hooks/useCommentDelete";
 import SubChat from "./SubChat";
 
-export default function ChatItem(elem: MainCommentElemResult) {
+interface Props extends MainCommentElemResult {
+  size: "sm" | "md";
+}
+
+export default function ChatItem(elem: Props) {
   const [subOpen, setSubOpen] = useState(false);
   const onClick = useCallback(() => setSubOpen(!subOpen), [subOpen]);
 
@@ -15,8 +17,8 @@ export default function ChatItem(elem: MainCommentElemResult) {
     <div className="py-3">
       <ChatElem
         button={
-          <div className="pr-5">
-            <NormalButton onClick={onClick}>
+          <div className={cls(elem.size === "sm" ? "" : "pr-5")}>
+            <NormalButton onClick={onClick} size={elem.size}>
               <>
                 {subOpen && "댓글 닫기"}
                 {!subOpen &&
@@ -35,6 +37,7 @@ export default function ChatItem(elem: MainCommentElemResult) {
         <SubChat
           childComments={elem.childComments}
           groupId={elem.commentGroup}
+          size={elem.size}
         />
       )}
     </div>

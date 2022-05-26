@@ -10,13 +10,15 @@ interface Props {
   label?: string | null;
   depth: number;
   group: number;
+  size: "sm" | "md";
 }
 
 ChatInput.defaultProps = {
   label: null,
+  size: "md",
 };
 
-export default function ChatInput({ label, depth, group }: Props) {
+export default function ChatInput({ label, depth, group, size }: Props) {
   const {
     register,
     setValue,
@@ -37,8 +39,11 @@ export default function ChatInput({ label, depth, group }: Props) {
 
   return (
     <form
-      className={cls("space-y-1", "sm:space-y-2")}
+      className={cls("space-y-1 pt-2", "sm:space-y-2")}
       onSubmit={handleSubmit(onValid)}
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
     >
       <TextArea
         label={label}
@@ -51,12 +56,12 @@ export default function ChatInput({ label, depth, group }: Props) {
       />
       <div
         className={cls(
-          "flex justify-end items-start space-x-2",
+          "flex justify-end items-center space-x-2",
           "sm:space-x-4"
         )}
       >
         <LabelCheckBox label="익명 여부" register={register("isAnonymous")} />
-        <NormalButton type="submit" color="normalColor">
+        <NormalButton type="submit" color="normalColor" size={size}>
           댓글 작성
         </NormalButton>
       </div>

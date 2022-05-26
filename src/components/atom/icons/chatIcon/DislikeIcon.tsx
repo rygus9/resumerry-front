@@ -1,7 +1,7 @@
 export default function DislikeIcon({ isTrue = false }: { isTrue?: boolean }) {
   return (
     <svg
-      className="w-10 h-10"
+      className="w-8 h-8"
       viewBox="0 0 37 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

@@ -1,16 +1,16 @@
-import { FieldError } from 'react-hook-form/dist/types/errors';
-import { UseFormRegisterReturn } from 'react-hook-form/dist/types/form';
-import { cls } from 'util/utils';
+import { FieldError } from "react-hook-form/dist/types/errors";
+import { UseFormRegisterReturn } from "react-hook-form/dist/types/form";
+import { cls } from "util/utils";
 
 const textAreaHeightValue = {
-  sm: 'min-h-[6.125rem]',
-  md: 'min-h-[11.125rem]',
+  sm: "min-h-[6.125rem]",
+  md: "min-h-[11.125rem]",
 };
 
 interface Props {
   label?: string | null;
   register?: UseFormRegisterReturn | null;
-  textAreaHeight?: 'sm' | 'md';
+  textAreaHeight?: "sm" | "md";
   error?: FieldError | undefined;
   placeholder?: string;
 }
@@ -18,9 +18,9 @@ interface Props {
 TextArea.defaultProps = {
   label: null,
   register: null,
-  textAreaHeight: 'md',
+  textAreaHeight: "md",
   error: null,
-  placeholder: '내용을 입력하세요',
+  placeholder: "내용을 입력하세요",
 };
 
 export default function TextArea({
@@ -32,13 +32,13 @@ export default function TextArea({
 }: Props) {
   return (
     <>
-      {label && <h3 className={cls('text-xl', 'sm:pb-2')}>{label}</h3>}
+      {label && <h3 className={cls("text-xl", "sm:pb-2")}>{label}</h3>}
       <textarea
         className={cls(
-          'tracking-normal resize-none pb-4 px-4 outline-none border border-deepGray rounded-lg w-full text-black',
+          "tracking-normal resize-none pb-4 px-4 outline-none border border-deepGray rounded-lg w-full text-lightBlack",
           textAreaHeightValue[textAreaHeight!],
-          'focus:ring-deepGray focus:border-deepGray',
-          'placeholder:text-deepGray',
+          "focus:ring-deepGray focus:border-deepGray",
+          "placeholder:text-deepGray"
         )}
         placeholder={placeholder}
         {...register}

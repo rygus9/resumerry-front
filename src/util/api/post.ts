@@ -49,7 +49,7 @@ export interface PostWriteApiResult {
 }
 
 export const PostWriteApi = (elem: PostWriteApiInput) =>
-  client.post("/post", elem);
+  client.post("/post", { ...elem, fileLink: "https://ggg" });
 
 export interface PostMypageSearchApi {
   userToken: string;
