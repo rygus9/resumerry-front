@@ -1,4 +1,4 @@
-import { PostListMypageSearchApiResult } from "./../../../util/api/post";
+import { PostListMypageSearchApiResult } from "../../../util/api/post";
 import { PostListMypageSearchApi } from "util/api/post";
 import { useQuery } from "react-query";
 
@@ -9,6 +9,6 @@ const getPostMypageList = async (
   return data;
 };
 
-export const usePost = (userId: string) => {
+export const useMypagePostQuery = (userId: string) => {
   return useQuery(["Mypageposts", userId], () => getPostMypageList(userId));
 };

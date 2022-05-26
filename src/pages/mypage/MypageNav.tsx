@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Normalbutton from "components/atom/button/NormalButton";
 import { cls } from "util/utils";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 export default function MypageNav() {
+  const params = useParams();
   const [searchParams, setSearchParams] = useState("게시글");
   return (
     <>
@@ -46,13 +48,13 @@ export default function MypageNav() {
               "md:text-[2.0rem]"
             )}
           >
-            Noej's {searchParams}
+            {params.userId!}'s {searchParams}
           </div>
           <div className="pr-[10%] pt-8">
             <Normalbutton
               size="md"
               color="normalColor"
-              children={searchParams + "추가"}
+              children={searchParams + " 추가"}
             ></Normalbutton>
           </div>
         </div>

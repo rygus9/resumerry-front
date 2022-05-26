@@ -18,14 +18,24 @@ export interface ResumeListSearchApiInput {
   sort: "recommand" | "view" | "aged";
 }
 export interface ResumeMypageSearchResult {
-  userToken: string;
+  memberId: string;
+  resumeId: string;
+  imageSrc: string;
+  nickname: string;
   title: string;
   contents: string;
-  category: string;
   years: number;
+  recommendCnt: number;
+  commentCnt: number;
+  viewCnt: number;
+  modifiedDate: string;
   hashtag: string[];
-  fileLink: string;
 }
+
+export type ResumeListMypageSearchApiResult = ResumeMypageSearchResult[];
+
+export const ResumeListMypageSearchApi = (userId: string) =>
+  client.get(`/resume/${userId}`);
 
 export type ResumeListSearchApiResult = ResumeListSearchResult[];
 

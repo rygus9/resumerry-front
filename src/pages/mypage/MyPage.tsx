@@ -1,45 +1,24 @@
 import PostListItem from "components/molcular/post/PostMypageListItem";
 import IconNumber from "components/atom/common/IconNumber";
 import Normalbutton from "components/atom/button/NormalButton";
-import { ResumeListSearchResult } from "util/api/resume";
-import ResumeListItem from "components/molcular/resume/ResumeListItem";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-import { useState } from "react";
-import { usePost } from "../post/hooks/useMypagePost";
+import { useMypagePostQuery } from "./hooks/useMypagePost";
+import { useMypageQuery } from "./hooks/useMypageQuery";
+import { useMypageScrapQuery } from "./hooks/useMypageScrap";
 import MypageNav from "./MypageNav";
 import { cls } from "util/utils";
+import { useMypageResumeQuery } from "./hooks/useMypageResume";
+import ResumeMypageListItem from "components/molcular/mypage/MypageResume";
+import MypageToken from "./MypageToken";
+import MypageResume from "components/molcular/mypage/MypageResume";
 
-const data = [
-  {
-    postId: "게시글ID1",
-    memberId: "유저1",
-    title: "경력 부분 작성 팁 부탁드립니다!",
-    contents:
-      " 제가 살면서 방황을 많이 해가지고 이런 저런 경험이 많습니다. 이런 부분은 어떻게 이력서에 반영하면 되는지 여쭤보고 싶습니다.",
-    commentCnt: 10,
-    viewCnt: 20,
-    isAnonymous: true,
-    imageSrc: null,
-    nickname: "Cuzz",
-    modifiedDate: "2022-02-02",
-  },
-  {
-    postId: "게시글ID2",
-    memberId: "유저2",
-    title: "경력 부분 작성 팁 부탁드립니다!",
-    contents:
-      " 제가 살면서 방황을 많이 해가지고 이런 저런 경험이 많습니다. 이런 부분은 어떻게 이력서에 반영하면 되는지 여쭤보고 싶습니다.",
-    commentCnt: 10,
-    viewCnt: 20,
-    isAnonymous: true,
-    imageSrc: null,
-    nickname: "Cuzz",
-    modifiedDate: "2022-02-02",
-  },
-];
 export default function Mypage(): JSX.Element {
   const params = useParams();
-  const { data } = usePost(params.userId!);
+  //const { data } = useMypageQuery(params.userId!);
+  //const { data } = useMypageResumeQuery(params.userId!);
+  //const { data } = useMypagePostQuery(params.userId!);
+  const { data } = useMypageScrapQuery(params.userId!);
+  console.log(data);
   return (
     <div
       className={cls(
@@ -135,13 +114,14 @@ export default function Mypage(): JSX.Element {
         )}
       >
         <MypageNav />
+
         <main className="bg-white">
           {/* board list */}
           <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl">
             {data &&
               data.map((elem) => (
-                <div key={elem.postId} className="max-w-[40rem] w-full">
-                  <PostListItem {...elem} />
+                <div key={elem.resumeId} className="max-w-[40rem] w-full">
+                  <MypageResume {...elem} />
                 </div>
               ))}
           </section>
