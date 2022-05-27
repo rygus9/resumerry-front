@@ -1,8 +1,8 @@
 import {
   CommentWriteApiInput,
-  MainCommentElemResult,
   PostCommentWriteApi,
   ResumeCommentWriteApi,
+  ResumeCommentWriteApiInput,
 } from "util/api/comment";
 import { useMutation, useQueryClient } from "react-query";
 import { AxiosError } from "axios";
@@ -16,7 +16,7 @@ export default function useCommentRegist() {
 
   let CommentWriteFunc = null;
   if (path === "resume") {
-    CommentWriteFunc = (newComment: CommentWriteApiInput) =>
+    CommentWriteFunc = (newComment: ResumeCommentWriteApiInput) =>
       ResumeCommentWriteApi(newComment, params.userId!, params.resumeId!);
   } else {
     CommentWriteFunc = (newComment: CommentWriteApiInput) =>

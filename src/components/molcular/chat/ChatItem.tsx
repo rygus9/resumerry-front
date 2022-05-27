@@ -7,6 +7,7 @@ import SubChat from "./SubChat";
 
 interface Props extends MainCommentElemResult {
   size: "sm" | "md";
+  yPath?: number;
 }
 
 export default function ChatItem(elem: Props) {
@@ -38,6 +39,7 @@ export default function ChatItem(elem: Props) {
           childComments={elem.childComments}
           groupId={elem.commentGroup}
           size={elem.size}
+          yPath={elem.yPath}
         />
       )}
     </div>

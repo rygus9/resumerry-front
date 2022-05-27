@@ -11,6 +11,7 @@ interface Props {
   depth: number;
   group: number;
   size: "sm" | "md";
+  yPath?: number;
 }
 
 ChatInput.defaultProps = {
@@ -18,7 +19,7 @@ ChatInput.defaultProps = {
   size: "md",
 };
 
-export default function ChatInput({ label, depth, group, size }: Props) {
+export default function ChatInput({ label, depth, group, size, yPath }: Props) {
   const {
     register,
     setValue,
@@ -33,7 +34,7 @@ export default function ChatInput({ label, depth, group, size }: Props) {
     useCommentRegist();
 
   const onValid = async (data: CommentWriteApiInput) => {
-    commentMutate(data);
+    commentMutate({ ...data, yPath } as any);
     setValue("contents", "");
   };
 

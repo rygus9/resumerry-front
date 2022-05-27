@@ -15,7 +15,6 @@ export default function PostList(): JSX.Element {
   const open = useRecoilValue(openState);
   const location = useLocation();
   const queryPath = location.search;
-
   const { data, isLoading } = usePostList(queryPath);
 
   return (

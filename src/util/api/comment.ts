@@ -3,9 +3,9 @@ import client from "./client";
 
 // Common Section
 export interface CommentElemResult {
-  memberId: string;
+  memberId: number;
   commentId: number;
-  imageSrc: string;
+  imageSrc: string | null;
   nickname: string;
   contents: string;
   recommendCnt: number;
@@ -83,15 +83,26 @@ export const PostCommentReportApi = (
   commentId: number
 ) => client.post(`/post/${userId}/${postId}/comment/${commentId}/ban`);
 
+// Resume Comment
+export interface ResumeCommentWriteApiInput extends CommentWriteApiInput {
+  yPath: number;
+}
+
 // Resume
 export type ResumeCommentWriteApiResult = CommonCUDResult;
 
 export const ResumeCommentWriteApi = (
-  { contents, commentDepth, commentGroup, isAnonymous }: CommentWriteApiInput,
+  {
+    contents,
+    commentDepth,
+    commentGroup,
+    isAnonymous,
+    yPath,
+  }: ResumeCommentWriteApiInput,
   userId: string,
   resumeId: string
 ) => {
-  console.log({ contents, commentDepth, commentGroup, isAnonymous });
+  console.log({ contents, commentDepth, commentGroup, isAnonymous, yPath });
 
   return client.post(`/resume/${userId}/${resumeId}/comment`, {
     contents,
@@ -109,7 +120,11 @@ export const ResumeCommentDeleteApi = (
   commentId: number
 ) => client.put(`/resume/${userId}/${resumeId}/comment/${commentId}`);
 
-export type ResumeCommentSearchApiResult = MainCommentElemResult[];
+export interface ResumeMainCommentElemResult extends MainCommentElemResult {
+  yPath: number;
+}
+
+export type ResumeCommentSearchApiResult = ResumeMainCommentElemResult[];
 
 export const ResumeCommentSearchApi = (userId: string, resumeId: string) =>
   client.get(`/resume/${userId}/${resumeId}/comment`);
