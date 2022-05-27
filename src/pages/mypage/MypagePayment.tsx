@@ -1,7 +1,7 @@
 import { cls } from "util/utils";
 import Normalbutton from "components/atom/button/NormalButton";
 
-export default function MypageToken() {
+export default function MypagePayment() {
   return (
     <div className="">
       <div className="flex justify-center">

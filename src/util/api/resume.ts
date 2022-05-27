@@ -42,6 +42,21 @@ export interface ResumeMypageSearchResult {
   hashtag: string[];
 }
 
+export interface ScrapMypageSearchResult {
+  memberId: string;
+  resumeId: string;
+  imageSrc: string;
+  nickname: string;
+  title: string;
+  contents: string;
+  years: number;
+  recommendCnt: number;
+  commentCnt: number;
+  viewCnt: number;
+  modifiedDate: string;
+  hashtag: string[];
+}
+
 export type ResumeListMypageSearchApiResult = ResumeMypageSearchResult[];
 
 export const ResumeListMypageSearchApi = (userId: string) =>

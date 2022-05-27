@@ -10,5 +10,5 @@ const getScrapMypageList = async (
 };
 
 export const useMypageScrapQuery = (userId: string) => {
-  return useQuery(["Mypageposts", userId], () => getScrapMypageList(userId));
+  return useQuery(["Mypagescraps", userId], () => getScrapMypageList(userId));
 };
