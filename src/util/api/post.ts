@@ -14,21 +14,12 @@ export interface PostListSearchResult {
   nickname: string;
 }
 
-export interface PostMypageSearchResult {
-  postId: string;
-  title: string;
-  contents: string;
-  commentCnt: number;
-  viewCnt: number;
-  isAnonymous: boolean;
-  memberId: string;
-  imageSrc: string;
-  nickname: string;
-}
+export type PostMypageSearchResult = PostListSearchResult;
 export type PostListMypageSearchApiResult = PostMypageSearchResult[];
 
-export const PostListMypageSearchApi = (userId: string) =>
-  client.get(`/post/${userId}`);
+export const PostListMypageSearchApi = (userId: string) => {
+  return client.get(`/post/${userId}`);
+};
 
 export type PostListSearchApiResult = PostListSearchResult[];
 

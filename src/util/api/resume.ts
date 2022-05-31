@@ -1,3 +1,4 @@
+import { ScrapListMypageSearchApi } from "./mypage";
 import { CommonCUDResult } from "./common";
 import { CategoryKindType } from "../../components/molcular/category/categoryValue";
 import client from "./client";

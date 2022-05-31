@@ -11,8 +11,8 @@ type Props = ResumeMypageSearchResult;
 
 export default function ResumeMypageListItem({ ...elem }: Props) {
   return (
-    <div className="bg-white border-2 border-gray w-full px-5 py-3 rounded-lg">
-      <Link to={`./${elem.memberId}/${elem.resumeId}`}>
+    <div className="bg-white border-b-[1px] border-x-lightBlack w-full px-5 py-3 mt-8">
+      <Link to={`/resume/${elem.memberId}/${elem.resumeId}`}>
         <h3 className="text-xl text-deepBlack">{elem.title}</h3>
       </Link>
       <div className="pt-3 pb-1">
@@ -25,7 +25,7 @@ export default function ResumeMypageListItem({ ...elem }: Props) {
           }
         />
       </div>
-      <Link to={`./${elem.memberId}/${elem.resumeId}`}>
+      <Link to={`/resume/${elem.memberId}/${elem.resumeId}`}>
         <p className="text-lg mt-2 min-h-[4rem] py-2 text-black">
           {elem.contents}
         </p>
@@ -44,7 +44,7 @@ export default function ResumeMypageListItem({ ...elem }: Props) {
           </li>
         ))} */}
       </ul>
-      <div className="flex justify-start items-center space-x-3">
+      <div className="flex justify-end items-center space-x-3">
         <IconNumber
           number={elem.recommendCnt}
           icon={<GoodIcon />}

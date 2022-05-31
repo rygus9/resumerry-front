@@ -1,13 +1,18 @@
-import ResumeForm from "components/molcular/resume/ResumeForm";
 import { useParams } from "react-router-dom";
+import { useProfile } from "./hooks/useMypageProfile";
+import useProfileUpdate from "./hooks/useProfileUpdate";
+import ProfileForm from "./ProfileForm";
 
-export default function ResumeUpdate() {
+export default function ProfileUpdate({
+  goProfile,
+}: {
+  goProfile: () => void;
+}) {
   const params = useParams();
-  //const { isLoading, mutate } = useResumeUpdate();
-  //const { data } = useResume(params.userId!, params.resumeId!);
+  const { isLoading, mutate } = useProfileUpdate(goProfile);
+  const { data } = useProfile(params.userId!);
 
   return (
-    //<ResumeForm isLoading={isLoading} submitFunc={mutate} resume={data!} />
-    <></>
+    <ProfileForm isLoading={isLoading} submitFunc={mutate} profile={data!} />
   );
 }

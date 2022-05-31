@@ -17,6 +17,8 @@ import Mainpage from "pages/MainPage";
 import Mypage from "pages/mypage/MyPage";
 import Test from "pages/Test/Test";
 import Recommend from "pages/recommend/Recommend";
+import Payment from "pages/mypage/payment/MypagePayment";
+import PaymentSuccess from "pages/mypage/payment/PaymentSuccess";
 
 export default function App() {
   const open = useRecoilValue(openState);
@@ -40,6 +42,8 @@ export default function App() {
             element={<ResumeUpdate />}
           />
           <Route path="/mypage/:userId" element={<Mypage />} />
+          <Route path="/orders/:userId" element={<Payment />} />
+          <Route path="/orders/success" element={<PaymentSuccess />} />
           <Route path="/recommend" element={<Recommend />} />
           <Route path="/test" element={<Test />} />
         </Routes>

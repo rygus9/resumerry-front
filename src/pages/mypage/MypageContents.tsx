@@ -1,12 +1,13 @@
 import { cls } from "util/utils";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 import { useMypageResumeQuery } from "./hooks/useMypageResume";
 import { useMypagePostQuery } from "./hooks/useMypagePost";
 import ResumeMypageListItem from "components/molcular/mypage/MypageResume";
 import { useMypageScrapQuery } from "./hooks/useMypageScrap";
 import { useMypageTokenQuery } from "./hooks/useMypageToken";
 import SkeletonPostListItem from "components/molcular/post/SkeletonPostListItem";
-import PostListItem from "components/molcular/post/PostMypageListItem";
+import PostListItem from "components/molcular/post/PostListItem";
 import TokenListItem from "./MypageToken";
 import ScrapMypageListItem from "components/molcular/mypage/MypageScrap";
 
@@ -49,13 +50,15 @@ export default function MypageContents({ mode }: MypageProps): JSX.Element {
         </>
       );
     case "scrap":
-      console.log(scrap_data);
       return (
         <>
           <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl">
             {scrap_data.data &&
-              scrap_data.data.map((elem) => (
-                <div key={elem.resumeId} className="max-w-[40rem] w-full">
+              scrap_data.data.map((elem, index) => (
+                <div
+                  key={`${elem.resumeId} ${index}`}
+                  className="max-w-[40rem] w-full"
+                >
                   <ScrapMypageListItem {...elem} />
                 </div>
               ))}

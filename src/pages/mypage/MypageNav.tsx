@@ -2,7 +2,8 @@ import { useState } from "react";
 import Normalbutton from "components/atom/button/NormalButton";
 import { cls } from "util/utils";
 import { useParams } from "react-router-dom";
-import MypagePayment from "./MypagePayment";
+import MypagePayment from "./payment/MypagePayment";
+import { Link } from "react-router-dom";
 import MypageContents from "./MypageContents";
 
 export default function MypageNav() {
@@ -63,14 +64,34 @@ export default function MypageNav() {
               "md:text-[2.0rem]"
             )}
           >
-            {params.userId!}'s {searchParams}
+            My {searchParams}
           </div>
           <div className="pr-[10%] pt-8">
-            <Normalbutton
-              size="md"
-              color="normalColor"
-              children={searchParams + " 추가"}
-            ></Normalbutton>
+            {modeParams === "token" ? (
+              <Link to={`/orders/${params.userId}`}>
+                <Normalbutton
+                  size="md"
+                  color="normalColor"
+                  children={searchParams + " 추가"}
+                ></Normalbutton>
+              </Link>
+            ) : modeParams === "scrap" ? (
+              <Link to={`/resume`}>
+                <Normalbutton
+                  size="md"
+                  color="normalColor"
+                  children={searchParams + " 추가"}
+                ></Normalbutton>
+              </Link>
+            ) : (
+              <Link to={`/${modeParams}/create`}>
+                <Normalbutton
+                  size="md"
+                  color="normalColor"
+                  children={searchParams + " 추가"}
+                ></Normalbutton>
+              </Link>
+            )}
           </div>
         </div>
       </div>

@@ -10,5 +10,5 @@ const getResumeMypageList = async (
 };
 
 export const useMypageResumeQuery = (userId: string) => {
-  return useQuery(["Mypagescraps", userId], () => getResumeMypageList(userId));
+  return useQuery(["Mypageresumes", userId], () => getResumeMypageList(userId));
 };

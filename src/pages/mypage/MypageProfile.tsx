@@ -1,7 +1,10 @@
 import { cls } from "util/utils";
 import { useMypageProfileQuery } from "./hooks/useMypageProfile";
 import { useParams } from "react-router-dom";
-export default function () {
+import ProfileForm from "./ProfileForm";
+import useProfileRegist from "./hooks/useProfileUpdate";
+
+export default function ProfileUpdate() {
   const params = useParams();
   const { data } = useMypageProfileQuery(params.userId!);
   return (
@@ -9,13 +12,48 @@ export default function () {
       <div className={cls("flex justify-evenly mb-4 align-bottom", "lg: mb-8")}>
         <div
           className={cls(
-            "text-center text-[1.0rem]",
-            "sm:text-[1.5rem]",
-            "md:text-[1.5rem]",
-            "lg:text-[2.0rem]"
+            "text-center text-[1.2rem]",
+            "sm:text-[1.7rem]",
+            "md:text-[1.7rem]",
+            "lg:text-[2.2rem]"
           )}
         >
-          {data?.nickname}
+          <div className="text-center">{data?.nickname.toUpperCase()}</div>
+          <div
+            className={cls(
+              "flex justify-between items-center text-lightBlack",
+              "sm:text-[1.0rem]",
+              "md:text-[1.0rem]",
+              "lg:text-[1.5rem]"
+            )}
+          >
+            <div className="flex items-center ml-4">
+              <img
+                src="/img/icons/token.png"
+                alt=""
+                className={cls(
+                  "rounded-full w-[0.5rem] h-[0.5rem] mb-8 mt-8",
+                  "sm:w-4 sm:h-4",
+                  "md:w-[8rem] md:h-[8rem] md:mb-12 md:mt:12",
+                  "lg:w-[2rem] lg:h-[2rem] lg:mb-0 lg:mt-0"
+                )}
+              />
+              <div>{data?.token}</div>
+            </div>
+            <div className="flex items-center ml-4 ">
+              <img
+                src="/img/icons/stack.png"
+                alt=""
+                className={cls(
+                  "rounded-full w-[7rem] h-[7rem] mb-8 mt-8",
+                  "sm:w-40 sm:h-40",
+                  "md:w-[8rem] md:h-[8rem] md:mb-12 md:mt:12",
+                  "lg:w-[2rem] lg:h-[2rem] lg:mb-0 lg:mt-0"
+                )}
+              />
+              <div>{data?.stack}</div>
+            </div>
+          </div>
         </div>
       </div>
       <div

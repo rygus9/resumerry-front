@@ -2,12 +2,10 @@ import IconNumber from "components/atom/common/IconNumber";
 import Normalbutton from "components/atom/button/NormalButton";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import MypageNav from "./MypageNav";
-import MypagePayment from "./MypagePayment";
+import MypagePayment from "./payment/MypagePayment";
 import { cls } from "util/utils";
 import MypageProfile from "./MypageProfile";
-import MypageToken from "./MypagePayment";
-import MypageResume from "components/molcular/mypage/MypageResume";
-import { useMypageTokenQuery } from "./hooks/useMypageToken";
+import MypageProfileContainer from "./MypageProfileContainer";
 
 export default function Mypage(): JSX.Element {
   const params = useParams();
@@ -40,14 +38,7 @@ export default function Mypage(): JSX.Element {
             )}
           />
         </div>
-        <MypageProfile />
-        <div className="flex justify-center mb-6">
-          <Normalbutton
-            size="md"
-            color="normal"
-            children={"수정하기"}
-          ></Normalbutton>
-        </div>
+        <MypageProfileContainer />
       </div>
       <div
         className={cls(

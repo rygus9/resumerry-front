@@ -15,7 +15,7 @@ export default function TokenListItem({
   createdDate,
 }: TokenItemProps): JSX.Element {
   return (
-    <div className="px-3 py-5 cursor-pointer">
+    <div className="px-3 py-5 cursor-pointer border-b-[1px] border-[gray] mt-8">
       {/* profile */}
       {/* body */}
       <div className="pt-2 pb-2">
@@ -30,7 +30,7 @@ export default function TokenListItem({
       >
         <span className="text-deepGray">{createdDate.split("T")[0]}</span>
         <div className={cls("flex space-x-3", "sm:space-x-5")}>
-          잔여토큰: {tokenCnt}
+          토큰 이력: {tokenCnt}
         </div>
       </div>
     </div>
