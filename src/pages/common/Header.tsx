@@ -30,10 +30,12 @@ export default function Header(): JSX.Element {
     location.reload();
   }, []);
 
+  const myMemberId = localStorage.getItem("myMemberId");
+
   return (
     <header
       className={cls(
-        "w-full h-14 fixed flex items-center bg-white z-30 shadow-sm shadow-deepGray"
+        "w-full h-14 fixed top-0 flex items-center bg-white z-30 shadow-sm shadow-deepGray"
       )}
     >
       {/* logo */}
@@ -72,7 +74,7 @@ export default function Header(): JSX.Element {
           {user ? (
             <>
               <Button onClick={onLogout}>로그아웃</Button>
-              <Link to="/mypage">
+              <Link to={`/mypage/${myMemberId}`}>
                 <Button>마이페이지</Button>
               </Link>
             </>

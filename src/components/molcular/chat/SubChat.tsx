@@ -1,47 +1,33 @@
-import IconNumber from "components/atom/common/IconNumber";
-import { CommentElemResult } from "util/api/postcomment";
+import { CommentElemResult } from "util/api/comment";
 import { cls } from "util/utils";
-import UserInfo from "../common/UserInfo";
+import ChatElem from "./ChatElem";
 import ChatInput from "./ChatInput";
-import useCommentRegist from "./hooks/useCommentRegist";
 
 export default function SubChat({
   childComments,
+  groupId,
+  size,
+  yPath,
 }: {
-  childComments: CommentElemResult[];
+  childComments: CommentElemResult[] | null;
+  groupId: number;
+  size: "sm" | "md";
+  yPath?: number;
 }) {
   return (
     <div
       className={cls(
-        "bg-stone-50 px-5 mt-3 divide-y divide-stone-200",
-        "sm:px-10"
+        "bg-stone-50 mt-3 divide-y divide-stone-200",
+        size === "sm" ? "px-2" : "px-5",
+        size === "sm" ? "sm:px-2" : "sm:px-10"
       )}
     >
-      {childComments.map((elem, index) => (
-        <div key={index} className="pb-5">
-          <div className="pb-5 pt-5 w-fit">
-            <UserInfo
-              isAnonymous={elem.isAnonymous!}
-              nickname={elem.nickname}
-              imageSrc={elem.imageSrc}
-              modifiedDate={elem.modifiedDate}
-            />
-          </div>
-          <p className="text-lg text-black">{elem.contents}</p>
-          <div className="mt-5 flex justify-between">
-            <div className="flex space-x-2 items-center">
-              <IconNumber
-                src="/img/icons/good.svg"
-                number={elem.recommendCnt}
-                iconSize="sm"
-              />
-              <IconNumber src="/img/icons/dislike.svg" number={elem.banCnt} />
-            </div>
-          </div>
-        </div>
-      ))}
+      {childComments &&
+        childComments.map((elem, index) => (
+          <ChatElem key={`subchat${index}`} {...elem} size={size}></ChatElem>
+        ))}
       <div className="py-4">
-        <ChatInput depth={1} group={childComments[0].commentGroup} />
+        <ChatInput depth={1} group={groupId} size={size} yPath={yPath} />
       </div>
     </div>
   );

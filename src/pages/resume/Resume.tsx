@@ -1,8 +1,5 @@
-import IconNumber from "components/atom/common/IconNumber";
-import Chat from "components/molcular/chat/Chat";
 import UserInfo from "components/molcular/common/UserInfo";
 import { cls } from "util/utils";
-import ResumePDF from "components/molcular/resume/ResumePDF";
 import { useRecoilState } from "recoil";
 import { openState } from "recoil/openState";
 import { useNavigate, useParams } from "react-router-dom";
@@ -11,9 +8,13 @@ import { useResume } from "./hooks/useResume";
 import LoadingUI from "components/molcular/common/LoadingUI";
 import NormalButton from "components/atom/button/NormalButton";
 import ResumeDeleteModal from "./ResumeDeleteModal";
-import { useResumeRecommmend } from "./hooks/useResumeRecommend";
 import { useResumeScrap } from "./hooks/useResumeScrap";
-import { useComment } from "./hooks/useResumeComment";
+import { useResumeComment } from "./hooks/useResumeComment";
+import ResumeInfo from "components/molcular/resume/ResumeInfo";
+import LoadingText from "components/molcular/common/LoadingText";
+import ResumeChat from "components/molcular/chat/ResumeChat";
+import Lock from "components/atom/icons/Lock";
+import UnLockModal from "components/molcular/resume/UnLockModal";
 
 export default function Resume() {
   const [open, setOpen] = useRecoilState(openState);
@@ -39,33 +40,33 @@ export default function Resume() {
     setOpen({ ...open, resumeDeleteOpen: true });
   }, []);
 
-  const { isLoading: isRecommendLoading, mutate: recommendMutate } =
-    useResumeRecommmend();
+  const onUnLock = useCallback(() => {
+    setOpen({ ...open, resumeLockOpen: true });
+  }, []);
 
-  const { isLoading: isRecommendScrap, mutate: scrapMutate } =
+  const { isLoading: isScrapLoading, mutate: scrapMutate } =
     useResumeScrap(setScrap);
 
-  const { isLoading: CommentLoading, data: commentData } = useComment(
-    params.userId!,
-    params.resumeId!
-  );
+  const { isLoading: commentLoading, data: resumeCommentData } =
+    useResumeComment(params.userId!, params.resumeId!);
 
   return (
     <>
-      <div className={cls("flex flex-col", "lg:flex-row")}>
+      <div
+        className={cls(
+          "max-w-[1200px] m-auto mt-5 w-full px-5 pb-10",
+          "sm:w-4/5 sm:px-0 sm:mt-8"
+        )}
+      >
         <div className={cls("flex-auto w-full")}>
           {isLoading && !resumeData ? (
-            <LoadingUI />
+            <div className="mt-10">
+              <LoadingUI />
+            </div>
           ) : (
             <>
               {resumeData && (
-                <article
-                  className={cls(
-                    "px-7 pt-10 w-full ml-0",
-                    "lg:w-4/5 lg:ml-[10%]",
-                    "xl:w-3/5 xl:ml-[25%]"
-                  )}
-                >
+                <article>
                   <div className="flex items-end space-x-8">
                     <h1
                       className={cls(
@@ -79,7 +80,7 @@ export default function Resume() {
                       <span className="text-base text-pink-600">MyPick</span>
                     )}
                   </div>
-                  <div className="pb-3 pt-8 w-40">
+                  <div className="pb-3 pt-8 w-fit">
                     <UserInfo
                       modifiedDate={resumeData.modifiedDate}
                       nickname={resumeData.nickname}
@@ -105,7 +106,7 @@ export default function Resume() {
                       "lg:mt-16"
                     )}
                   >
-                    <div className="flex space-x-2">
+                    <div className="flex space-x-10 items-center">
                       {scrap ? (
                         <NormalButton
                           type="button"
@@ -114,7 +115,7 @@ export default function Resume() {
                             scrapMutate();
                           }}
                         >
-                          스크랩하기
+                          {isScrapLoading ? <LoadingText /> : "스크랩취소"}
                         </NormalButton>
                       ) : (
                         <NormalButton
@@ -123,53 +124,56 @@ export default function Resume() {
                             scrapMutate();
                           }}
                         >
-                          스크랩하기
+                          {isScrapLoading ? <LoadingText /> : "스크랩하기"}
                         </NormalButton>
                       )}
-                      <NormalButton type="button">추천하기</NormalButton>
+                      {resumeData.isBuyer && (
+                        <span className="text-red-300 text-base">
+                          Buy Done!
+                        </span>
+                      )}
                     </div>
                     <div className="space-x-4 flex">
-                      <IconNumber
-                        src="/img/icons/chat.svg"
-                        number={resumeData.commentCnt}
-                      />
-                      <IconNumber
-                        src="/img/icons/good.svg"
-                        number={resumeData.recommendCnt}
-                      />
-                      <IconNumber
-                        src="/img/icons/view.svg"
-                        number={resumeData.viewCnt}
+                      <ResumeInfo
+                        recommendDone={resumeData.isRecommend}
+                        recommendCnt={resumeData.recommendCnt}
+                        viewCnt={resumeData.viewCnt}
+                        commentCnt={resumeData.commentCnt}
                       />
                     </div>
                   </div>
-                  <div>
-                    <ResumePDF path={resumeData.fileLink} />
-                  </div>
+                  {resumeData.isLock === true &&
+                  resumeData.isBuyer === false ? (
+                    <div className="w-full mt-10 flex justify-center">
+                      <NormalButton
+                        color="normalColor"
+                        size="lg"
+                        onClick={onUnLock}
+                      >
+                        <>
+                          <Lock />
+                          &nbsp;&nbsp;잠금 해제
+                        </>
+                      </NormalButton>
+                    </div>
+                  ) : (
+                    <>
+                      {!commentLoading && resumeCommentData && (
+                        <ResumeChat
+                          path={`https://resume-file-storage.s3.ap-northeast-2.amazonaws.com${resumeData.fileLink}`}
+                          inputChatData={resumeCommentData}
+                        />
+                      )}
+                    </>
+                  )}
                 </article>
               )}
             </>
           )}
         </div>
-        <div
-          className={cls(
-            "block w-full overflow-scroll px-5 pt-5",
-            "lg:fixed lg:right-0 lg:h-screen lg:w-[26rem] lg:shadow-md"
-          )}
-        >
-          <div className="pb-20">
-            {resumeData && (
-              <Chat
-                commentCnt={resumeData.commentCnt}
-                commentData={commentData}
-                isLoading={isLoading}
-              />
-            )}
-          </div>
-        </div>
-        <div className={cls("hidden", "lg:block lg:basis-[40rem]")} />
       </div>
       {open.resumeDeleteOpen && <ResumeDeleteModal />}
+      {open.resumeLockOpen && <UnLockModal />}
     </>
   );
 }

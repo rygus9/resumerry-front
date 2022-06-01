@@ -1,7 +1,7 @@
-import IconNumber from "components/atom/common/IconNumber";
 import { Link } from "react-router-dom";
 import { cls } from "util/utils";
 import UserInfo from "../common/UserInfo";
+import PostInfo from "./PostInfo";
 
 export interface PostItemProps {
   postId: string;
@@ -29,7 +29,7 @@ export default function PostListItem({
   modifiedDate,
 }: PostItemProps): JSX.Element {
   return (
-    <Link to={`./${memberId}/${postId}`}>
+    <Link to={`/post/${memberId}/${postId}`}>
       <div className="px-3 py-5 cursor-pointer">
         {/* profile */}
         <UserInfo
@@ -52,8 +52,7 @@ export default function PostListItem({
         >
           <span className="text-deepGray">{modifiedDate.split("T")[0]}</span>
           <div className={cls("flex space-x-3", "sm:space-x-5")}>
-            <IconNumber src="/img/icons/chat.svg" number={commentCnt} />
-            <IconNumber src="/img/icons/view.svg" number={viewCnt} />
+            <PostInfo commentCnt={commentCnt} viewCnt={viewCnt} />
           </div>
         </div>
       </div>

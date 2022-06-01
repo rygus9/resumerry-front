@@ -1,11 +1,8 @@
-import { AxiosResponse } from "axios";
 import NormalButton from "components/atom/button/NormalButton";
 import LabelCheckBox from "components/atom/selectBox/LabelSeleckBox";
 import TextArea from "components/atom/textArea";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { UseMutateFunction } from "react-query/types/react/types";
-import { PostCommentWriteApiInput } from "util/api/postcomment";
+import { CommentWriteApiInput } from "util/api/comment";
 import { cls } from "util/utils";
 import useCommentRegist from "./hooks/useCommentRegist";
 
@@ -13,34 +10,41 @@ interface Props {
   label?: string | null;
   depth: number;
   group: number;
+  size: "sm" | "md";
+  yPath?: number;
 }
 
 ChatInput.defaultProps = {
   label: null,
+  size: "md",
 };
 
-export default function ChatInput({ label, depth, group }: Props) {
+export default function ChatInput({ label, depth, group, size, yPath }: Props) {
   const {
     register,
     setValue,
     formState: { errors },
     handleSubmit,
-  } = useForm<PostCommentWriteApiInput>({ mode: "onSubmit" });
+  } = useForm<CommentWriteApiInput>({ mode: "onSubmit" });
 
-  setValue("postCommentDepth", depth);
-  setValue("postCommentGroup", group);
+  setValue("commentDepth", depth);
+  setValue("commentGroup", group);
 
   const { isLoading: isCommentLoading, mutate: commentMutate } =
     useCommentRegist();
 
-  const onValid = async (data: PostCommentWriteApiInput) => {
-    commentMutate(data);
+  const onValid = async (data: CommentWriteApiInput) => {
+    commentMutate({ ...data, yPath } as any);
+    setValue("contents", "");
   };
 
   return (
     <form
-      className={cls("space-y-1", "sm:space-y-2")}
+      className={cls("space-y-1 pt-2", "sm:space-y-2")}
       onSubmit={handleSubmit(onValid)}
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
     >
       <TextArea
         label={label}
@@ -53,12 +57,12 @@ export default function ChatInput({ label, depth, group }: Props) {
       />
       <div
         className={cls(
-          "flex justify-end items-start space-x-2",
+          "flex justify-end items-center space-x-2",
           "sm:space-x-4"
         )}
       >
-        <LabelCheckBox label="익명 여부" register={register("isAnonymouns")} />
-        <NormalButton type="submit" color="normalColor">
+        <LabelCheckBox label="익명 여부" register={register("isAnonymous")} />
+        <NormalButton type="submit" color="normalColor" size={size}>
           댓글 작성
         </NormalButton>
       </div>

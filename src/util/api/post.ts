@@ -1,29 +1,33 @@
 import { CategoryKindType } from "../../components/molcular/category/categoryValue";
 import client from "./client";
-import { ListSearchResult } from "./typeinterface";
 
-export interface PostListSearchResult extends ListSearchResult {
+export interface PostListSearchResult {
   postId: string;
   isAnonymous: boolean;
-}
-
-export interface PostMypageSearchResult {
-  postId: string;
   title: string;
   contents: string;
   commentCnt: number;
   viewCnt: number;
-  isAnonymous: boolean;
+  modifiedDate: string;
   memberId: string;
   imageSrc: string;
   nickname: string;
 }
 
-export type PostListSearchApiResult = PostListSearchResult[];
+export type PostMypageSearchResult = PostListSearchResult;
+export type PostListMypageSearchApiResult = PostMypageSearchResult[];
 
-export const PostListSearchApi = async (queryString: string) => {
-  return client.get("/posts" + queryString);
+export const PostListMypageSearchApi = (userId: string) => {
+  return client.get(`/post/${userId}`);
 };
+
+export type PostListSearchApiResult = {
+  contents: PostListSearchResult[];
+  totalPages: number;
+};
+
+export const PostListSearchApi = async (queryString: string) =>
+  client.get("/posts" + queryString);
 
 export interface PostWriteApiInput {
   title: string;
@@ -38,7 +42,7 @@ export interface PostWriteApiResult {
 }
 
 export const PostWriteApi = (elem: PostWriteApiInput) =>
-  client.post("/post", elem);
+  client.post("/post", { ...elem, fileLink: "https://ggg" });
 
 export interface PostMypageSearchApi {
   userToken: string;

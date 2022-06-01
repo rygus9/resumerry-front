@@ -1,7 +1,7 @@
 import { cls } from "util/utils";
 
 const imageSizeValue = {
-  sm: "w-5 h-5 sm:w-6 sm:h-6",
+  sm: "w-6 h-6 sm:w-8 sm:h-8",
   md: "w-8 h-8 sm:w-10 sm:h-10",
 };
 
@@ -69,7 +69,14 @@ export default function UserInfo({
         )}
       </div>
       {modifiedDate && (
-        <div className="text-md px-3 text-deepGray w-fit">{modifiedDate}</div>
+        <div
+          className={cls(
+            "px-3 text-deepGray w-fit",
+            size === "sm" ? "text-sm" : "text-md"
+          )}
+        >
+          {modifiedDate.split("T")[0]}
+        </div>
       )}
     </div>
   );

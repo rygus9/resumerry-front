@@ -1,49 +1,84 @@
+import { ScrapListMypageSearchApi } from "./mypage";
+import { CommonCUDResult } from "./common";
 import { CategoryKindType } from "../../components/molcular/category/categoryValue";
 import client from "./client";
-import { ListSearchResult } from "./typeinterface";
 
-export interface ResumeListSearchResult extends ListSearchResult {
+export interface ResumeListType {
+  memberId: string;
   resumeId: string;
+  imageSrc: string;
+  nickname: string;
+  title: string;
+  contents: string;
+  commentCnt: number;
+  viewCnt: number;
   recommendCnt: number;
+  modifiedDate: string;
   hashtag: string[];
-  isScrap: boolean;
   years: number;
 }
+
 export interface ResumeListSearchApiInput {
   category: string;
   title: string;
   startYear: number;
   endYear: number;
-  hashtag: string[];
-  sort: "recommand" | "view" | "aged";
+  sort: "recommend" | "view" | "years" | "recent";
 }
+
+export type ResumeListSearchApiResult = {
+  contents: ResumeListType[];
+  totalPages: number;
+};
+
 export interface ResumeMypageSearchResult {
-  userToken: string;
+  memberId: string;
+  resumeId: string;
+  imageSrc: string;
+  nickname: string;
   title: string;
   contents: string;
-  category: string;
   years: number;
+  recommendCnt: number;
+  commentCnt: number;
+  viewCnt: number;
+  modifiedDate: string;
   hashtag: string[];
-  fileLink: string;
 }
 
-export type ResumeListSearchApiResult = ResumeListSearchResult[];
+export interface ScrapMypageSearchResult {
+  memberId: string;
+  resumeId: string;
+  imageSrc: string;
+  nickname: string;
+  title: string;
+  contents: string;
+  years: number;
+  recommendCnt: number;
+  commentCnt: number;
+  viewCnt: number;
+  modifiedDate: string;
+  hashtag: string[];
+}
 
-export const ResumeListSearchApi = (queryString: string) =>
-  client.get("/resume" + queryString);
+export type ResumeListMypageSearchApiResult = ResumeMypageSearchResult[];
+
+export const ResumeListMypageSearchApi = (userId: string) =>
+  client.get(`/resume/${userId}`);
+
+export const ResumeListSearchApi = (data: string) =>
+  client.get("/resume" + data);
 
 export interface ResumeWriteApiInput {
   title: string;
   contents: string;
   category: CategoryKindType;
   years: number;
-  hashtag: string[];
+  hashtagList: string[];
   file: FileList;
 }
 
-export interface ResumeWriteApiResult {
-  result: boolean;
-}
+export type ResumeWriteApiResult = CommonCUDResult;
 
 export const ResumeWriteApi = (data: ResumeWriteApiInput) => {
   const formData = new FormData();
@@ -52,30 +87,23 @@ export const ResumeWriteApi = (data: ResumeWriteApiInput) => {
   formData.append("contents", data.contents);
   formData.append("category", data.category);
   formData.append("years", data.years.toString());
-  // formData.append("hashtag", data.hashtag.toString());
+  formData.append("hashtagList", data.hashtagList.toString());
 
   return client.post("/resume", formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
 };
 
-export interface ResumeMypageSearchApiInput {
-  userToken: string;
-}
-
 export interface ResumeMypageSearchApiResult {
-  resumes: ResumeMypageSearchResult[];
+  resumes: ResumeListType[];
 }
 
-export const ResumeMypageSearchApi = (userId: string) => {
+export const ResumeMypageSearchApi = (userId: string) =>
   client.get(`/resume/${userId}`);
-};
 
-export interface ResumeSearchApiInput {
-  userToken: string;
-}
-
-export interface ResumeSearchApiResult {
+export interface ResumeType {
+  imageLink: string;
+  nickname: string;
   title: string;
   category: string;
   contents: string;
@@ -86,11 +114,11 @@ export interface ResumeSearchApiResult {
   commentCnt: number;
   viewCnt: number;
   fileLink: string;
-  memberId: string;
-  imageLink: string;
-  nickname: string;
   isScrap: boolean;
   isOwner: boolean;
+  isRecommend: boolean;
+  isBuyer: Boolean;
+  isLock: Boolean;
 }
 
 export const ResumeSearchApi = (userId: string, resumeId: string) =>
@@ -105,9 +133,7 @@ export interface ResumeFixApiInput {
   years: number;
 }
 
-export interface ResumeFixApiResult {
-  result: boolean;
-}
+export type ResumeFixApiResult = CommonCUDResult;
 
 export const ResumeFixApi = (
   data: ResumeFixApiInput,
@@ -127,50 +153,22 @@ export const ResumeFixApi = (
   });
 };
 
-export interface ResumeDeleteApiInput {
-  userToken: string;
-}
-export interface ResumeDeleteApiResult {
-  result: boolean;
-}
+export type ResumeDeleteApiResult = CommonCUDResult;
 
 export const ResumeDeleteApi = (userId: string, resumeId: string) =>
   client.delete(`/resume/${userId}/${resumeId}`);
 
-export interface ResumeRecommendApiInput {
-  userToken: string;
-}
-
-export interface ResumeRecommendApiResult {
-  result: boolean;
-}
+export type ResumeRecommendApiResult = CommonCUDResult;
 
 export const ResumeRecommendApi = (userId: string, resumeId: string) =>
   client.post(`/resume/${userId}/${resumeId}/recommend`);
 
-export interface ResumeScrapApiInput {
-  userToken: string;
-}
-export interface ResumeScrapApiResult {
-  result: boolean;
-}
+export type ResumeScrapApiResult = CommonCUDResult;
 
 export const ResumeScrapApi = (userId: string, resumeId: string) =>
   client.post(`/resume/${userId}/${resumeId}/scrap`);
 
-export interface ResumeUnlockApiInput {
-  userToken: string;
-}
+export type ResumeUnlockApiResult = CommonCUDResult;
 
-export interface ResumeUnlockApiResult {
-  result: boolean;
-}
-
-export const ResumeUnlockApi = (
-  { userToken }: ResumeUnlockApiInput,
-  userId: string,
-  resumeId: string
-) =>
-  client.post(`/resume/${userId}/${resumeId}/unlock`, {
-    userToken,
-  });
+export const ResumeUnlockApi = (userId: string, resumeId: string) =>
+  client.post(`/resume/${userId}/${resumeId}/unlock`);

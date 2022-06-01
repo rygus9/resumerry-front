@@ -21,6 +21,19 @@ export function regExpression(
   return expression[regType];
 }
 
+export function groupBy(data: any[], key: string) {
+  return data.reduce(function (carry: any, el: any) {
+    var group = el[key];
+
+    if (carry[group] === undefined) {
+      carry[group] = [];
+    }
+
+    carry[group].push(el);
+    return carry;
+  }, {});
+}
+
 export interface ErrorObjectFromServer {
   field: string;
   message: string;

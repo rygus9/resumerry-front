@@ -1,55 +1,47 @@
 import NormalButton from "components/atom/button/NormalButton";
-import IconNumber from "components/atom/common/IconNumber";
 import { useCallback, useState } from "react";
-import { MainCommentElemResult } from "util/api/postcomment";
-import UserInfo from "../common/UserInfo";
+import { MainCommentElemResult } from "util/api/comment";
+import { cls } from "util/utils";
+import ChatElem from "./ChatElem";
 import SubChat from "./SubChat";
 
-export default function ChatItem(elem: MainCommentElemResult) {
+interface Props extends MainCommentElemResult {
+  size: "sm" | "md";
+  yPath?: number;
+}
+
+export default function ChatItem(elem: Props) {
   const [subOpen, setSubOpen] = useState(false);
   const onClick = useCallback(() => setSubOpen(!subOpen), [subOpen]);
 
   return (
     <div className="py-3">
-      <div className="pb-5 pt-3 w-fit">
-        <UserInfo
-          isAnonymous={elem.isAnonymous}
-          nickname={elem.nickname}
-          imageSrc={elem.imageSrc}
-          modifiedDate={elem.modifiedDate}
+      <ChatElem
+        button={
+          <div className={cls(elem.size === "sm" ? "" : "pr-5")}>
+            <NormalButton onClick={onClick} size={elem.size}>
+              <>
+                {subOpen && "댓글 닫기"}
+                {!subOpen &&
+                  (elem.childComments.length ? (
+                    <>{elem.childComments.length}개의 댓글</>
+                  ) : (
+                    "댓글 작성"
+                  ))}
+              </>
+            </NormalButton>
+          </div>
+        }
+        {...elem}
+      />
+      {subOpen && (
+        <SubChat
+          childComments={elem.childComments}
+          groupId={elem.commentGroup}
+          size={elem.size}
+          yPath={elem.yPath}
         />
-      </div>
-      <p className="text-lg text-black min-h-[3rem]">
-        {elem.contents.split("\n").map((elem, index) => (
-          <span key={index}>
-            {elem} <br />
-          </span>
-        ))}
-      </p>
-      <div className="mt-2 flex justify-between">
-        <div className="flex space-x-2 items-center">
-          <IconNumber
-            src="/img/icons/good.svg"
-            number={elem.recommendCnt}
-            iconSize="sm"
-          />
-          <IconNumber src="/img/icons/dislike.svg" number={elem.banCnt} />
-        </div>
-        <div className="pr-5">
-          <NormalButton onClick={onClick}>
-            <>
-              {subOpen && "댓글 닫기"}
-              {!subOpen &&
-                (elem.childComments.length ? (
-                  <>{elem.childComments.length}개의 댓글</>
-                ) : (
-                  "댓글 작성"
-                ))}
-            </>
-          </NormalButton>
-        </div>
-      </div>
-      {subOpen && <SubChat childComments={elem.childComments} />}
+      )}
     </div>
   );
 }

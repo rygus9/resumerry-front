@@ -1,19 +1,19 @@
-import MainButton from 'components/atom/button/MainButton';
-import NormalButton from 'components/atom/button/NormalButton';
-import LabelInput from 'components/atom/input/LabelInput';
-import SelectGroup from 'components/atom/selectBox/SelectGroup';
-import React, { useCallback, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { useLocation, useNavigate } from 'react-router-dom';
-import qs from 'qs';
-import { openState } from 'recoil/openState';
-import { useRecoilState } from 'recoil';
-import ModalFrame from 'pages/common/ModalFrame';
-import { cls } from 'util/utils';
+import MainButton from "components/atom/button/MainButton";
+import NormalButton from "components/atom/button/NormalButton";
+import LabelInput from "components/atom/input/LabelInput";
+import SelectGroup from "components/atom/selectBox/SelectGroup";
+import { useCallback, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router-dom";
+import qs from "qs";
+import { openState } from "recoil/openState";
+import { useRecoilState } from "recoil";
+import ModalFrame from "pages/common/ModalFrame";
+import { cls } from "util/utils";
 
 interface PostFilterForm {
   title: string;
-  sort: 'recent' | 'view';
+  sort: "recent" | "view";
 }
 
 export default function PostModal() {
@@ -24,17 +24,17 @@ export default function PostModal() {
   const { register, setValue, handleSubmit, watch } = useForm<PostFilterForm>();
 
   useEffect(() => {
-    setValue('sort', 'recent');
+    setValue("sort", "recent");
   }, []);
 
   const orderedPair = {
-    recent: '최신순',
-    view: '조회순',
+    recent: "최신순",
+    view: "조회순",
   };
 
   const onClose = useCallback(() => {
     setOpen({ ...open, postFilterOpen: !open.postFilterOpen });
-  }, []);
+  }, [open, setOpen]);
 
   const onSubmit = (data: PostFilterForm) => {
     const { title, sort } = data;
@@ -54,8 +54,8 @@ export default function PostModal() {
     <ModalFrame onClose={onClose}>
       <div
         className={cls(
-          'inner relative left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[20rem] bg-white rounded-lg',
-          'sm:w-[24rem]',
+          "inner relative left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[20rem] bg-white rounded-lg",
+          "sm:w-[24rem]"
         )}
       >
         <h3 className="text-center py-5 text-2xl">필터 및 정렬</h3>
@@ -63,8 +63,8 @@ export default function PostModal() {
           {/* selection area */}
           <div
             className={cls(
-              'w-full m-auto space-y-2 px-5 pt-3 pb-5',
-              'sm:w-4/5 sm:px-0',
+              "w-full m-auto space-y-2 px-5 pt-3 pb-5",
+              "sm:w-4/5 sm:px-0"
             )}
           >
             <LabelInput
@@ -73,14 +73,14 @@ export default function PostModal() {
               inputSize="sm"
               color="black"
               placeholder="제목"
-              register={register('title')}
+              register={register("title")}
             />
             <div className="text-lightBlack">정렬</div>
             <SelectGroup
               pairs={orderedPair}
               now={watch().sort}
-              setValue={(value: 'recent' | 'view') => {
-                setValue('sort', value);
+              setValue={(value: "recent" | "view") => {
+                setValue("sort", value);
               }}
             />
           </div>

@@ -1,9 +1,9 @@
 import NormalButton from "components/atom/button/NormalButton";
-import IconNumber from "components/atom/common/IconNumber";
 import Chat from "components/molcular/chat/Chat";
 import LoadingUI from "components/molcular/common/LoadingUI";
 import SideInfo from "components/molcular/common/SideInfo";
 import UserInfo from "components/molcular/common/UserInfo";
+import PostInfo from "components/molcular/post/PostInfo";
 import WrapContent from "pages/common/WrapContent";
 import { useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -30,10 +30,12 @@ export default function Post() {
     setOpen({ ...open, postDeleteOpen: true });
   }, []);
 
-  const { isLoading: CommentLoading, data: commentData } = useComment(
+  const { isLoading: commentLoading, data: commentData } = useComment(
     params.userId!,
     params.postId!
   );
+
+  console.log(postData);
 
   return (
     <WrapContent>
@@ -91,20 +93,16 @@ export default function Post() {
                       "md:hidden"
                     )}
                   >
-                    <IconNumber
-                      src="/img/icons/chat.svg"
-                      number={postData.commentCnt}
-                    />
-                    <IconNumber
-                      src="/img/icons/view.svg"
-                      number={postData.viewCnt}
-                    />
+                    <PostInfo
+                      commentCnt={postData.commentCnt}
+                      viewCnt={postData.viewCnt}
+                    ></PostInfo>
                   </div>
 
                   <div className={cls("mt-2", "md:mt-12")}>
                     <Chat
                       commentCnt={postData.commentCnt}
-                      isLoading={CommentLoading}
+                      isLoading={commentLoading}
                       commentData={commentData}
                     />
                   </div>
