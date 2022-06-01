@@ -7,7 +7,7 @@ import { cls } from "util/utils";
 interface Props {
   hashtagList: string[];
   setValue: (
-    name: "hashtag",
+    name: "hashtagList",
     value: string[],
     options?:
       | Partial<{
@@ -31,14 +31,14 @@ export default function Hashtag({ hashtagList, setValue, labelSize }: Props) {
   }, []);
   const onHashRegist = useCallback(() => {
     const nowHashList = hashtagList;
-    setValue("hashtag", nowHashList.concat(hashInput));
+    setValue("hashtagList", nowHashList.concat(hashInput));
     setHashInput("");
   }, [hashInput, hashtagList]);
   const onHashDelete = useCallback(
     (hashtag: string) => {
       const nowHashList = hashtagList;
       setValue(
-        "hashtag",
+        "hashtagList",
         nowHashList.filter((elem: string) => elem !== hashtag)
       );
     },

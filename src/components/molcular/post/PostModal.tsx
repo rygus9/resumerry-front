@@ -2,7 +2,7 @@ import MainButton from "components/atom/button/MainButton";
 import NormalButton from "components/atom/button/NormalButton";
 import LabelInput from "components/atom/input/LabelInput";
 import SelectGroup from "components/atom/selectBox/SelectGroup";
-import React, { useCallback, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import qs from "qs";

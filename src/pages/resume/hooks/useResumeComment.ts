@@ -12,7 +12,7 @@ const getComment = async (
   return data;
 };
 
-export const useComment = (userId: string, resumeId: string) => {
+export const useResumeComment = (userId: string, resumeId: string) => {
   return useQuery(["ResumeComment", userId, resumeId], () =>
     getComment(userId, resumeId)
   );

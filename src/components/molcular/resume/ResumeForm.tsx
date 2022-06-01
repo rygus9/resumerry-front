@@ -44,13 +44,13 @@ export default function ResumeForm({
 
   useEffect(() => {
     setValue("category", "ALL");
-    setValue("hashtag", []);
+    setValue("hashtagList", []);
     if (resume) {
       setValue("title", resume.title);
       setValue("category", resume.category as CategoryKindType);
       setValue("contents", resume.contents);
       setValue("years", resume.years);
-      setValue("hashtag", resume.hashtag);
+      setValue("hashtagList", resume.hashtag);
     }
   }, [resume]);
 
@@ -106,7 +106,7 @@ export default function ResumeForm({
             error={errors.contents}
           />
           <Hashtag
-            hashtagList={watch().hashtag}
+            hashtagList={watch().hashtagList}
             setValue={setValue}
             labelSize={"lg"}
           />

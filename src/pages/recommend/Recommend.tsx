@@ -1,9 +1,9 @@
 import ResumeListItem from "components/molcular/resume/ResumeListItem";
 import WrapContent from "pages/common/WrapContent";
-import { ResumeListSearchApiResult } from "util/api/resume";
+import { ResumeListType } from "util/api/resume";
 
 export default function Recommend() {
-  const data_ResumeSearch: ResumeListSearchApiResult = [
+  const data_ResumeSearch: ResumeListType[] = [
     {
       resumeId: "리쥬메ID1",
       title: "당근마켓 지원 이력서",
@@ -34,7 +34,7 @@ export default function Recommend() {
     },
   ];
 
-  const result_ResumeSearch: ResumeListSearchApiResult = [
+  const result_ResumeSearch: ResumeListType[] = [
     {
       resumeId: "리쥬메ID1",
       title: "당근마켓 이력서",
