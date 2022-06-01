@@ -29,7 +29,7 @@ export default function PostListItem({
   modifiedDate,
 }: PostItemProps): JSX.Element {
   return (
-    <Link to={`./${memberId}/${postId}`}>
+    <Link to={`/post/${memberId}/${postId}`}>
       <div className="px-3 py-5 cursor-pointer">
         {/* profile */}
         <UserInfo

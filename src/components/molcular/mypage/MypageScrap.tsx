@@ -3,15 +3,14 @@ import ChatIcon from "components/atom/icons/chatIcon/ChatIcon";
 import GoodIcon from "components/atom/icons/chatIcon/GoodIcon";
 import ViewIcon from "components/atom/icons/chatIcon/ViewIcon";
 import { Link } from "react-router-dom";
-import { ResumeMypageSearchResult } from "util/api/resume";
-import { cls } from "util/utils";
+import { ScrapMypageSearchResult } from "util/api/resume";
 import UserInfo from "../common/UserInfo";
 
-type Props = ResumeMypageSearchResult;
+type Props = ScrapMypageSearchResult;
 
-export default function ResumeMypageListItem({ ...elem }: Props) {
+export default function ScrapMypageListItem({ ...elem }: Props) {
   return (
-    <div className="bg-white border-b-[1px] border-x-lightBlack w-full px-5 py-3 mt-8">
+    <div className="bg-white border-b-[1px] border-lightBlack w-full px-5 py-3 mt-8">
       <Link to={`/resume/${elem.memberId}/${elem.resumeId}`}>
         <h3 className="text-xl text-deepBlack">{elem.title}</h3>
       </Link>

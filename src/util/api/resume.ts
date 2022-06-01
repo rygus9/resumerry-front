@@ -1,3 +1,4 @@
+import { ScrapListMypageSearchApi } from "./mypage";
 import { CommonCUDResult } from "./common";
 import { CategoryKindType } from "../../components/molcular/category/categoryValue";
 import client from "./client";
@@ -31,6 +32,21 @@ export type ResumeListSearchApiResult = {
 };
 
 export interface ResumeMypageSearchResult {
+  memberId: string;
+  resumeId: string;
+  imageSrc: string;
+  nickname: string;
+  title: string;
+  contents: string;
+  years: number;
+  recommendCnt: number;
+  commentCnt: number;
+  viewCnt: number;
+  modifiedDate: string;
+  hashtag: string[];
+}
+
+export interface ScrapMypageSearchResult {
   memberId: string;
   resumeId: string;
   imageSrc: string;
