@@ -5,7 +5,7 @@ import LabelInput from "components/atom/input/LabelInput";
 import SelectGroup from "components/atom/selectBox/SelectGroup";
 import ModalFrame from "pages/common/ModalFrame";
 import qs from "qs";
-import React, { useCallback, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
@@ -24,7 +24,6 @@ export default function ResumeModal() {
     useForm<ResumeFilterForm>();
 
   useEffect(() => {
-    setValue("hashtag", []);
     setValue("sort", "recent");
   }, []);
 
@@ -40,13 +39,12 @@ export default function ResumeModal() {
   }, []);
 
   const onSubmit = (data: ResumeFilterForm) => {
-    const { title, sort, hashtag, startYear, endYear } = data;
+    const { title, sort, startYear, endYear } = data;
     const nowQuery = qs.parse(location.search, {
       ignoreQueryPrefix: true,
     });
     nowQuery.title = title;
     nowQuery.sort = sort;
-    nowQuery.hash = hashtag.join("|");
     if (startYear > 0 && endYear > 0 && startYear < endYear) {
       nowQuery.startYear = startYear.toString();
       nowQuery.endYear = endYear.toString();
@@ -115,16 +113,6 @@ export default function ResumeModal() {
                 </div>
                 <span className="lightBlack">&nbsp;까지&nbsp;&nbsp;&nbsp;</span>
               </div>
-            </fieldset>
-            <fieldset className="w-36">
-              <LabelInput
-                label={"해시태그"}
-                labelSize="md"
-                inputSize="sm"
-                color="black"
-                placeholder="해시태그(#빼고)"
-                register={register("hashtag")}
-              ></LabelInput>
             </fieldset>
           </div>
           {/* button */}

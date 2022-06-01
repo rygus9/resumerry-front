@@ -21,9 +21,9 @@ export default function Resume() {
     <>
       <div
         className={cls(
-          "bg-resume-image h-56 bg-cover bg-right-top",
+          "bg-resume-image h-56 bg-cover bg-center",
           "sm:h-64",
-          "lg:h-72"
+          "lg:h-80"
         )}
       >
         <div
@@ -32,6 +32,9 @@ export default function Resume() {
             "sm:w-4/5 sm:px-0"
           )}
         >
+          <h3 className="absolute bottom-12 mb-8 text-2xl text-deepGray font-DoHyean">
+            이력서 모아보기
+          </h3>
           <h1 className="absolute bottom-0 mb-8 text-title">이력서 보기</h1>
         </div>
       </div>
@@ -43,7 +46,7 @@ export default function Resume() {
           <ResumeSearch />
           <section
             className={cls(
-              "relative",
+              "relative shadow-inner",
               "grid mt-5 bg-stone-50 py-5 px-5 grid-cols-1 gap-8",
               "sm:grid-cols-2 sm:gap-2",
               "md:gap-8",

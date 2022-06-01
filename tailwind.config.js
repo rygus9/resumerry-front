@@ -15,6 +15,7 @@ module.exports = {
       backgroundImage: {
         "question-image": "url('../public/img/background/question.png')",
         "resume-image": "url('../public/img/background/resume.png')",
+        "main-image": "url('../public/img/background/main.png')",
       },
       fontFamily: {
         DoHyean: ["Do Hyeon", "sans-serif"],

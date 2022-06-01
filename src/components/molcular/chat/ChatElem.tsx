@@ -1,5 +1,6 @@
 import NormalButton from "components/atom/button/NormalButton";
 import { CommentElemResult } from "util/api/comment";
+import { cls } from "util/utils";
 import UserInfo from "../common/UserInfo";
 import ChatInfo from "./ChatInfo";
 import useCommentDelete from "./hooks/useCommentDelete";
@@ -8,13 +9,14 @@ import useCommentReport from "./hooks/useCommentReport";
 
 interface ChatElemProps extends CommentElemResult {
   button: JSX.Element | null;
+  size: "sm" | "md";
 }
 
 ChatElem.defaultProps = {
   button: null,
 };
 
-export default function ChatElem({ button, ...elem }: ChatElemProps) {
+export default function ChatElem({ button, size, ...elem }: ChatElemProps) {
   const { isLoading: deleteLoading, mutate: deleteMutate } = useCommentDelete(
     elem.commentId,
     elem.commentGroup,
@@ -32,28 +34,36 @@ export default function ChatElem({ button, ...elem }: ChatElemProps) {
 
   return (
     <div className="pb-1">
-      <div className="flex items-center">
-        <div className="pb-5 pt-5 w-fit">
+      <div className={cls("items-center", size === "sm" ? "block" : "flex")}>
+        <div className={cls(size === "sm" ? "py-3" : "py-5", "w-fit")}>
           <UserInfo
             isAnonymous={elem.isAnonymous!}
             nickname={elem.nickname}
             imageSrc={elem.imageSrc}
             modifiedDate={elem.modifiedDate}
+            size={size}
           />
         </div>
         {elem.isOwner && elem.isDelete === "N" && (
-          <div>
+          <div className="pb-3">
             <NormalButton
               onClick={() => {
                 deleteMutate();
               }}
+              size={size}
             >
               삭제
             </NormalButton>
           </div>
         )}
       </div>
-      <p className="text-lg text-black min-h-[3rem]">
+      <p
+        className={cls(
+          "text-lightBlack min-h-[3rem]",
+          size === "sm" ? "text-base" : "text-lg",
+          size === "sm" ? "min-h-[2.5rem]" : "min-h-[3rem]"
+        )}
+      >
         {elem.isDelete === "Y"
           ? "삭제된 댓글입니다."
           : elem.contents.split("\n").map((elem, index) => (
@@ -62,7 +72,12 @@ export default function ChatElem({ button, ...elem }: ChatElemProps) {
               </span>
             ))}
       </p>
-      <div className="mt-5 flex justify-between">
+      <div
+        className={cls(
+          "flex justify-between items-center",
+          size === "sm" ? "mt-2" : "mt-5"
+        )}
+      >
         <div className="flex space-x-2 items-center">
           {elem.isDelete === "N" && (
             <ChatInfo

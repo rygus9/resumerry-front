@@ -1,3 +1,4 @@
+import { ScrapListMypageSearchApi } from "./mypage";
 import { CommonCUDResult } from "./common";
 import { CategoryKindType } from "../../components/molcular/category/categoryValue";
 import client from "./client";
@@ -22,11 +23,45 @@ export interface ResumeListSearchApiInput {
   title: string;
   startYear: number;
   endYear: number;
-  hashtag: string[];
   sort: "recommend" | "view" | "years" | "recent";
 }
 
 export type ResumeListSearchApiResult = ResumeListType[];
+
+export interface ResumeMypageSearchResult {
+  memberId: string;
+  resumeId: string;
+  imageSrc: string;
+  nickname: string;
+  title: string;
+  contents: string;
+  years: number;
+  recommendCnt: number;
+  commentCnt: number;
+  viewCnt: number;
+  modifiedDate: string;
+  hashtag: string[];
+}
+
+export interface ScrapMypageSearchResult {
+  memberId: string;
+  resumeId: string;
+  imageSrc: string;
+  nickname: string;
+  title: string;
+  contents: string;
+  years: number;
+  recommendCnt: number;
+  commentCnt: number;
+  viewCnt: number;
+  modifiedDate: string;
+  hashtag: string[];
+}
+
+export type ResumeListMypageSearchApiResult = ResumeMypageSearchResult[];
+
+export const ResumeListMypageSearchApi = (userId: string) =>
+  client.get(`/resume/${userId}`);
 
 export const ResumeListSearchApi = (data: string) =>
   client.get("/resume" + data);

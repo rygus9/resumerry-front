@@ -8,15 +8,15 @@ export default function ChatInfo({
   banCnt,
   isRecommend = false,
   isBanned = false,
-  onRecommend,
-  onReport,
+  onRecommend = () => {},
+  onReport = () => {},
 }: {
   recommendCnt: number;
   banCnt: number;
   isRecommend: boolean;
   isBanned: boolean;
-  onRecommend: UseMutateFunction;
-  onReport: UseMutateFunction;
+  onRecommend?: UseMutateFunction;
+  onReport?: UseMutateFunction;
 }) {
   return (
     <>

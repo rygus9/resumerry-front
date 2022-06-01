@@ -1,5 +1,5 @@
-import { cls } from 'util/utils';
-import SelectBox, { SelectBoxProps } from '.';
+import { cls } from "util/utils";
+import SelectBox, { SelectBoxProps } from ".";
 
 interface Props extends SelectBoxProps {
   label: string;
@@ -7,11 +7,11 @@ interface Props extends SelectBoxProps {
 
 export default function LabelCheckBox({ label, className, ...elem }: Props) {
   return (
-    <div className={className}>
-      <label>
+    <div className={cls(className)}>
+      <label className="flex items-center">
         <span className="text-black pr-2 text-sm align-middle">{label}</span>
         <SelectBox
-          className={cls('focus:ring-0 checked:text-lightPurple')}
+          className={cls("focus:ring-0 checked:text-lightPurple")}
           {...elem}
         />
       </label>
