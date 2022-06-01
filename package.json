@@ -65,5 +65,5 @@
     "react-helmet": "^6.1.0",
     "tailwindcss": "^3.0.24"
   },
-  "proxy": "http://localhost:8080/"
+  "proxy": "https://securehttp.resumerry.com"
 }

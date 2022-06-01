@@ -52,8 +52,7 @@ export default function ResumeChat({
     [chatData, setChatData, setSubChatOpen, subChatOpen]
   );
 
-  const pdfVersion = "2.14.305";
-  const pdfWorkerUrl = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfVersion}/pdf.worker.js`;
+  const pdfWorkerUrl = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.13.216/pdf.worker.js`;
 
   return (
     <div className="w-full  m-auto flex items-stretch justify-center">

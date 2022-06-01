@@ -18,8 +18,6 @@ const getResumeList = async (
     ? elem + "&pageNo=" + pageParams
     : "?pageNo=" + pageParams;
   const { data } = await ResumeListSearchApi(queryString);
-  console.log(data);
-
   const nextPage = data.totalPages > pageParams ? pageParams + 1 : undefined;
 
   return { return: data, nextPage, isLast: !nextPage };
