@@ -13,7 +13,6 @@ export default function useCommentRegist() {
   const params = useParams();
   const path = location.pathname.split("/")[1];
   const queryClient = useQueryClient();
-
   let CommentWriteFunc = null;
   if (path === "resume") {
     CommentWriteFunc = (newComment: ResumeCommentWriteApiInput) =>
@@ -31,6 +30,7 @@ export default function useCommentRegist() {
     onSuccess: (result) => {
       console.log("성공 메시지:", result);
       if (path === "resume") {
+        console.log(path);
         queryClient.fetchQuery([
           "ResumeComment",
           params.userId,

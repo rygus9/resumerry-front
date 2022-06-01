@@ -1,3 +1,4 @@
+import Heart from "components/atom/icons/Heart";
 import ResumeChatBody from "./ResumeChatBody";
 
 export function ResumeIndexChat({
@@ -28,6 +29,12 @@ export function ResumeIndexChat({
             subChatOpen.filter((elem: any) => elem.yPath !== yPath)
           );
         }
+        setChatData((elem: any) =>
+          elem.filter((elem: any) => {
+            return elem[1].length !== 0;
+          })
+        );
+
         setSubChatOpen(
           subChatOpen.map((elem: any) => {
             if (elem.yPath === yPath) {
@@ -40,13 +47,15 @@ export function ResumeIndexChat({
       }}
     >
       <div className="h-10 w-2 bg-lightBlack z-20"></div>
-      <div className="text-deepPurple text-2xl border-2 border-deepPurple bg-white w-10 h-10 rounded-full text-center">
-        {subChatOpen.filter((elem: any) => elem.yPath === yPath)[0].state
-          ? "X"
-          : "C"}
+      <div className="w-10 h-10 rounded-full text-center">
+        {subChatOpen.filter((elem: any) => elem.yPath === yPath)[0].state ? (
+          <Heart color="deep"></Heart>
+        ) : (
+          <Heart color="light"></Heart>
+        )}
       </div>
       {subChatOpen.filter((elem: any) => elem.yPath === yPath)[0].state && (
-        <ResumeChatBody chatList={chatList} />
+        <ResumeChatBody chatList={chatList} yPath={yPath} />
       )}
     </div>
   );

@@ -102,13 +102,20 @@ export const ResumeCommentWriteApi = (
   userId: string,
   resumeId: string
 ) => {
-  console.log({ contents, commentDepth, commentGroup, isAnonymous, yPath });
+  console.log({
+    contents,
+    commentDepth,
+    commentGroup,
+    isAnonymous,
+    ypath: yPath,
+  });
 
   return client.post(`/resume/${userId}/${resumeId}/comment`, {
     contents,
     commentDepth,
     commentGroup,
     isAnonymous,
+    ypath: yPath,
   });
 };
 

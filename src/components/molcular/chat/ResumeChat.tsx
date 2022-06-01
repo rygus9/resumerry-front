@@ -1,9 +1,11 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ResumeMainCommentElemResult } from "util/api/comment";
 import { groupBy } from "util/utils";
 
 import { Viewer, Worker } from "@react-pdf-viewer/core";
 import { ResumeIndexChat } from "./ResumeIndexChat";
+import { useSetRecoilState } from "recoil";
+import { commentLenState } from "recoil/commentLen";
 
 export default function ResumeChat({
   inputChatData,
@@ -12,9 +14,17 @@ export default function ResumeChat({
   inputChatData: ResumeMainCommentElemResult[];
   path: string;
 }) {
+  const totalChatLen: number = inputChatData.length;
+  const setCommentLen = useSetRecoilState(commentLenState);
+  setCommentLen(totalChatLen);
+
   const [chatData, setChatData] = useState<
     [string, ResumeMainCommentElemResult[]][]
-  >(Object.entries(groupBy(inputChatData, "top")));
+  >(Object.entries(groupBy(inputChatData, "yPath")));
+
+  useEffect(() => {
+    setChatData(Object.entries(groupBy(inputChatData, "yPath")));
+  }, [setChatData, inputChatData]);
 
   const [subChatOpen, setSubChatOpen] = useState<
     { yPath: string; state: boolean }[]
@@ -32,7 +42,11 @@ export default function ResumeChat({
           .concat([[e.nativeEvent.offsetY + "", []]])
       );
       setSubChatOpen(
-        subChatOpen.concat({ yPath: e.nativeEvent.offsetY + "", state: true })
+        subChatOpen
+          .map((elem) => {
+            return { ...elem, state: false };
+          })
+          .concat({ yPath: e.nativeEvent.offsetY + "", state: true })
       );
     },
     [chatData, setChatData, setSubChatOpen, subChatOpen]
@@ -48,7 +62,7 @@ export default function ResumeChat({
           <Viewer fileUrl={path} defaultScale={1.4} />
         </Worker>
       </div>
-      <div className="basis-[20rem] min-w-[20rem] bg-slate-100 relative pt-10">
+      <div className="basis-[20rem] min-w-[20rem] bg-pink-50 relative pt-10">
         <div className="h-full w-2 bg-gray" onClick={clickEvent}>
           {chatData &&
             chatData.map((elem: any, index: any) => (

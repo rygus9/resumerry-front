@@ -1,4 +1,3 @@
-import PostListItem from "components/molcular/post/PostMypageListItem";
 import IconNumber from "components/atom/common/IconNumber";
 import Normalbutton from "components/atom/button/NormalButton";
 

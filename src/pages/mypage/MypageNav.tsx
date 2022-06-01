@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Normalbutton from "components/atom/button/NormalButton";
 import { cls } from "util/utils";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function MypageNav() {
   const params = useParams();

@@ -10,12 +10,24 @@ import { useLocation } from "react-router-dom";
 import WrapContent from "pages/common/WrapContent";
 import { usePostList } from "./hooks/usePostList";
 import SkeletonPostListItem from "components/molcular/post/SkeletonPostListItem";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
 
 export default function PostList(): JSX.Element {
   const open = useRecoilValue(openState);
   const location = useLocation();
   const queryPath = location.search;
-  const { data, isLoading } = usePostList(queryPath);
+  const { data, fetchNextPage, isLoading, isFetching } = usePostList(queryPath);
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (!data) return;
+
+    const pageLastIdx = data.pages.length - 1;
+    const isLast = data?.pages[pageLastIdx].isLast;
+
+    if (!isLast && inView) fetchNextPage();
+  }, [inView]);
 
   return (
     <>
@@ -48,21 +60,33 @@ export default function PostList(): JSX.Element {
           {/* filter */}
           <PostSearch />
           {/* board list */}
-          <section className="divide-y divide-lightGray border-y border-lightGray">
+          <section className="border-y border-lightGray">
             {isLoading ? (
-              <div>
+              <div className="divide-y divide-lightGray">
                 <SkeletonPostListItem />
                 <SkeletonPostListItem />
                 <SkeletonPostListItem />
               </div>
             ) : (
               data &&
-              data.map((elem) => (
-                <div key={elem.postId}>
-                  <PostListItem {...elem} />
+              data.pages &&
+              data.pages.map((elem, index) => (
+                <div key={index} className="divide-y divide-lightGray">
+                  {elem.return.contents.map((elem, index) =>
+                    index % 20 === 9 ? (
+                      <div key={index}>
+                        <PostListItem {...elem} />
+                      </div>
+                    ) : (
+                      <div key={index} ref={ref}>
+                        <PostListItem {...elem} />
+                      </div>
+                    )
+                  )}
                 </div>
               ))
             )}
+            {!isLoading && isFetching && <SkeletonPostListItem />}
           </section>
           <FloatingButton to="./create" />
         </div>

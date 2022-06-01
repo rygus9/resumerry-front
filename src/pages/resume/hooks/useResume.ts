@@ -6,6 +6,7 @@ const getResume = async (
   userId: string,
   resumeId: string
 ): Promise<ResumeType> => {
+  // Fixed Please
   const { data } = await ResumeSearchApi(userId, resumeId);
   return data;
 };
