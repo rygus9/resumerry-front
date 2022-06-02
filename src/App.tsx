@@ -13,7 +13,7 @@ import Resume from "pages/resume/Resume";
 import PostUpdate from "pages/post/PostUpdate";
 import ResumeCreate from "pages/resume/ResumeCreate";
 import ResumeUpdate from "pages/resume/ResumeUpdate";
-import Mainpage from "pages/MainPage";
+import Mainpage from "pages/mainpage/MainPage";
 import Mypage from "pages/mypage/MyPage";
 import Test from "pages/Test/Test";
 import Recommend from "pages/recommend/Recommend";
