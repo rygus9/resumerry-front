@@ -8,28 +8,24 @@ import { cls } from "util/utils";
 import UserInfo from "../common/UserInfo";
 
 type Props = ResumeMypageSearchResult;
-
+//저의 이상한짓으로 토큰페이지입니다 미안합니다.
 export default function ResumeMypageListItem({ ...elem }: Props) {
   return (
-    <div className="bg-white border-2 border-gray w-full px-5 py-3 rounded-lg">
-      <Link to={`./${elem.memberId}/${elem.resumeId}`}>
-        <h3 className="text-xl text-deepBlack">{elem.title}</h3>
-      </Link>
+    <div className="bg-white border-2 border-gray w-[15rem] px-5 py-3 rounded-lg">
+      <h3 className="text-xl text-deepBlack">{elem.title}</h3>
       <div className="pt-3 pb-1">
         <UserInfo
           imageSrc={elem.imageSrc}
           nickname={elem.nickname}
-          size="sm"
+          size="md"
           modifiedDate={
             elem.modifiedDate ? elem.modifiedDate.split("T")[0] : ""
           }
         />
       </div>
-      <Link to={`./${elem.memberId}/${elem.resumeId}`}>
-        <p className="text-lg mt-2 min-h-[4rem] py-2 text-black">
-          {elem.contents}
-        </p>
-      </Link>
+      <p className="text-lg mt-2 min-h-[4rem] py-2 text-black">
+        {elem.contents}
+      </p>
 
       <ul className="flex list-none pb-2">
         {/* {elem.hashtag.map((elem) => (
