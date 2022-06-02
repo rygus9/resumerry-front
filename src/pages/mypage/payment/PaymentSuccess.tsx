@@ -1,13 +1,10 @@
 import { cls } from "util/utils";
 import Normalbutton from "components/atom/button/NormalButton";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { paymentApprove, paymentplz } from "./hooks/useTossRequest";
-
+import { paymentAxios } from "./hooks/useTossRequest";
 export default function PaymentSuccess() {
-  const [isapproved, setIsapproved] = useState(false);
-  const response = paymentApprove(window.location.search.split("&"));
-  console.log(response);
+  const url = window.location.href.split("/")[4];
+  paymentAxios(url.split("&"));
   return (
     <div className="flex justify-center">
       <div className="rounded-b-xl bg-purple-200 mx-16 mt-12 py-8 rounded-xl max-w-5xl px-12">

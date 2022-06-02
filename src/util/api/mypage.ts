@@ -12,12 +12,14 @@ export interface TokenSearchApiResult {
 
 export interface ProfileApiResult {
   memberId: number;
+  accountName: string;
   nickname: string;
   years: number;
   category: string;
   email: string;
-  role: string;
   introduce: string;
+  role: string;
+  imageSrc: FileList;
   stack: number;
   token: number;
 }

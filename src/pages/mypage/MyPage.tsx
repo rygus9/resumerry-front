@@ -26,18 +26,6 @@ export default function Mypage(): JSX.Element {
           "xl:w-[22rem]"
         )}
       >
-        <div className="justify-center flex">
-          <img
-            src="/img/background/question.png"
-            alt=""
-            className={cls(
-              "rounded-full w-[7rem] h-[7rem] mb-8 mt-8",
-              "sm:w-40 sm:h-40",
-              "md:w-[8rem] md:h-[8rem] md:mb-12 md:mt:12",
-              "lg:w-40 lg:h-40"
-            )}
-          />
-        </div>
         <MypageProfileContainer />
       </div>
       <div
