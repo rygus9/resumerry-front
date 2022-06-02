@@ -4,13 +4,11 @@ import { useParams } from "react-router-dom";
 import { useMutation } from "react-query";
 import { useMypageProfileQuery } from "pages/mypage/hooks/useMypageProfile";
 import { loadTossPayments } from "@tosspayments/payment-sdk";
-import { useNavigate } from "react-router-dom";
 
 export default function useMypagePaymentQuery(
   setPayment: React.Dispatch<React.SetStateAction<boolean | null>>
 ) {
   const params = useParams();
-  const navigate = useNavigate();
   const { data } = useMypageProfileQuery(params.userId!);
   const { isLoading, mutate } = useMutation(
     () => PaymentMypageApi(data?.email!, data?.nickname!),

@@ -105,6 +105,23 @@ export interface PaymentMypageApiInput {
 
 export const PaymentMypageApi = (email: string, nickname: string) => {
   return client.post(
-    `http://localhost:8080/orders?paySuccessYn=Y&payType=CARD&amount=7900&orderName=토큰100개&clientEmail=${email}&clientName=${nickname}`
+    `/orders?paySuccessYn=Y&payType=CARD&amount=7900&orderName=토큰100개&clientEmail=${email}&clientName=${nickname}`
+  );
+};
+
+export interface PaymentAcceptApiInput {
+  orderId: string;
+  paymentkey: string;
+  amount: string;
+  //만약 나중에 이거 내실거면 amount랑 orderName같은거 추가해서 작업하시면 되요
+}
+
+export const PaymentAcceptApi = (
+  orderId: string,
+  paymentkey: string,
+  amount: string
+) => {
+  return client.get(
+    `/orders/success?paymentKey=${paymentkey}&orderId=${orderId}&amount=${amount}`
   );
 };
