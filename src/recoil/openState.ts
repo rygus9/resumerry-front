@@ -6,6 +6,7 @@ export interface OpenStateTypes {
   resumeFilterOpen: boolean;
   postDeleteOpen: boolean;
   resumeDeleteOpen: boolean;
+  resumeLockOpen: boolean;
 }
 
 export const openDefaultValue = {
@@ -14,6 +15,7 @@ export const openDefaultValue = {
   resumeFilterOpen: false,
   postDeleteOpen: false,
   resumeDeleteOpen: false,
+  resumeLockOpen: false,
 };
 
 export const openState = atom<OpenStateTypes>({

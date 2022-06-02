@@ -25,7 +25,6 @@ export default function Recommend() {
   const handleClick = (e: any, data: ResumeMypageSearchResult) => {
     setResumeid(data.resumeId);
   };
-
   return (
     <WrapContent>
       <>

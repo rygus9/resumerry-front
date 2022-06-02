@@ -5,6 +5,8 @@ import ResumeListItem from "components/molcular/resume/ResumeListItem";
 import ResumeModal from "components/molcular/resume/ResumeModal";
 import ResumeSearch from "components/molcular/resume/ResumeSearch";
 import WrapContent from "pages/common/WrapContent";
+import { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 import { useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { openState } from "recoil/openState";
@@ -15,7 +17,18 @@ export default function Resume() {
   const open = useRecoilValue(openState);
   const location = useLocation();
   const queryPath = location.search;
-  const { data, isLoading } = useResumeList(queryPath);
+  const { data, fetchNextPage, isLoading, isFetching } =
+    useResumeList(queryPath);
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (!data) return;
+
+    const pageLastIdx = data.pages.length - 1;
+    const isLast = data?.pages[pageLastIdx].isLast;
+
+    if (!isLast && inView) fetchNextPage();
+  }, [inView]);
 
   return (
     <>
@@ -63,13 +76,29 @@ export default function Resume() {
             ) : (
               !isLoading &&
               data &&
-              data.map((elem) => (
-                <div key={elem.resumeId}>
-                  <ResumeListItem {...elem} />
-                </div>
+              data.pages &&
+              data.pages.map((elem, index1) => (
+                <>
+                  {elem.return.contents.map((elem, index) =>
+                    index % 20 === 11 ? (
+                      <div key={`${index1}, ${index}`}>
+                        <ResumeListItem {...elem} />
+                      </div>
+                    ) : (
+                      <div key={`${index1}, ${index}`} ref={ref}>
+                        <ResumeListItem {...elem} />
+                      </div>
+                    )
+                  )}
+                </>
               ))
             )}
           </section>
+          {!isLoading && isFetching && (
+            <div className="bg-stone-50 pb-8">
+              <LoadingUI />
+            </div>
+          )}
           <FloatingButton to="./create" />
         </>
       </WrapContent>

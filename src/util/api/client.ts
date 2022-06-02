@@ -10,8 +10,7 @@ client.defaults.paramsSerializer = (params) => {
 if (process.env.NODE_ENV === "development") {
   client.defaults.baseURL = "http://localhost:3000";
 } else {
-  client.defaults.baseURL =
-    "http://ec2-52-79-125-215.ap-northeast-2.compute.amazonaws.com";
+  client.defaults.baseURL = "https://securehttp.resumerry.com";
 }
 
 const token = localStorage.getItem("userToken");

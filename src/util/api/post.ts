@@ -21,11 +21,13 @@ export const PostListMypageSearchApi = (userId: string) => {
   return client.get(`/post/${userId}`);
 };
 
-export type PostListSearchApiResult = PostListSearchResult[];
-
-export const PostListSearchApi = async (queryString: string) => {
-  return client.get("/posts" + queryString);
+export type PostListSearchApiResult = {
+  contents: PostListSearchResult[];
+  totalPages: number;
 };
+
+export const PostListSearchApi = async (queryString: string) =>
+  client.get("/posts" + queryString);
 
 export interface PostWriteApiInput {
   title: string;

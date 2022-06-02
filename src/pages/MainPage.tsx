@@ -2,9 +2,9 @@ import PostListItem from "components/molcular/post/PostListItem";
 import { cls } from "util/utils";
 import WrapContent from "pages/common/WrapContent";
 import ResumeListItem from "components/molcular/resume/ResumeListItem";
-import { ResumeListSearchApiResult } from "util/api/resume";
+import { ResumeListType } from "util/api/resume";
 
-const data_ResumeSearch: ResumeListSearchApiResult = [
+const data_ResumeSearch: ResumeListType[] = [
   {
     resumeId: "리쥬메ID1",
     title: "이력서 제목",

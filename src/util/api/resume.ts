@@ -26,7 +26,10 @@ export interface ResumeListSearchApiInput {
   sort: "recommend" | "view" | "years" | "recent";
 }
 
-export type ResumeListSearchApiResult = ResumeListType[];
+export type ResumeListSearchApiResult = {
+  contents: ResumeListType[];
+  totalPages: number;
+};
 
 export interface ResumeMypageSearchResult {
   memberId: string;
@@ -71,7 +74,7 @@ export interface ResumeWriteApiInput {
   contents: string;
   category: CategoryKindType;
   years: number;
-  hashtag: string[];
+  hashtagList: string[];
   file: FileList;
 }
 
@@ -84,7 +87,7 @@ export const ResumeWriteApi = (data: ResumeWriteApiInput) => {
   formData.append("contents", data.contents);
   formData.append("category", data.category);
   formData.append("years", data.years.toString());
-  // formData.append("hashtag", data.hashtag.toString());
+  formData.append("hashtagList", data.hashtagList.toString());
 
   return client.post("/resume", formData, {
     headers: { "Content-Type": "multipart/form-data" },
@@ -114,6 +117,8 @@ export interface ResumeType {
   isScrap: boolean;
   isOwner: boolean;
   isRecommend: boolean;
+  isBuyer: Boolean;
+  isLock: Boolean;
 }
 
 export const ResumeSearchApi = (userId: string, resumeId: string) =>

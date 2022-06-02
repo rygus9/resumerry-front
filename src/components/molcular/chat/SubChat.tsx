@@ -7,10 +7,12 @@ export default function SubChat({
   childComments,
   groupId,
   size,
+  yPath,
 }: {
   childComments: CommentElemResult[] | null;
   groupId: number;
   size: "sm" | "md";
+  yPath?: number;
 }) {
   return (
     <div
@@ -25,7 +27,7 @@ export default function SubChat({
           <ChatElem key={`subchat${index}`} {...elem} size={size}></ChatElem>
         ))}
       <div className="py-4">
-        <ChatInput depth={1} group={groupId} size={size} />
+        <ChatInput depth={1} group={groupId} size={size} yPath={yPath} />
       </div>
     </div>
   );
