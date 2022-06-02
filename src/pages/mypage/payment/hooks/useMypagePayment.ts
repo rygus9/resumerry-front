@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useMutation } from "react-query";
 import { useMypageProfileQuery } from "pages/mypage/hooks/useMypageProfile";
 import { loadTossPayments } from "@tosspayments/payment-sdk";
+
 export default function useMypagePaymentQuery(
   setPayment: React.Dispatch<React.SetStateAction<boolean | null>>
 ) {
@@ -19,21 +20,21 @@ export default function useMypagePaymentQuery(
       onSuccess: (result) => {
         console.log(result.data.data);
         if (result) {
-          loadTossPayments("test_ck_Kma60RZblrq6dKoKZab8wzYWBn14").then(
-            (tossPayments): Promise<PaymentMypageApiResult> => {
-              tossPayments.requestPayment(result.data.data.payType, {
+          loadTossPayments("test_ck_dP9BRQmyarY5ZMaNvv7rJ07KzLNk").then(
+            async (tossPayments): Promise<PaymentMypageApiResult> => {
+              await tossPayments.requestPayment(result.data.data.payType, {
                 amount: result.data.data.amount,
                 orderId: result.data.data.orderId,
                 orderName: result.data.data.orderName,
                 customerName: result.data.data.customerName,
-                successUrl:
-                  "http://localhost:3000" + result.data.data.successUrl,
-                failUrl: "http://localhost:3000" + result.data.data.failUrl,
+                successUrl: "http://localhost:3000/orders/success",
+                failUrl: "http://localhost:3000/orders/fail",
               });
+              //navigate("/");
+              setPayment((elem) => !elem);
               return result.data.data;
             }
           );
-          setPayment((elem) => !elem);
         } else {
           alert("결제에 실패하였습니다.");
         }

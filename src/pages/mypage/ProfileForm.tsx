@@ -101,7 +101,7 @@ export default function ProfileForm({
               type="file"
               {...register("imageSrc")}
               className="hidden"
-              accept=".png"
+              accept="image/*"
             />
           </label>
           <ProfileCategory
