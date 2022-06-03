@@ -50,8 +50,14 @@ export default function UserInfo({
           <>
             {imageSrc ? (
               <img
-                className={cls("rounded-full", imageSizeValue[size!])}
-                src={imageSrc!}
+                className={cls(
+                  "rounded-full border border-stone-200",
+                  imageSizeValue[size!]
+                )}
+                src={
+                  "https://resumerry-user-profile-image.s3.ap-northeast-2.amazonaws.com" +
+                  imageSrc!
+                }
                 alt="프로필"
               />
             ) : (

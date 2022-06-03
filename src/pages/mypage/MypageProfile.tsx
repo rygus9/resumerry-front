@@ -7,8 +7,22 @@ import useProfileRegist from "./hooks/useProfileUpdate";
 export default function ProfileUpdate() {
   const params = useParams();
   const { data } = useMypageProfileQuery(params.userId!);
+
+  const imgpath = `https://resumerry-user-profile-image.s3.ap-northeast-2.amazonaws.com${data?.imageSrc}`;
   return (
     <>
+      <div className="justify-center flex">
+        <img
+          src={imgpath}
+          alt=""
+          className={cls(
+            "rounded-full w-[7rem] h-[7rem] mb-8 mt-8 border-2 border-stone-200",
+            "sm:w-40 sm:h-40",
+            "md:w-[8rem] md:h-[8rem] md:mb-12 md:mt:12",
+            "lg:w-40 lg:h-40"
+          )}
+        />
+      </div>
       <div className={cls("flex justify-evenly mb-4 align-bottom", "lg: mb-8")}>
         <div
           className={cls(

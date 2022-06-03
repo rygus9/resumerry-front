@@ -1,13 +1,25 @@
 import { cls } from "util/utils";
+import { PaymentAcceptApi, PaymentAcceptApiInput } from "util/api/mypage";
 import Normalbutton from "components/atom/button/NormalButton";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { paymentApprove, paymentplz } from "./hooks/useTossRequest";
-
+import { Link, useParams, useSearchParams } from "react-router-dom";
+import { paymentAxios } from "./hooks/useTossRequest";
+import { useEffect } from "react";
 export default function PaymentSuccess() {
-  const [isapproved, setIsapproved] = useState(false);
-  const response = paymentApprove(window.location.search.split("&"));
-  console.log(response);
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const sendPayment = async () => {
+      console.log("오냐");
+      const res = await PaymentAcceptApi(
+        searchParams.get("orderId") as string,
+        searchParams.get("paymentKey") as string,
+        searchParams.get("amount") as string
+      );
+      console.log(res);
+    };
+    sendPayment();
+  }, [searchParams]);
+
   return (
     <div className="flex justify-center">
       <div className="rounded-b-xl bg-purple-200 mx-16 mt-12 py-8 rounded-xl max-w-5xl px-12">
@@ -19,7 +31,7 @@ export default function PaymentSuccess() {
           />
         </div>
         <div className="mt-12 text-[3rem] text-center text-deepGray">
-          토큰 100개가 충전되었습니다!<br></br> 지금 이력서를 확인하러 가보세요!
+          토큰 100개가 충전되었습니다!
         </div>
         <div className={cls("flex my-12 justify-center pb-4")}>
           <Link to={`/resume`}>
