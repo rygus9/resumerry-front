@@ -1,11 +1,9 @@
 import { cls } from "util/utils";
 import Normalbutton from "components/atom/button/NormalButton";
 import useMypagePaymentQuery from "./hooks/useMypagePayment";
-import { useParams } from "react-router-dom";
 import { useState } from "react";
 import PaymentSuccess from "./PaymentSuccess";
 export default function MypagePayment() {
-  const params = useParams();
   const [payment, setPayment] = useState<boolean | null>(null);
   const { isLoading: isPaymentLoading, mutate: scrapPayment } =
     useMypagePaymentQuery(setPayment);

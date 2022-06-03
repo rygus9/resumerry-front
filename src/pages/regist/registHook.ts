@@ -43,7 +43,6 @@ export default function useMyRegister() {
       setFocus("passwordValid");
       return;
     }
-
     try {
       const sendData = Object.fromEntries(
         Object.entries(data).filter(([key]) => key !== "passwordValid")
@@ -55,7 +54,11 @@ export default function useMyRegister() {
       const error = err as Error | AxiosError;
       axiosErrorHandling(error, (errorList: ErrorObjectFromServer[]) => {
         errorList.forEach((elem) => {
-          setError(elem.field as "email", { message: elem.message });
+          if (elem.field !== "NotDefinedServerError") {
+            setError(elem.field as "email", { message: elem.message });
+          } else {
+            console.log("server error");
+          }
         });
       });
     }

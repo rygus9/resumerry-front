@@ -1,10 +1,6 @@
 import ResumeMypageListItem from "components/molcular/mypage/MypageToken";
 import WrapContent from "pages/common/WrapContent";
-import {
-  ResumeListSearchApiResult,
-  ResumeMypageSearchResult,
-} from "util/api/resume";
-import { RecommendListSearchApiResult } from "util/api/recommend";
+import { ResumeMypageSearchResult } from "util/api/resume";
 import RecommendListItem from "./RecommendList";
 import { useRecommendQuery } from "pages/recommend/hooks/useRecommend";
 import { useMypageResumeQuery } from "pages/mypage/hooks/useMypageResume";
@@ -16,7 +12,9 @@ export default function Recommend() {
   //const recommend_data:Promise<RecommendListSearchApiResult>=;
   const resume_data = useMypageResumeQuery(userId!);
   const [resumeid, setResumeid] = useState(
-    resume_data.data && resume_data.data[0].resumeId
+    resume_data.data &&
+      resume_data.data.length !== 0 &&
+      resume_data.data[0].resumeId
   );
   const { isLoading, data: recommend_data } = useRecommendQuery(
     userId!,

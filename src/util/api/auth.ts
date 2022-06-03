@@ -1,5 +1,5 @@
-import { CategoryKindType } from 'components/molcular/category/categoryValue';
-import client from './client';
+import { CategoryKindType } from "components/molcular/category/categoryValue";
+import client from "./client";
 
 export interface LoginApiInput {
   accountName: string;
@@ -11,7 +11,7 @@ export interface LoginApiResult {
 }
 
 export const loginApi = ({ accountName, password }: LoginApiInput) =>
-  client.post('/auth/login', { accountName, password });
+  client.post("/auth/login", { accountName, password });
 
 export interface JoinApiInput {
   accountName: string;
@@ -21,7 +21,7 @@ export interface JoinApiInput {
   years: number;
   category: CategoryKindType;
   isWorking: boolean;
-  role: 'NORMAL' | 'HR';
+  role: "NORMAL" | "HR";
 }
 
 export interface JoinApiResult {
@@ -33,7 +33,7 @@ export interface JoinApiResult {
 
 export const joinApi = ({ ...elem }: JoinApiInput) => {
   console.log({ ...elem });
-  return client.post('/auth/sign-up', { ...elem });
+  return client.post("/auth/sign-up", { ...elem });
 };
 
 export interface EmailSendApiInput {
@@ -44,7 +44,7 @@ export interface EmailSendApiResult {
 }
 
 export const emailSendApi = ({ receiverEmail }: EmailSendApiInput) =>
-  client.post('/valid/email/send', {
+  client.post("/valid/email/send", {
     receiverEmail,
   });
 
@@ -57,7 +57,7 @@ export interface EmailCheckApiResult {
 }
 
 export const emailCheckApi = ({ receiverEmail }: EmailCheckApiInput) =>
-  client.post('/valid/email/check', {
+  client.post("/valid/email/check", {
     receiverEmail,
   });
 
@@ -70,7 +70,7 @@ export interface accountExistApiResult {
 }
 
 export const accountExistApi = ({ accountName }: accountExistApiInput) =>
-  client.post('/valid/account/exists', {
+  client.post("/valid/account/exists", {
     accountName,
   });
 
@@ -83,6 +83,6 @@ export interface nicknameExistApiResult {
 }
 
 export const nicknameExistApi = ({ nickname }: nicknameExistApiInput) =>
-  client.post('/valid/nickname/exists', {
+  client.post("/valid/nickname/exists", {
     nickname,
   });
