@@ -19,6 +19,10 @@ export default function useMypagePaymentQuery(
       },
       onSuccess: (result) => {
         console.log(result.data.data);
+        let baseURL = "https://securehttp.resumerry.com";
+        if (process.env.NODE_ENV === "development") {
+          baseURL = "http://localhost:3000";
+        }
         if (result) {
           loadTossPayments("test_ck_dP9BRQmyarY5ZMaNvv7rJ07KzLNk").then(
             async (tossPayments): Promise<PaymentMypageApiResult> => {
@@ -27,8 +31,8 @@ export default function useMypagePaymentQuery(
                 orderId: result.data.data.orderId,
                 orderName: result.data.data.orderName,
                 customerName: result.data.data.customerName,
-                successUrl: "http://localhost:3000/orders/success",
-                failUrl: "http://localhost:3000/orders/fail",
+                successUrl: `${baseURL}/orders/success`,
+                failUrl: `${baseURL}/orders/fail`,
               });
               //navigate("/");
               setPayment((elem) => !elem);

@@ -26,6 +26,7 @@ export default function Header(): JSX.Element {
 
   const onLogout = useCallback(() => {
     localStorage.removeItem("userToken");
+    localStorage.removeItem("myMemberId");
     goHome();
     location.reload();
   }, []);

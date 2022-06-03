@@ -4,6 +4,8 @@ import { useCallback } from "react";
 import { useRecoilState } from "recoil";
 import { openState } from "recoil/openState";
 import { cls } from "util/utils";
+import LoadingText from "../common/LoadingText";
+import { useResumeUnlock } from "./hook/useResumeUnlock";
 
 export default function UnLockModal() {
   const [open, setOpen] = useRecoilState(openState);
@@ -11,6 +13,8 @@ export default function UnLockModal() {
   const onClose = useCallback(() => {
     setOpen({ ...open, resumeLockOpen: false });
   }, []);
+
+  const { isLoading, mutate } = useResumeUnlock(onClose);
 
   return (
     <ModalFrame onClose={onClose}>
@@ -23,7 +27,9 @@ export default function UnLockModal() {
         <h2 className="text-center py-5 text-2xl">이력서를 구매하겠습니까?</h2>
         <nav className="py-6 flex items-center justify-center space-x-4">
           <NormalButton onClick={onClose}>취소하기</NormalButton>
-          <NormalButton color="normalColor">구매하기</NormalButton>
+          <NormalButton color="normalColor" onClick={() => mutate()}>
+            <>{isLoading ? <LoadingText></LoadingText> : "구매하기"}</>
+          </NormalButton>
         </nav>
       </div>
     </ModalFrame>

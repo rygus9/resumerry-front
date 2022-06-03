@@ -35,8 +35,6 @@ export default function Post() {
     params.postId!
   );
 
-  console.log(postData);
-
   return (
     <WrapContent>
       <>

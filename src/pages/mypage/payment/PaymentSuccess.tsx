@@ -1,15 +1,13 @@
 import { cls } from "util/utils";
-import { PaymentAcceptApi, PaymentAcceptApiInput } from "util/api/mypage";
+import { PaymentAcceptApi } from "util/api/mypage";
 import Normalbutton from "components/atom/button/NormalButton";
-import { Link, useParams, useSearchParams } from "react-router-dom";
-import { paymentAxios } from "./hooks/useTossRequest";
+import { Link, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 export default function PaymentSuccess() {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
     const sendPayment = async () => {
-      console.log("오냐");
       const res = await PaymentAcceptApi(
         searchParams.get("orderId") as string,
         searchParams.get("paymentKey") as string,
