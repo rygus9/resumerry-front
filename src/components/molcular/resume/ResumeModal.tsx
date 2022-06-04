@@ -31,7 +31,7 @@ export default function ResumeModal() {
     recent: "최신순",
     view: "조회순",
     aged: "연차순",
-    recommand: "추천순",
+    recommend: "추천순",
   };
 
   const onClose = useCallback(() => {

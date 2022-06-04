@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { ResumeListSearchApi } from "util/api/resume";
 
 const getResume = async () => {
-  const { data } = await ResumeListSearchApi("?pageNo=0&sort=recommand");
+  const { data } = await ResumeListSearchApi("?pageNo=0&sort=recommend");
   return data.contents.filter((elem: any, index: number) => index < 3);
 };
 

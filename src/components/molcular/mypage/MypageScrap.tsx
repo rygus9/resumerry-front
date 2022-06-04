@@ -10,7 +10,7 @@ type Props = ScrapMypageSearchResult;
 
 export default function ScrapMypageListItem({ ...elem }: Props) {
   return (
-    <div className="bg-white border-b-[1px] border-lightBlack w-full px-5 py-3 mt-8">
+    <div className="bg-white w-full px-5 py-3 mt-8">
       <Link to={`/resume/${elem.memberId}/${elem.resumeId}`}>
         <h3 className="text-xl text-deepBlack">{elem.title}</h3>
       </Link>
