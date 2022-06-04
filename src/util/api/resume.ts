@@ -128,7 +128,7 @@ export interface ResumeFixApiInput {
   title: string;
   contents: string;
   category: string;
-  hashtag: string[];
+  hashtagList: string[];
   file: FileList;
   years: number;
 }
@@ -146,7 +146,7 @@ export const ResumeFixApi = (
   formData.append("contents", data.contents);
   formData.append("category", data.category);
   formData.append("years", data.years.toString());
-  // formData.append("hashtag", data.hashtag.toString());
+  formData.append("hashtagList", data.hashtagList.toString());
 
   return client.put(`/resume/${userId}/${resumeId}`, formData, {
     headers: { "Content-Type": "multipart/form-data" },

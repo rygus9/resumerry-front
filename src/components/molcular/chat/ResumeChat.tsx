@@ -3,6 +3,8 @@ import { ResumeMainCommentElemResult } from "util/api/comment";
 import { groupBy } from "util/utils";
 
 import { Viewer, Worker } from "@react-pdf-viewer/core";
+import "@react-pdf-viewer/core/lib/styles/index.css";
+
 import { ResumeIndexChat } from "./ResumeIndexChat";
 import { useSetRecoilState } from "recoil";
 import { commentLenState } from "recoil/commentLen";
@@ -52,7 +54,7 @@ export default function ResumeChat({
     [chatData, setChatData, setSubChatOpen, subChatOpen]
   );
 
-  const pdfWorkerUrl = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.13.216/pdf.worker.js`;
+  const pdfWorkerUrl = `https://unpkg.com/pdfjs-dist@2.14.305/build/pdf.worker.min.js`;
 
   return (
     <div className="w-full  m-auto flex items-stretch justify-center">

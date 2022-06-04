@@ -36,31 +36,33 @@ export default function RegisterCategory({
           format === "regist" ? "max-w-[30rem]" : ""
         )}
       >
-        {categoryValue.map((elem, index) => (
-          <span key={index} className="mr-2 mb-2">
-            {value && value === elem.kind ? (
-              <ButtonSelectBox
-                type="radio"
-                register={register}
-                value={elem.kind}
-                buttonStyle="normalColor"
-                size={format === "write" ? "md" : "sm"}
-              >
-                {elem.value}
-              </ButtonSelectBox>
-            ) : (
-              <ButtonSelectBox
-                type="radio"
-                register={register}
-                value={elem.kind}
-                buttonStyle="normal"
-                size={format === "write" ? "md" : "sm"}
-              >
-                {elem.value}
-              </ButtonSelectBox>
-            )}
-          </span>
-        ))}
+        {categoryValue
+          .filter((elem, index) => index !== 0)
+          .map((elem, index) => (
+            <span key={index} className="mr-2 mb-2">
+              {value && value === elem.kind ? (
+                <ButtonSelectBox
+                  type="radio"
+                  register={register}
+                  value={elem.kind}
+                  buttonStyle="normalColor"
+                  size={format === "write" ? "md" : "sm"}
+                >
+                  {elem.value}
+                </ButtonSelectBox>
+              ) : (
+                <ButtonSelectBox
+                  type="radio"
+                  register={register}
+                  value={elem.kind}
+                  buttonStyle="normal"
+                  size={format === "write" ? "md" : "sm"}
+                >
+                  {elem.value}
+                </ButtonSelectBox>
+              )}
+            </span>
+          ))}
       </div>
     </>
   );

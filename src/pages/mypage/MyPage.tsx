@@ -13,7 +13,7 @@ export default function Mypage(): JSX.Element {
   return (
     <div
       className={cls(
-        "flex flex-col bg-stone-100 pt-20 px-10",
+        "flex flex-col bg-stone-100 pt-20 px-10 pb-5",
         "md:flex-row md:px-8",
         "xl:px-20 xl:justify-center"
       )}
