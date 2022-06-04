@@ -1,6 +1,4 @@
-import { cls } from "util/utils";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
 import { useMypageResumeQuery } from "./hooks/useMypageResume";
 import { useMypagePostQuery } from "./hooks/useMypagePost";
 import ResumeMypageListItem from "components/molcular/mypage/MypageResume";
@@ -22,37 +20,49 @@ export default function MypageContents({ mode }: MypageProps): JSX.Element {
   const scrap_data = useMypageScrapQuery(params.userId!);
   const token_data = useMypageTokenQuery(params.userId!);
 
+  console.log(scrap_data);
+
   switch (mode) {
     case "post":
       return (
         <>
-          <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl">
+          <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl min-h-[25rem]">
             {post_data.data &&
               post_data.data.map((elem) => (
                 <div key={elem.postId} className="max-w-[40rem] w-full">
                   <PostListItem {...elem} />
                 </div>
               ))}
+            {post_data.data && post_data.data.length === 0 && (
+              <div className="text-xl text-center mt-20 text-deepGray">
+                작성한 포스트가 없습니다.
+              </div>
+            )}
           </section>
         </>
       );
     case "resume":
       return (
         <>
-          <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl">
+          <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl min-h-[25rem]">
             {resume_data.data &&
               resume_data.data.map((elem) => (
                 <div key={elem.resumeId} className="max-w-[40rem] w-full">
                   <ResumeMypageListItem {...elem} />
                 </div>
               ))}
+            {resume_data.data && resume_data.data.length === 0 && (
+              <div className="text-xl text-center mt-20 text-deepGray">
+                작성한 이력서가 없습니다.
+              </div>
+            )}
           </section>
         </>
       );
     case "scrap":
       return (
         <>
-          <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl">
+          <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl min-h-[25rem]">
             {scrap_data.data &&
               scrap_data.data.map((elem, index) => (
                 <div
@@ -62,19 +72,29 @@ export default function MypageContents({ mode }: MypageProps): JSX.Element {
                   <ScrapMypageListItem {...elem} />
                 </div>
               ))}
+            {scrap_data.data && scrap_data.data.length === 0 && (
+              <div className="text-xl text-center mt-20 text-deepGray">
+                스크랩한 이력서가 없습니다.
+              </div>
+            )}
           </section>
         </>
       );
     case "token":
       return (
         <>
-          <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl">
+          <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl min-h-[25rem]">
             {token_data.data &&
               token_data.data.map((elem) => (
                 <div key={elem.id} className="max-w-[40rem] w-full">
                   <TokenListItem {...elem} />
                 </div>
               ))}
+            {token_data.data && token_data.data.length === 0 && (
+              <div className="text-xl text-center mt-20 text-deepGray">
+                토큰 이력이 없습니다.
+              </div>
+            )}
           </section>
         </>
       );

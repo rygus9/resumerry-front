@@ -8,8 +8,8 @@ type Props = ResumeListType;
 
 export default function ResumeListItem({ ...elem }: Props) {
   return (
-    <div className="bg-white shadow-lg w-full px-5 py-3 rounded-lg border border-lightGray">
-      <Link to={`/resume/${elem.memberId}/${elem.resumeId}`}>
+    <Link to={`/resume/${elem.memberId}/${elem.resumeId}`}>
+      <div className="bg-white shadow-lg w-full px-5 py-3 rounded-lg border border-lightGray">
         <h3 className="text-xl text-black">{elem.title}</h3>
 
         <div className="pt-3 pb-1">
@@ -26,11 +26,11 @@ export default function ResumeListItem({ ...elem }: Props) {
           {elem.contents}
         </p>
 
-        <ul className="flex list-none pb-2">
+        <ul className="flex list-none pb-2 flex-wrap w-full">
           {elem.hashtag &&
-            elem.hashtag.map((elem) => (
+            elem.hashtag.map((elem, index) => (
               <li
-                key={elem}
+                key={index}
                 className={cls(
                   "mr-2 cursor-pointer text-lightBlack",
                   "hover:text-deepBlack"
@@ -47,7 +47,7 @@ export default function ResumeListItem({ ...elem }: Props) {
             commentCnt={elem.commentCnt}
           />
         </div>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 }

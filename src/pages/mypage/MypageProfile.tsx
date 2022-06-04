@@ -1,8 +1,6 @@
 import { cls } from "util/utils";
 import { useMypageProfileQuery } from "./hooks/useMypageProfile";
 import { useParams } from "react-router-dom";
-import ProfileForm from "./ProfileForm";
-import useProfileRegist from "./hooks/useProfileUpdate";
 
 export default function ProfileUpdate() {
   const params = useParams();
@@ -16,9 +14,8 @@ export default function ProfileUpdate() {
           src={imgpath}
           alt=""
           className={cls(
-            "rounded-full w-[7rem] h-[7rem] mb-8 mt-8 border-2 border-stone-200",
-            "sm:w-40 sm:h-40",
-            "md:w-[8rem] md:h-[8rem] md:mb-12 md:mt:12",
+            "rounded-full w-40 h-40 mb-6 mt-6 border-2 border-stone-200",
+            "md:w-[8rem] md:h-[8rem] md:mb-6 md:mt:12",
             "lg:w-40 lg:h-40"
           )}
         />
@@ -32,7 +29,7 @@ export default function ProfileUpdate() {
             "lg:text-[2.2rem]"
           )}
         >
-          <div className="text-center">{data?.nickname.toUpperCase()}</div>
+          <div className="text-center mb-4">{data?.nickname.toUpperCase()}</div>
           <div
             className={cls(
               "flex justify-between items-center text-lightBlack",
@@ -45,12 +42,7 @@ export default function ProfileUpdate() {
               <img
                 src="/img/icons/token.png"
                 alt=""
-                className={cls(
-                  "rounded-full w-[0.5rem] h-[0.5rem] mb-8 mt-8",
-                  "sm:w-4 sm:h-4",
-                  "md:w-[8rem] md:h-[8rem] md:mb-12 md:mt:12",
-                  "lg:w-[2rem] lg:h-[2rem] lg:mb-0 lg:mt-0"
-                )}
+                className={cls("w-8 h-8", "lg:w-12 lg:h-12")}
               />
               <div>{data?.token}</div>
             </div>
@@ -58,12 +50,7 @@ export default function ProfileUpdate() {
               <img
                 src="/img/icons/stack.png"
                 alt=""
-                className={cls(
-                  "rounded-full w-[7rem] h-[7rem] mb-8 mt-8",
-                  "sm:w-40 sm:h-40",
-                  "md:w-[8rem] md:h-[8rem] md:mb-12 md:mt:12",
-                  "lg:w-[2rem] lg:h-[2rem] lg:mb-0 lg:mt-0"
-                )}
+                className={cls("w-10 h-10", "lg:w-14 lg:h-14")}
               />
               <div>{data?.stack}</div>
             </div>

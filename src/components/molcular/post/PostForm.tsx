@@ -32,7 +32,7 @@ export default function PostForm({
   } = useForm<PostForm>({ mode: "onSubmit" });
 
   useEffect(() => {
-    setValue("category", "ALL");
+    setValue("category", "IT");
     setValue("fileLink", "ddd/temp");
 
     if (post) {

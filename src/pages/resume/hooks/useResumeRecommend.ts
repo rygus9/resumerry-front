@@ -1,9 +1,10 @@
 import { AxiosError } from "axios";
 import { ResumeRecommendApi } from "./../../../util/api/resume";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 export const useResumeRecommmend = () => {
   const params = useParams();
+  const queryClient = useQueryClient();
 
   const { isLoading, mutate } = useMutation(
     () => ResumeRecommendApi(params.userId!, params.resumeId!),
@@ -14,7 +15,8 @@ export const useResumeRecommmend = () => {
       },
       onSuccess: (result) => {
         if (result) {
-          alert("포스트 추천이 완료되었습니다.");
+          alert("이력서 추천이 완료되었습니다.");
+          queryClient.fetchQuery(["resume", params.userId, params.resumeId]);
         } else {
           alert("추천에 실패하였습니다.");
         }

@@ -43,7 +43,7 @@ export default function ResumeForm({
   };
 
   useEffect(() => {
-    setValue("category", "ALL");
+    setValue("category", "IT");
     setValue("hashtagList", []);
     if (resume) {
       setValue("title", resume.title);
