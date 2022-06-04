@@ -15,7 +15,7 @@ export default function TokenListItem({
   createdDate,
 }: TokenItemProps): JSX.Element {
   return (
-    <div className="px-3 py-5 cursor-pointer border-b-[1px] border-[gray] mt-8">
+    <div className="px-3 py-5 cursor-pointer mt-8">
       {/* profile */}
       {/* body */}
       <div className="pt-2 pb-2">

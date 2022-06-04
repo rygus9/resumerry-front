@@ -5,6 +5,7 @@ import ResumeListItem from "components/molcular/resume/ResumeListItem";
 import { useMainPost } from "./hook/ussMainPost";
 import { useMainResume } from "./hook/useMainResume";
 import { Link } from "react-router-dom";
+import LoadingUI from "components/molcular/common/LoadingUI";
 
 export default function Mainpage(): JSX.Element {
   const { data: postData } = useMainPost();
@@ -20,13 +21,13 @@ export default function Mainpage(): JSX.Element {
           <h1 className="text-title">Resumerry</h1>
         </div>
         <>
-          <div className="grid bg-stone-50 grid-rows-[10%,90%]">
+          <div className="bg-stone-50 ">
             <div
               className={cls(
                 "flex items-center bg-purple-300 text-white font-bold text-[0.95rem]"
               )}
             >
-              <div className="flex-1 text-center select-none">
+              <div className="flex-1 text-center select-none py-1">
                 Resumerry Pick's
               </div>
               <Link to="/resume">
@@ -35,21 +36,27 @@ export default function Mainpage(): JSX.Element {
                 </div>
               </Link>
             </div>
-            <section
-              className={cls(
-                "grid py-5 px-5 grid-cols-1 gap-8 shadow-inner",
-                "sm:grid-cols-2 sm:gap-x-2 overflow-hidden max-h-[300px]",
-                "md:gap-8",
-                "lg:grid-cols-3 lg:gap-3"
-              )}
-            >
-              {ResumeData &&
-                ResumeData.map((elem: any) => (
+            {ResumeData && (
+              <section
+                className={cls(
+                  "grid py-5 px-5 grid-cols-1 gap-8 shadow-inner max-h-[280px] h-[280px]",
+                  "sm:grid-cols-2 sm:gap-x-2 overflow-hidden",
+                  "md:gap-8",
+                  "lg:grid-cols-3 lg:gap-3"
+                )}
+              >
+                {ResumeData.map((elem: any) => (
                   <div key={elem.resumeId}>
                     <ResumeListItem {...elem} />
                   </div>
                 ))}
-            </section>
+              </section>
+            )}
+            {!ResumeData && (
+              <div className="w-full">
+                <LoadingUI />
+              </div>
+            )}
           </div>
         </>
         <div className="bg-white">

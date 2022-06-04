@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import { RecommendSearchApiResult } from "util/api/recommend";
 import { cls } from "util/utils";
-import ViewIcon from "components/atom/icons/chatIcon/ViewIcon";
-import IconNumber from "components/atom/common/IconNumber";
 
 type Props = RecommendSearchApiResult;
 

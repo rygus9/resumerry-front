@@ -6,6 +6,7 @@ import { useRecommendQuery } from "pages/recommend/hooks/useRecommend";
 import { useMypageResumeQuery } from "pages/mypage/hooks/useMypageResume";
 import { useState } from "react";
 import LoadingUI from "components/molcular/common/LoadingUI";
+import { cls } from "util/utils";
 
 export default function Recommend() {
   const userId = localStorage.getItem("myMemberId");
@@ -40,12 +41,16 @@ export default function Recommend() {
         </section>
         <section className="mt-16">
           <h2 className="text-xl mb-5 text-deepBlack">내 이력서 선택</h2>
-          <div className="border border-gray rounded-xl min-h-[5rem] py-5 px-5 grid grid-flow-col gap-4 shadow-inner overflow-auto">
+          <div className="border border-gray rounded-xl min-h-[5rem] py-5 px-5 flex gap-4 shadow-inner overflow-auto">
             {resume_data.data &&
               resume_data.data.map((elem) => (
                 <div
                   key={elem.resumeId}
-                  className="hover:p-1 hover:ring-2 hover:ring-offset-2 hover:ring-gray hover:rounded-lg focus:p-1 focus:ring-2 focus:ring-offset-2 focus:ring-gray focus:rounded-lg"
+                  className={cls(
+                    "w-fit",
+                    "hover:ring-2 hover:ring-offset-4 hover:ring-gray hover:rounded-lg",
+                    "focus:ring-2 focus:ring-offset-4 focus:ring-gray focus:rounded-lg"
+                  )}
                   onClick={(e) => handleClick(e, elem)}
                 >
                   <ResumeMypageListItem {...elem} />

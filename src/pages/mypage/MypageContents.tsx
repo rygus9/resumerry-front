@@ -26,7 +26,7 @@ export default function MypageContents({ mode }: MypageProps): JSX.Element {
     case "post":
       return (
         <>
-          <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl min-h-[25rem]">
+          <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl min-h-[25rem] divide-y divide-gray py-4">
             {post_data.data &&
               post_data.data.map((elem) => (
                 <div key={elem.postId} className="max-w-[40rem] w-full">
@@ -44,7 +44,7 @@ export default function MypageContents({ mode }: MypageProps): JSX.Element {
     case "resume":
       return (
         <>
-          <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl min-h-[25rem]">
+          <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl min-h-[25rem] divide-y divide-gray py-4">
             {resume_data.data &&
               resume_data.data.map((elem) => (
                 <div key={elem.resumeId} className="max-w-[40rem] w-full">
@@ -62,7 +62,7 @@ export default function MypageContents({ mode }: MypageProps): JSX.Element {
     case "scrap":
       return (
         <>
-          <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl min-h-[25rem]">
+          <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl min-h-[25rem] divide-y divide-gray py-4">
             {scrap_data.data &&
               scrap_data.data.map((elem, index) => (
                 <div
@@ -83,7 +83,7 @@ export default function MypageContents({ mode }: MypageProps): JSX.Element {
     case "token":
       return (
         <>
-          <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl min-h-[25rem]">
+          <section className="border-y border-lightGray pl-8 pr-8 h-fit bg-white rounded-b-3xl min-h-[25rem] divide-y divide-gray py-4">
             {token_data.data &&
               token_data.data.map((elem) => (
                 <div key={elem.id} className="max-w-[40rem] w-full">
