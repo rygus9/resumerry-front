@@ -19,7 +19,7 @@ export default function useMypagePaymentQuery(
       },
       onSuccess: (result) => {
         console.log(result.data.data);
-        let baseURL = "https://securehttp.resumerry.com";
+        let baseURL = "https://resumerry.com";
         if (process.env.NODE_ENV === "development") {
           baseURL = "http://localhost:3000";
         }
