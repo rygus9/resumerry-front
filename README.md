@@ -1,46 +1,14 @@
-# Getting Started with Create React App
+# Resumerry 프로젝트
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> 2022년 1학기 캡스톤디자인 수업 시간에 진행한 프로젝트입니다.?
+> 지금 돌아보면 매우 부족한 부분이 많았지만 그래도 제가 진행한 첫 프로젝트라 남깁니다.
 
-## Available Scripts
+벡엔드 팀원 3명과 프론트 팀원 2명에서 진행한 프로젝트입니다.
+원래는 이력서 첨삭 매칭을 생각했었으나 교수님의 피드백으로 이력서 커뮤니티가 되어버렸습니다.
+가장 어려웠던 기능은 대댓글 기능과 특정 PDF 위치에 댓글 달아두기 였던 것 같습니다.
 
-In the project directory, you can run:
+- 시연 영상
 
-### `npm start`
+https://drive.google.com/file/d/1Lp8EZhH6V-Mmk-IEW0L8H8c0C-lcgyDM/view?usp=sharing
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+지금 보니깐 굉장히 부끄럽네요...
